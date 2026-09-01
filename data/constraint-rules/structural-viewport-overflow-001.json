@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-viewport-overflow-001",
+  "category": "structural",
+  "check": "no_horizontal_overflow",
+  "engine": "custom",
+  "severity": "critical",
+  "notes": "Checked at every width in QA_VIEWPORT_WIDTHS (environment.md) — document.documentElement.scrollWidth must not exceed the viewport width."
+}

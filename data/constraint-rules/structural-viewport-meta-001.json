@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-viewport-meta-001",
+  "category": "structural",
+  "check": "viewport_meta_present",
+  "engine": "custom",
+  "severity": "major",
+  "notes": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> required for the responsive rendering the framework claims across 5 widths."
+}

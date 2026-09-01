@@ -1,0 +1,9 @@
+{
+  "rule_id": "wcag-2.2-aa-page-title-001",
+  "category": "accessibility",
+  "wcag_ref": "2.4.2",
+  "check": "page_title_present",
+  "engine": "axe-core",
+  "axe_rule_id": "document-title",
+  "severity": "major"
+}

@@ -35,7 +35,7 @@ build immediately instead of failing silently at runtime.
 |---|---|---|---|
 | OpenStreetMap / Google Places API | nlp-service (`schema_builder.py`) | Validate/resolve LOCATION entity, get lat/lng for Maps embed | On API failure, fall back to storing the raw spoken address text with `location_verified: false` — never block schema build on a third-party outage |
 | WhatsApp Business (deep link, not an API call) | layout-service (`renderer.py`) | `wa.me/` link construction from CONTACT entity | Client-side validation only (phone format); no external call needed |
-| Ollama (self-hosted Llama-3/Gemma-2) | nlp-service, qa-service (LLM-assisted repair) | Local inference, no per-token cost | Treated as internal, not external — but still behind the same timeout/retry discipline since it's a separate process |
+| **Groq API (Whisper-large-v3, Llama-3.1/3.3)** | asr-service (`whisper_engine.py`), nlp-service (`schema_builder.py`), qa-service (LLM-assisted repair) | Speech-to-text and schema-fill/repair inference — genuinely external now, not self-hosted, per `inference_hosting_plan.md` | On rate-limit (429), back off and retry (`NLP_GROQ_RATE_LIMIT_BACKOFF_SEC`) — don't fail the request outright. On sustained outage, `asr-service` can fall back to local `faster-whisper` if `ASR_SELF_HOSTED_FALLBACK=true` (normally off, see `environment.md`). This is a genuine external dependency, unlike the self-hosted Ollama setup it replaces — a Groq outage is now a real single point of failure for the pilot, worth having a status-page bookmark for during the demo. |
 
 ## 4. Infra integration
 
@@ -46,9 +46,9 @@ build immediately instead of failing silently at runtime.
   bundle metadata), qa-service (writes `QAReport`), publish-service (writes publish record). One
   connection pool config per service, not a shared connection — services should be able to scale
   independently without contention.
-- **Redis:** used only by qa-service as the hot cache for the FAISS repair-rule lookup layer (per
-  Table 4 in the framework) — not used as a general cache elsewhere in MVP, to avoid it becoming an
-  undocumented shared dependency.
+- **Redis:** used only by qa-service as the hot cache for the FAISS repair-rule lookup layer — runs
+  as a Docker container on the same `t3.micro` instance as everything else, not a managed
+  ElastiCache service (see `deployment.md`), to keep AWS spend at zero.
 
 ## 5. CI/CD integration points
 - Each `services/*` and `apps/web` has its own Dockerfile and its own GitHub Actions workflow —

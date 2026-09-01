@@ -1,0 +1,9 @@
+{
+  "rule_id": "wcag-2.2-aa-lang-attr-001",
+  "category": "accessibility",
+  "wcag_ref": "3.1.1",
+  "check": "html_lang_attribute_present",
+  "engine": "axe-core",
+  "axe_rule_id": "html-has-lang",
+  "severity": "major"
+}

@@ -1,0 +1,9 @@
+{
+  "rule_id": "wcag-2.2-aa-aria-landmark-001",
+  "category": "accessibility",
+  "wcag_ref": "1.3.1",
+  "check": "main_landmark_present",
+  "engine": "axe-core",
+  "axe_rule_id": "landmark-one-main",
+  "severity": "minor"
+}

@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-duplicate-id-001",
+  "category": "structural",
+  "check": "no_duplicate_ids",
+  "engine": "custom",
+  "severity": "major",
+  "notes": "Duplicate ids break both ARIA references and any JS relying on getElementById."
+}

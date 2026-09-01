@@ -1,0 +1,8 @@
+{
+  "rule_id": "wcag-2.2-aa-focus-visible-001",
+  "category": "accessibility",
+  "wcag_ref": "2.4.7",
+  "check": "focus_indicator_not_removed",
+  "engine": "custom",
+  "severity": "major"
+}

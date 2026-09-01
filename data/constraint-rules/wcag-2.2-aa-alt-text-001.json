@@ -1,0 +1,9 @@
+{
+  "rule_id": "wcag-2.2-aa-alt-text-001",
+  "category": "accessibility",
+  "wcag_ref": "1.1.1",
+  "check": "image_alt_text_present",
+  "engine": "axe-core",
+  "axe_rule_id": "image-alt",
+  "severity": "critical"
+}

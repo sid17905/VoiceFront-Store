@@ -29,6 +29,7 @@ The **concept name never changes** across the boundary — only the casing conve
 | QA outcome object | `QAReport` (Pydantic) | `QaReport` (TS type) | `qa_report` |
 | Publish storefront | `publish_storefront()` | `publishStorefront()` | — |
 | Live URL result | `PublishResult` | `PublishResult` | `live_url` |
+| Call Groq (shared wrapper) | `call_groq_whisper()` / `call_groq_chat()` in `packages/common-utils/groq_client.py` | — | — |
 
 ## Entity type constants (used identically in NER, schema, and frontend form labels)
 ```
@@ -55,4 +56,4 @@ PENDING, PROCESSING, PASSED, FAILED, REPAIRED, PUBLISHED
 ```
 
 ## Environment variable naming
-`{SERVICE}_{RESOURCE}` — e.g. `ASR_WHISPER_MODEL_PATH`, `NLP_LLM_ENDPOINT`, `QA_FAISS_INDEX_PATH`, `PUBLISH_S3_BUCKET`. Full list belongs in a dedicated `environment.md` (see suggestions at the end of the main reply).
+`{SERVICE}_{RESOURCE}` — e.g. `ASR_GROQ_MODEL`, `NLP_GROQ_MODEL`, `QA_FAISS_INDEX_PATH`, `PUBLISH_S3_BUCKET`, and the shared `GROQ_API_KEY` (no service prefix — it's used by three services). Full list is in `environment.md`.

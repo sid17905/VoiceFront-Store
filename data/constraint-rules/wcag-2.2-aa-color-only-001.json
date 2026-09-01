@@ -1,0 +1,9 @@
+{
+  "rule_id": "wcag-2.2-aa-color-only-001",
+  "category": "accessibility",
+  "wcag_ref": "1.4.1",
+  "check": "color_not_sole_indicator",
+  "engine": "axe-core",
+  "axe_rule_id": "link-in-text-block",
+  "severity": "minor"
+}

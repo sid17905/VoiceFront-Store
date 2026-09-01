@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-empty-link-001",
+  "category": "structural",
+  "check": "no_empty_links",
+  "engine": "custom",
+  "severity": "minor",
+  "notes": "Catches <a> tags with empty href or no accessible text — a common Jinja2 templating slip when a field is missing."
+}

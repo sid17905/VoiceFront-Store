@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-broken-image-001",
+  "category": "structural",
+  "check": "no_broken_image_src",
+  "engine": "custom",
+  "severity": "critical",
+  "notes": "img.naturalWidth === 0 after load == broken src, common failure mode for LLM/voice-derived image references."
+}

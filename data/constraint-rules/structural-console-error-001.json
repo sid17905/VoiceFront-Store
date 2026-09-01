@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-console-error-001",
+  "category": "structural",
+  "check": "no_console_or_page_errors",
+  "engine": "custom",
+  "severity": "critical",
+  "notes": "Uncaught JS errors during render (e.g. bad Jinja2-injected value) — caught via Playwright's page.on('console')/page.on('pageerror'), not an axe-core check."
+}

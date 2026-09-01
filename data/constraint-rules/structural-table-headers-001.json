@@ -1,0 +1,8 @@
+{
+  "rule_id": "structural-table-headers-001",
+  "category": "structural",
+  "check": "table_has_headers",
+  "engine": "axe-core",
+  "axe_rule_id": "th-has-data-cells",
+  "severity": "minor"
+}

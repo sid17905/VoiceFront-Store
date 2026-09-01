@@ -1,0 +1,10 @@
+{
+  "rule_id": "wcag-2.2-aa-contrast-001",
+  "category": "accessibility",
+  "wcag_ref": "1.4.3",
+  "check": "contrast_ratio",
+  "engine": "axe-core",
+  "axe_rule_id": "color-contrast",
+  "threshold": 4.5,
+  "severity": "critical"
+}

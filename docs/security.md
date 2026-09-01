@@ -10,7 +10,8 @@ binary input from a browser, which makes it the highest-risk surface in the syst
   not just client-side — a client-side-only check is not a control, it's a UX nicety.
 - Validate actual file content (magic bytes), not just the extension or declared MIME type.
 - Reject before decoding into the full pipeline if size/duration checks fail — don't let a
-  malformed or oversized file reach `whisper_engine.py` and consume GPU/CPU time.
+  malformed or oversized file reach `whisper_engine.py` and burn a Groq API call (and your shared
+  quota) on garbage input.
 
 ## 2. Injection surfaces
 - **Jinja2 templates (layout-service):** templates are logic-less by convention (see `Architect.md`)
@@ -34,13 +35,23 @@ binary input from a browser, which makes it the highest-risk surface in the syst
   storefronts themselves need.
 
 ## 4. Rate limiting
-No auth layer in MVP (per `integration.md` §6) means rate limiting is your main abuse control:
+No auth layer in MVP (per `integration.md` §6) means rate limiting is your main abuse control —
+and it now protects something new: **a single abusive user can burn through your team's shared
+Groq free-tier quota for everyone**, not just slow down your own server.
 - Per-IP rate limit on `POST /v1/asr/transcribe` (the most expensive endpoint) — even a simple
   fixed-window limiter at the ALB/API-gateway layer is enough for a pilot; don't over-engineer this.
 - Same for `POST /v1/qa/run` given LLM-assisted repair cost.
+- This is a firmer requirement than it would be with self-hosted models: with Groq, exhausting the
+  free tier doesn't just slow your app down, it can block every teammate's testing and the entire
+  pilot cohort until the daily/per-minute limit resets. Rate-limit before the pilot starts, not after
+  the first person notices Groq calls failing.
 
 ## 5. Secrets management
 - No AWS keys or API keys in `.env` files committed to git — see the explicit list in `environment.md`.
+- `GROQ_API_KEY`: the shared staging/pilot key is the single most sensitive credential in this
+  system now — anyone who gets it can burn your team's free-tier quota or, if you ever add a paid
+  tier, run up real charges. Store it in AWS Secrets Manager for the staging box, never in a
+  committed file, and rotate it immediately if it's ever pasted somewhere it shouldn't be.
 - Google Places API key: server-side only, never exposed to the browser (distinct from the
   `NEXT_PUBLIC_MAPS_EMBED_KEY`, which is intentionally client-safe and domain-restricted).
 - Rotate any key that touches a public demo or pilot before and after the event.

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ComponentLibraryEntry",
+  "version": "0.1-draft",
+  "type": "object",
+  "required": ["category", "section_type", "html", "css", "review_status"],
+  "properties": {
+    "category": { "type": "string", "enum": ["food","apparel","electronics","pharmacy","services"] },
+    "section_type": { "type": "string", "enum": ["nav","hero","product_grid","contact"] },
+    "html": { "type": "string" },
+    "css": { "type": "string" },
+    "source_url": { "type": ["string", "null"] },
+    "review_status": { "type": "string", "enum": ["PENDING","APPROVED","REJECTED"] },
+    "reviewed_by": { "type": ["string", "null"] }
+  }
+}
