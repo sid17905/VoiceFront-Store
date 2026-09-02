@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "nav",
+  "variant_id": "food-nav-classic",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#products\">Menu</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=nav]",
+    "source_css_path": "body > header > nav",
+    "source_html_snippet": "<nav class=\"navigation-menu\"><div class=\"nav-container\"><a href=\"/\">Domino's</a><div class=\"nav-links\"><a href=\"/menu\">Menu</a><a href=\"/deals\">Deals</a></div></div></nav>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 64},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Domino's navigation bar: kept flexbox layout + logo-left/links-right pattern, replaced promotional links with shop nav (Menu/Hours/Contact)"
+  }
+}

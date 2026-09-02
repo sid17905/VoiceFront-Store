@@ -1,0 +1,22 @@
+{
+  "category": "pharmacy",
+  "section_type": "nav",
+  "variant_id": "pharmacy-nav-clean",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\"><div><h1>{{ shop_name }}</h1><span class=\"tagline\">Your trusted pharmacy</span></div><div class=\"nav-links\"><a href=\"#products\">Medicines</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;",
+  "source_url": "https://pharmeasy.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://pharmeasy.in",
+    "source_selector": "nav",
+    "source_css_path": "body > header > nav",
+    "source_html_snippet": "<nav class=\"TopHeader_nav__1\"><div class=\"TopHeader_logo__2\"><a href=\"/\"><span>PharmEasy</span></a><span class=\"tagline\">Healthcare App</span></div></nav>",
+    "source_screenshot": "data/design-reference/pharmacy/pharmeasy/screenshot.png",
+    "source_page_html": "data/design-reference/pharmacy/pharmeasy/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 68},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from PharmEasy's header: kept logo + tagline pattern (trusted pharmacy branding), green color palette for health/trust, clean sans-serif font"
+  }
+}

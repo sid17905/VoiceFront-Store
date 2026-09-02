@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "nav",
+  "variant_id": "food-nav-sticky-banner",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\" style=\"position:sticky;top:0;z-index:100;\"><div style=\"display:flex;align-items:center;gap:12px;\"><span style=\"font-size:1.4rem;\">🍽️</span><h1>{{ shop_name }}</h1></div><div class=\"nav-links\"><a href=\"#products\">Daily Specials</a><a href=\"#hours\">Timings</a><a href=\"#contact\">Order Now</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.15);",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=nav]",
+    "source_css_path": "body > header > nav.sticky",
+    "source_html_snippet": "<nav class=\"sticky-nav\"><div class=\"brand-wrap\"><span>Domino's</span></div><div class=\"menu-actions\"><a href=\"#deals\">Daily Specials</a></div></nav>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 58},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Adapted sticky navigation bar with emoji storefront badge and prominent 'Order Now' direct link."
+  }
+}

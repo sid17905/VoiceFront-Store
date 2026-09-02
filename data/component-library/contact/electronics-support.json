@@ -1,0 +1,22 @@
+{
+  "category": "electronics",
+  "section_type": "contact",
+  "variant_id": "electronics-contact-support",
+  "html": "<section class=\"contact\" id=\"contact\" aria-label=\"Customer support\" style=\"background:#1b2631;color:#fff;padding:32px 20px;border-radius:8px;margin:32px auto;max-width:1100px;\"><div style=\"display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;\"><div><h2 style=\"color:#fff;font-size:1.3rem;margin-bottom:4px;\">Need Price Quote or Bulk Order?</h2><p style=\"color:#bbb;font-size:0.9rem;\">Chat directly with the store owner for live availability and offers.</p></div>{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"background:#25D366;color:#fff;text-decoration:none;padding:12px 24px;border-radius:6px;font-weight:700;display:inline-flex;align-items:center;gap:8px;\"><span>💬</span> WhatsApp Tech Support</a>{% endif %}</div></section>",
+  "css": "padding: 0 16px;",
+  "source_url": "https://www.flipkart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.flipkart.com",
+    "source_selector": "header",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer><div class=\"support-bar\">24x7 Customer Care</div></footer>",
+    "source_screenshot": "data/design-reference/electronics/www-flipkart-com/screenshot.png",
+    "source_page_html": "data/design-reference/electronics/www-flipkart-com/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 980, "left": 0, "width": 1280, "height": 160},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Dark high-contrast tech support footer bar optimized for quick WhatsApp quotation requests."
+  }
+}

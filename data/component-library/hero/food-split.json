@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "hero",
+  "variant_id": "food-hero-split",
+  "html": "<section class=\"hero\" aria-label=\"About us\" style=\"display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;text-align:left;\"><div style=\"flex:1;min-width:280px;\"><span style=\"font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;color:{{ colors.accent }};font-weight:700;\">Fresh Daily &bull; Authentic Taste</span><h2 style=\"font-size:2rem;margin:8px 0 12px;\">{{ shop_name }}</h2><p style=\"font-size:1.05rem;line-height:1.6;\">{{ description }}</p></div><div style=\"background:#fff;padding:16px 24px;border-radius:8px;border-left:4px solid {{ colors.primary }};box-shadow:0 4px 12px rgba(0,0,0,0.05);\"><p style=\"font-size:0.9rem;margin-bottom:4px;color:#666;\">📍 Location</p><strong style=\"font-size:1rem;\">{{ location.raw_text if location else 'In-store Pickup & Delivery' }}</strong></div></section>",
+  "css": "background: {{ colors.secondary }}; padding: 48px 24px;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=hero]",
+    "source_css_path": "body > main > section.hero-split",
+    "source_html_snippet": "<section class=\"split-hero\"><div class=\"text-col\"><h2>Domino's Pizza</h2><p>Hot & Fresh in 30 mins</p></div><div class=\"location-card\"><p>Store Finder</p></div></section>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 60, "left": 0, "width": 1280, "height": 340},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Split-column retail hero: left column has shop headline and description, right card highlights live location verification."
+  }
+}

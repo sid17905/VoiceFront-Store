@@ -1,0 +1,22 @@
+{
+  "category": "apparel",
+  "section_type": "contact",
+  "variant_id": "apparel-contact-minimal",
+  "html": "<section class=\"contact\" id=\"contact\" aria-label=\"Boutique contact\" style=\"padding:40px 24px;text-align:center;border-top:1px solid #eee;margin-top:40px;\"><h2 style=\"font-size:1.2rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;\">Boutique Inquiries &amp; Custom Fitting</h2><p style=\"font-size:0.95rem;color:#777;margin-bottom:20px;\">Message directly for fabric choices, measurements, and wholesale queries.</p>{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"background:#25D366;color:#fff;text-decoration:none;padding:12px 28px;border-radius:30px;font-size:0.9rem;letter-spacing:1px;font-weight:600;display:inline-block;\">Chat on WhatsApp</a>{% endif %}</section>",
+  "css": "max-width: 800px; margin: 0 auto;",
+  "source_url": "https://www.snapdeal.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.snapdeal.com",
+    "source_selector": "[class*=product]",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer><div class=\"footer-help\">Help Center</div></footer>",
+    "source_screenshot": "data/design-reference/apparel/snapdeal/screenshot.png",
+    "source_page_html": "data/design-reference/apparel/snapdeal/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 1000, "left": 0, "width": 1280, "height": 180},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Pill-style minimalist WhatsApp direct inquiry block for apparel boutique interactions."
+  }
+}

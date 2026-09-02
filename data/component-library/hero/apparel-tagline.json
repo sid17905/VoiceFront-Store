@@ -1,0 +1,22 @@
+{
+  "category": "apparel",
+  "section_type": "hero",
+  "variant_id": "apparel-hero-tagline",
+  "html": "<section class=\"hero\" aria-label=\"Brand intro\" style=\"background:{{ colors.secondary }};padding:56px 24px;text-align:center;\"><span style=\"font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;color:{{ colors.primary }};\">Curated Indian Boutique</span><h2 style=\"font-size:2.2rem;font-weight:400;letter-spacing:1px;margin:12px 0 16px;\">{{ shop_name }}</h2><p style=\"max-width:600px;margin:0 auto;font-size:1.05rem;line-height:1.7;color:#555;\">{{ description }}</p></section>",
+  "css": "border-bottom: 1px solid #e5e5e5;",
+  "source_url": "https://www.snapdeal.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.snapdeal.com",
+    "source_selector": "[class*=header]",
+    "source_css_path": "body > main > section.boutique-hero",
+    "source_html_snippet": "<section class=\"boutique-hero\"><h1>Snapdeal Ethnic</h1></section>",
+    "source_screenshot": "data/design-reference/apparel/snapdeal/screenshot.png",
+    "source_page_html": "data/design-reference/apparel/snapdeal/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 64, "left": 0, "width": 1280, "height": 300},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Minimalist centered fashion tagline hero emphasizing boutique typography and brand tone."
+  }
+}

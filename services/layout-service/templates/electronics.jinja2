@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ shop_name }}</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: {{ colors.text }}; background: {{ colors.background }}; line-height: 1.6; }
+    a, button { min-width: 24px; min-height: 24px; display: inline-flex; align-items: center; justify-content: center; }
+
+    .nav { background: {{ colors.primary }}; color: #fff; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav h1 { font-size: 1.2rem; font-weight: 700; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+    .nav-links a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 2px; }
+
+    .hero { background: {{ colors.secondary }}; padding: 40px 24px; display: flex; align-items: center; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .hero-text h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; color: {{ colors.primary }}; }
+    .hero-text p { max-width: 400px; font-size: 0.95rem; }
+
+    .products { padding: 24px 16px; max-width: 1100px; margin: 0 auto; }
+    .products h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: {{ colors.primary }}; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .product-card { border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
+    .product-card h3 { font-size: 0.95rem; font-weight: 600; }
+    .product-card .price { font-size: 1.2rem; font-weight: 700; color: {{ colors.accent }}; }
+    .product-card .desc { font-size: 0.8rem; color: #666; }
+
+    .hours { padding: 24px 16px; max-width: 600px; margin: 0 auto; }
+    .hours h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: {{ colors.primary }}; }
+    .hours ul { list-style: none; }
+    .hours li { padding: 6px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+    .contact { padding: 24px 16px; max-width: 600px; margin: 0 auto; }
+    .contact h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: {{ colors.primary }}; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+    .whatsapp-btn { background: #25D366; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 4px; font-weight: 600; font-size: 0.9rem; }
+    .whatsapp-btn:hover { background: #1da851; }
+    .phone-link { color: {{ colors.primary }}; text-decoration: underline; padding: 10px 0; }
+
+    footer { text-align: center; padding: 24px 16px; font-size: 0.8rem; color: #999; border-top: 1px solid #eee; margin-top: 32px; }
+
+    @media (max-width: 480px) {
+      .product-grid { grid-template-columns: 1fr 1fr; }
+      .hero { flex-direction: column; text-align: center; padding: 32px 16px; }
+      .nav { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ElectronicsStore",
+    "name": "{{ shop_name }}",
+    {% if description %}"description": "{{ description }}",{% endif %}
+    {% if hours %}
+    "openingHoursSpecification": [
+      {% for h in hours %}{ "@type": "OpeningHoursSpecification", "dayOfWeek": "{{ h }}"{% if not loop.last %},{% endif %}{% endfor %}
+    ],
+    {% endif %}
+    {% if location %}
+    "address": { "@type": "PostalAddress", "streetAddress": "{{ location.raw_text }}" }
+    {% endif %}
+    {% if contact %}
+    "telephone": "{{ contact.phone | default('') }}",
+    "url": "https://wa.me/{{ contact.whatsapp }}"
+    {% endif %}
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation">
+    <h1>{{ shop_name }}</h1>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#hours">Hours</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  {% if description %}
+  <section class="hero" aria-label="About us">
+    <div class="hero-text">
+      <h2>{{ shop_name }}</h2>
+      <p>{{ description }}</p>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="products" id="products" aria-label="Products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      {% for product in products %}
+      <div class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p class="price">₹{{ "%.0f" | format(product.price) }}</p>
+        {% if product.description %}
+        <p class="desc">{{ product.description }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if hours %}
+  <section class="hours" id="hours" aria-label="Opening hours">
+    <h2>Business Hours</h2>
+    <ul>
+      {% for h in hours %}
+      <li>{{ h }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <section class="contact" id="contact" aria-label="Contact information">
+    <h2>Contact Us</h2>
+    <div class="contact-links">
+      {% if contact.whatsapp %}
+      <a class="whatsapp-btn" href="https://wa.me/{{ contact.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>
+      {% endif %}
+      {% if contact.phone %}
+      <a class="phone-link" href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+      {% endif %}
+    </div>
+    {% if location %}
+    <p style="margin-top: 12px; font-size: 0.9rem;">📍 {{ location.raw_text }}</p>
+    {% endif %}
+  </section>
+
+  <footer>
+    <p>{{ shop_name }} &mdash; Powered by VoiceFront</p>
+  </footer>
+</body>
+</html>

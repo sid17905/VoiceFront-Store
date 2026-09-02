@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VoiceFront Component Provenance Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; padding: 24px; }
+  h1 { font-size: 1.8rem; margin-bottom: 8px; }
+  .subtitle { color: #666; margin-bottom: 32px; }
+  .category-section { margin-bottom: 48px; }
+  .category-title { font-size: 1.4rem; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #333; }
+  .component-card { background: #fff; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 24px; overflow: hidden; }
+  .component-header { background: #f0f0f0; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .variant-id { font-weight: 700; font-size: 1rem; }
+  .source-badge { background: #0066cc; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; text-decoration: none; }
+  .source-badge:hover { background: #0052a3; }
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .side { padding: 16px; }
+  .side-left { border-right: 1px solid #eee; background: #fafafa; }
+  .side-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 8px; }
+  .code-block { background: #1e1e1e; color: #d4d4d4; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.8rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto; }
+  .meta-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .meta-table td { padding: 6px 12px; border-bottom: 1px solid #eee; font-size: 0.85rem; }
+  .meta-table td:first-child { font-weight: 600; width: 140px; color: #555; }
+  .adaptation { padding: 12px 16px; background: #fffde7; border-top: 1px solid #eee; font-size: 0.9rem; }
+  .adaptation strong { color: #666; }
+  .footer { text-align: center; padding: 24px; color: #999; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<h1>VoiceFront Component Provenance Report</h1>
+<p class="subtitle">Side-by-side comparison of each component vs its original source reference site.</p>
+<div class="category-section">
+<h2 class="category-title">Apparel (2 components)</h2>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">nav / apparel-nav-elegant</span>
+    <a class="source-badge" href="https://www.myntra.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;nav class=&quot;nav&quot; aria-label=&quot;Main navigation&quot;&gt;&lt;h1&gt;{{ shop_name }}&lt;/h1&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;#products&quot;&gt;Collection&lt;/a&gt;&lt;a href=&quot;#hours&quot;&gt;Hours&lt;/a&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.primary }}; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; letter-spacing: 2px;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;header class=&quot;desktop-header&quot;&gt;&lt;div class=&quot;myntraHeader&quot;&gt;&lt;a class=&quot;myntraLogo&quot; href=&quot;/&quot;&gt;&lt;span&gt;Myntra&lt;/span&gt;&lt;/a&gt;&lt;div class=&quot;headerDesktopLinks&quot;&gt;&lt;a href=&quot;/men&quot;&gt;Men&lt;/a&gt;&lt;a href=&quot;/women&quot;&gt;Women&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.myntra.com" target="_blank">https://www.myntra.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>header</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > header</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=0px, left=0px, 1280x60px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/apparel/www-myntra-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from Myntra's header: kept uppercase letter-spacing pattern + flex layout, replaced category links (Men/Women/Kids) with simple nav (Collection/Hours/Contact) for single-shop context</div>
+</div>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">product_grid / apparel-grid-minimal</span>
+    <a class="source-badge" href="https://www.myntra.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;section class=&quot;products&quot; id=&quot;products&quot; aria-label=&quot;Products&quot;&gt;&lt;h2&gt;Our Collection&lt;/h2&gt;&lt;div class=&quot;product-grid&quot;&gt;{% for product in products %}&lt;div class=&quot;product-card&quot;&gt;&lt;h3&gt;{{ product.name }}&lt;/h3&gt;&lt;p class=&quot;price&quot;&gt;₹{{ &quot;%.0f&quot; | format(product.price) }}&lt;/p&gt;{% if product.description %}&lt;p class=&quot;desc&quot;&gt;{{ product.description }}&lt;/p&gt;{% endif %}&lt;/div&gt;{% endfor %}&lt;/div&gt;&lt;/section&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">padding: 32px 24px; max-width: 1100px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; } .product-card { text-align: center; border: 1px solid #e8e8e8; padding: 20px; }</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;div class=&quot;product-grid&quot;&gt;&lt;div class=&quot;product-card&quot;&gt;&lt;img src=&quot;...&quot; alt=&quot;Cotton Shirt&quot;&gt;&lt;h3&gt;Cotton Shirt&lt;/h3&gt;&lt;p class=&quot;price&quot;&gt;₹899&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.myntra.com" target="_blank">https://www.myntra.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>[class*=product-grid]</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > main > div > div > div</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=120px, left=0px, 1280x800px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/apparel/www-myntra-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from Myntra's product listing grid: kept minimal card style with centered text, removed product images (voice-first), increased gap for elegance, kept border + padding pattern</div>
+</div>
+</div>
+<div class="category-section">
+<h2 class="category-title">Electronics (2 components)</h2>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">nav / electronics-nav-tech</span>
+    <a class="source-badge" href="https://www.flipkart.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;nav class=&quot;nav&quot; aria-label=&quot;Main navigation&quot;&gt;&lt;h1&gt;{{ shop_name }}&lt;/h1&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;#products&quot;&gt;Products&lt;/a&gt;&lt;a href=&quot;#hours&quot;&gt;Hours&lt;/a&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.primary }}; color: #fff; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; font-weight: 700;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;header class=&quot;_1sfP5PK&quot;&gt;&lt;div class=&quot;_3RB1vh&quot;&gt;&lt;a class=&quot;_2Kn2-DX&quot; href=&quot;/&quot;&gt;&lt;span&gt;Flipkart&lt;/span&gt;&lt;/a&gt;&lt;div class=&quot;_1MsOfo&quot;&gt;&lt;a href=&quot;/mobiles&quot;&gt;Mobiles&lt;/a&gt;&lt;a href=&quot;/electronics&quot;&gt;Electronics&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.flipkart.com" target="_blank">https://www.flipkart.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>header</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > header</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=0px, left=0px, 1280x56px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/electronics/www-flipkart-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from Flipkart's header: kept bold font-weight + flex layout, replaced category links with shop-specific nav (Products/Hours/Contact), kept compact padding for tech feel</div>
+</div>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">product_grid / electronics-grid-compact</span>
+    <a class="source-badge" href="https://www.flipkart.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;section class=&quot;products&quot; id=&quot;products&quot; aria-label=&quot;Products&quot;&gt;&lt;h2&gt;Our Products&lt;/h2&gt;&lt;div class=&quot;product-grid&quot;&gt;{% for product in products %}&lt;div class=&quot;product-card&quot;&gt;&lt;h3&gt;{{ product.name }}&lt;/h3&gt;&lt;p class=&quot;price&quot;&gt;₹{{ &quot;%.0f&quot; | format(product.price) }}&lt;/p&gt;{% if product.description %}&lt;p class=&quot;desc&quot;&gt;{{ product.description }}&lt;/p&gt;{% endif %}&lt;/div&gt;{% endfor %}&lt;/div&gt;&lt;/section&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">padding: 24px 16px; max-width: 1100px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; } .product-card { border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;div class=&quot;_1YAKN4&quot;&gt;&lt;div class=&quot;_1AtVbE&quot;&gt;&lt;div class=&quot;_13oc-SB&quot;&gt;&lt;img src=&quot;...&quot; alt=&quot;Phone&quot;&gt;&lt;div class=&quot;_4rR01T&quot;&gt;Samsung Galaxy&lt;/div&gt;&lt;div class=&quot;_30jeq3&quot;&gt;₹15,999&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.flipkart.com" target="_blank">https://www.flipkart.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>[class*=product-grid]</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > main > div > div</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=80px, left=0px, 1280x900px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/electronics/www-flipkart-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from Flipkart's product grid: kept compact card layout with border-radius:4px + flex column, removed images (voice-first), kept price styling with bold accent color</div>
+</div>
+</div>
+<div class="category-section">
+<h2 class="category-title">Food (5 components)</h2>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">nav / food-nav-center</span>
+    <a class="source-badge" href="https://www.zomato.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;nav class=&quot;nav&quot; aria-label=&quot;Main navigation&quot;&gt;&lt;h1&gt;{{ shop_name }}&lt;/h1&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;#products&quot;&gt;Menu&lt;/a&gt;&lt;a href=&quot;#hours&quot;&gt;Hours&lt;/a&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.primary }}; color: #fff; padding: 12px 16px; text-align: center; flex-direction: column;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;header class=&quot;css-1ip3jlk&quot;&gt;&lt;div class=&quot;css-1yz67gs&quot;&gt;&lt;a href=&quot;/&quot;&gt;&lt;h1&gt;Zomato&lt;/h1&gt;&lt;/a&gt;&lt;/div&gt;&lt;/header&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.zomato.com" target="_blank">https://www.zomato.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>header</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > header</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=0px, left=0px, 1280x72px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/food/www-zomato-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Adapted Zomato's centered header layout: kept centered logo + nav pattern, added inline nav links below the shop name for small storefront context</div>
+</div>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">nav / food-nav-classic</span>
+    <a class="source-badge" href="https://www.swiggy.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;nav class=&quot;nav&quot; aria-label=&quot;Main navigation&quot;&gt;&lt;h1&gt;{{ shop_name }}&lt;/h1&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;#products&quot;&gt;Menu&lt;/a&gt;&lt;a href=&quot;#hours&quot;&gt;Hours&lt;/a&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.primary }}; color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;nav class=&quot;css-1 bmprrm&quot;&gt;&lt;div class=&quot;css-tnsq7q&quot;&gt;&lt;a href=&quot;/&quot;&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/a&gt;&lt;div class=&quot;sc-bdfBwQ&quot;&gt;&lt;a href=&quot;/&quot;&gt;Swiggy&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.swiggy.com" target="_blank">https://www.swiggy.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>nav</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > div > div > nav</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=0px, left=0px, 1280x64px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/food/www-swiggy-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Simplified Swiggy's nav: kept flexbox layout + logo-left/links-right pattern, replaced SVG logo with text h1, reduced to 3 nav links (Menu/Hours/Contact) instead of full navigation</div>
+</div>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">hero / food-hero-warm</span>
+    <a class="source-badge" href="https://www.swiggy.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;section class=&quot;hero&quot; aria-label=&quot;About us&quot;&gt;&lt;h2&gt;Welcome to {{ shop_name }}&lt;/h2&gt;&lt;p&gt;{{ description }}&lt;/p&gt;&lt;/section&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.secondary }}; padding: 32px 16px; text-align: center;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;section class=&quot;css-1c6iesr&quot;&gt;&lt;div class=&quot;css-1dbjc4n&quot;&gt;&lt;h2&gt;Sharma General Store&lt;/h2&gt;&lt;p&gt;Fresh groceries delivered to your door&lt;/p&gt;&lt;/div&gt;&lt;/section&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.swiggy.com" target="_blank">https://www.swiggy.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>header + section</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > div > div > header + section</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=64px, left=0px, 1280x320px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/food/www-swiggy-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from Swiggy's restaurant hero banner: kept warm background color + centered text, simplified to shop name + description (no search bar or category chips for small storefront)</div>
+</div>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">product_grid / food-grid-cards</span>
+    <a class="source-badge" href="https://www.swiggy.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;section class=&quot;products&quot; id=&quot;products&quot; aria-label=&quot;Products&quot;&gt;&lt;h2&gt;Our Menu&lt;/h2&gt;&lt;div class=&quot;product-grid&quot;&gt;{% for product in products %}&lt;div class=&quot;product-card&quot;&gt;&lt;h3&gt;{{ product.name }}&lt;/h3&gt;&lt;p class=&quot;price&quot;&gt;₹{{ &quot;%.0f&quot; | format(product.price) }}&lt;/p&gt;{% if product.description %}&lt;p class=&quot;desc&quot;&gt;{{ product.description }}&lt;/p&gt;{% endif %}&lt;/div&gt;{% endfor %}&lt;/div&gt;&lt;/section&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">padding: 24px 16px; max-width: 1000px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;div class=&quot;css-1dbjc4n&quot;&gt;&lt;div class=&quot;sc-bdfBwQ&quot;&gt;&lt;div class=&quot;css-tnsq7q&quot;&gt;&lt;div class=&quot;css-1dbjc4n&quot;&gt;&lt;img src=&quot;...&quot; alt=&quot;Rice&quot;&gt;&lt;h3&gt;Rice&lt;/h3&gt;&lt;p&gt;₹60/kg&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.swiggy.com" target="_blank">https://www.swiggy.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>[class*=product-grid]</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > div > div > main > div > div > div</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=400px, left=0px, 1280x600px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/food/www-swiggy-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Simplified Swiggy's restaurant menu grid: kept CSS Grid with auto-fill + card pattern, removed images (voice-first store has no product photos), kept name + price + description per card</div>
+</div>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">contact / food-contact-whatsapp</span>
+    <a class="source-badge" href="https://www.swiggy.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;section class=&quot;contact&quot; id=&quot;contact&quot; aria-label=&quot;Contact information&quot;&gt;&lt;h2&gt;Get in Touch&lt;/h2&gt;&lt;div class=&quot;contact-links&quot;&gt;{% if contact.whatsapp %}&lt;a class=&quot;whatsapp-btn&quot; href=&quot;https://wa.me/{{ contact.whatsapp }}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;WhatsApp Us&lt;/a&gt;{% endif %}{% if contact.phone %}&lt;a class=&quot;phone-link&quot; href=&quot;tel:{{ contact.phone }}&quot;&gt;{{ contact.phone }}&lt;/a&gt;{% endif %}&lt;/div&gt;{% if location %}&lt;p style=&quot;margin-top: 12px; font-size: 0.9rem;&quot;&gt;{{ location.raw_text }}&lt;/p&gt;{% endif %}&lt;/section&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">padding: 24px 16px; max-width: 1000px; margin: 0 auto;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;footer class=&quot;css-1cefbq2&quot;&gt;&lt;div class=&quot;css-1dbjc4n&quot;&gt;&lt;div class=&quot;css-tnsq7q&quot;&gt;&lt;a href=&quot;https://wa.me/919999999999&quot;&gt;WhatsApp&lt;/a&gt;&lt;a href=&quot;tel:+919999999999&quot;&gt;Call Us&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/footer&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.swiggy.com" target="_blank">https://www.swiggy.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>footer</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > footer</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=1200px, left=0px, 1280x200px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/food/www-swiggy-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Adapted from Swiggy's footer contact section: kept WhatsApp + phone pattern, added Maps-style location text, simplified for single-shop context (no multi-city links)</div>
+</div>
+</div>
+<div class="category-section">
+<h2 class="category-title">Pharmacy (1 components)</h2>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">nav / pharmacy-nav-clean</span>
+    <a class="source-badge" href="https://www.1mg.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;nav class=&quot;nav&quot; aria-label=&quot;Main navigation&quot;&gt;&lt;div&gt;&lt;h1&gt;{{ shop_name }}&lt;/h1&gt;&lt;span class=&quot;tagline&quot;&gt;Your trusted pharmacy&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;#products&quot;&gt;Medicines&lt;/a&gt;&lt;a href=&quot;#hours&quot;&gt;Hours&lt;/a&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;header class=&quot;header-container&quot;&gt;&lt;div class=&quot;header-content&quot;&gt;&lt;div class=&quot;logo&quot;&gt;&lt;a href=&quot;/&quot;&gt;&lt;span&gt;1mg&lt;/span&gt;&lt;/a&gt;&lt;span class=&quot;tagline&quot;&gt;India's Online Pharmacy&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;/otc&quot;&gt;Medicines&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.1mg.com" target="_blank">https://www.1mg.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>header</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > header</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=0px, left=0px, 1280x68px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/pharmacy/www-1mg-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from 1mg's header: kept logo + tagline pattern (trusted pharmacy branding), green color palette for health/trust, clean sans-serif font</div>
+</div>
+</div>
+<div class="category-section">
+<h2 class="category-title">Services (1 components)</h2>
+<div class="component-card">
+  <div class="component-header">
+    <span class="variant-id">nav / services-nav-pro</span>
+    <a class="source-badge" href="https://www.urbanclap.com" target="_blank" rel="noopener">Visit Source</a>
+  </div>
+  <div class="comparison">
+    <div class="side side-left">
+      <div class="side-label">Our Component</div>
+      <div class="code-block">&lt;nav class=&quot;nav&quot; aria-label=&quot;Main navigation&quot;&gt;&lt;h1&gt;{{ shop_name }}&lt;/h1&gt;&lt;div class=&quot;nav-links&quot;&gt;&lt;a href=&quot;#services&quot;&gt;Services&lt;/a&gt;&lt;a href=&quot;#hours&quot;&gt;Hours&lt;/a&gt;&lt;a href=&quot;#contact&quot;&gt;Contact&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;</div>
+      <div class="code-block" style="margin-top:8px;color:#a8d8a8;">background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;</div>
+    </div>
+    <div class="side">
+      <div class="side-label">Original Source Element</div>
+      <div class="code-block">&lt;header class=&quot;Header__HeaderStyled-sc-1ip3jlk-0&quot;&gt;&lt;div class=&quot;Header__InnerContainer&quot;&gt;&lt;a class=&quot;Header__Logo&quot; href=&quot;/&quot;&gt;&lt;span&gt;Urban Company&lt;/span&gt;&lt;/a&gt;&lt;nav class=&quot;Header__Nav&quot;&gt;&lt;a href=&quot;/services&quot;&gt;Services&lt;/a&gt;&lt;/nav&gt;&lt;/div&gt;&lt;/header&gt;</div>
+      <table class="meta-table">
+        <tr><td>Source URL</td><td><a href="https://www.urbanclap.com" target="_blank">https://www.urbanclap.com</a></td></tr>
+        <tr><td>CSS Selector</td><td><code>header</code></td></tr>
+        <tr><td>DOM Path</td><td><code>body > header</code></td></tr>
+        <tr><td>Bounding Box</td><td>top=0px, left=0px, 1280x60px</td></tr>
+        <tr><td>Child Elements</td><td>div</td></tr>
+        <tr><td>Page HTML Line</td><td>N/A</td></tr>
+        <tr><td>Saved HTML</td><td>data/design-reference/services/www-urbanclap-com/page.html</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="adaptation"><strong>Adaptation:</strong> Derived from Urban Company's header: kept professional indigo/navy palette, clean flex layout, replaced multi-service nav with simple shop-specific links</div>
+</div>
+</div>
+<div class="footer">Generated by VoiceFront tools/provenance_report.py</div>
+</body>
+</html>

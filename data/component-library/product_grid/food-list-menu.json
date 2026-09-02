@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "product_grid",
+  "variant_id": "food-grid-list-menu",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Menu items\"><h2 style=\"font-size:1.4rem;border-bottom:2px solid {{ colors.primary }};padding-bottom:8px;margin-bottom:16px;\">Specialty Menu</h2><div class=\"menu-list\" style=\"display:flex;flex-direction:column;gap:12px;\">{% for product in products %}<div style=\"display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#fff;border-radius:6px;border-left:4px solid {{ colors.accent }};box-shadow:0 1px 4px rgba(0,0,0,0.05);\"><div><h3 style=\"font-size:1.05rem;margin:0;\">{{ product.name }}</h3>{% if product.description %}<p style=\"font-size:0.85rem;color:#666;margin:4px 0 0;\">{{ product.description }}</p>{% endif %}</div><span style=\"font-size:1.15rem;font-weight:700;color:{{ colors.primary }};\">₹{{ \"%.0f\" | format(product.price) }}</span></div>{% endfor %}</div></section>",
+  "css": "padding: 24px 16px; max-width: 900px; margin: 0 auto;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=grid]",
+    "source_css_path": "body > main > div.menu-list-wrap",
+    "source_html_snippet": "<div class=\"menu-list-wrap\"><div class=\"menu-item-row\"><span>Veggie Paradise</span><span>₹249</span></div></div>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 420, "left": 0, "width": 1280, "height": 450},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Dense list menu variant tailored for quick items (sweets, snacks, daily specials) with left-border color accents."
+  }
+}

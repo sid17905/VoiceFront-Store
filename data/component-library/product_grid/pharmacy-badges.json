@@ -1,0 +1,22 @@
+{
+  "category": "pharmacy",
+  "section_type": "product_grid",
+  "variant_id": "pharmacy-grid-badges",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Medicines\"><h2 style=\"font-size:1.3rem;margin-bottom:16px;color:{{ colors.primary }};\">Available OTC Medicines &amp; Essentials</h2><div class=\"product-grid\" style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;\">{% for product in products %}<div class=\"product-card\" style=\"border:1px solid #e0e0e0;border-radius:8px;padding:16px;background:#fff;position:relative;\"><span style=\"position:absolute;top:10px;right:10px;background:{{ colors.secondary }};color:{{ colors.primary }};font-size:0.7rem;font-weight:700;padding:2px 6px;border-radius:4px;\">IN STOCK</span><h3 style=\"font-size:1rem;margin:6px 0 4px;\">{{ product.name }}</h3><p style=\"font-size:1.15rem;font-weight:700;color:{{ colors.accent }};\">₹{{ \"%.0f\" | format(product.price) }}</p>{% if product.description %}<p style=\"font-size:0.8rem;color:#666;margin-top:4px;\">{{ product.description }}</p>{% endif %}</div>{% endfor %}</div></section>",
+  "css": "padding: 24px 16px; max-width: 1000px; margin: 0 auto;",
+  "source_url": "https://pharmeasy.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://pharmeasy.in",
+    "source_selector": "nav",
+    "source_css_path": "body > main > div.medicine-grid",
+    "source_html_snippet": "<div class=\"medicine-grid\"><div class=\"medicine-card\"><span>Paracetamol</span></div></div>",
+    "source_screenshot": "data/design-reference/pharmacy/pharmeasy/screenshot.png",
+    "source_page_html": "data/design-reference/pharmacy/pharmeasy/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 400, "left": 0, "width": 1280, "height": 500},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Pharmacy product grid with 'IN STOCK' tags and clear green healthcare pricing accent."
+  }
+}

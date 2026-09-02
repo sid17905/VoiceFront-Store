@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "contact",
+  "variant_id": "food-contact-card",
+  "html": "<section class=\"contact\" id=\"contact\" aria-label=\"Store contact\" style=\"background:#fff;padding:28px 20px;border-radius:12px;border:1px solid #eee;margin:32px auto;max-width:800px;box-shadow:0 4px 16px rgba(0,0,0,0.06);text-align:center;\"><h2 style=\"font-size:1.3rem;margin-bottom:6px;color:{{ colors.primary }};\">Order Direct From {{ shop_name }}</h2><p style=\"font-size:0.95rem;color:#666;margin-bottom:20px;\">Instant confirmation on WhatsApp with zero platform commissions.</p><div style=\"display:flex;justify-content:center;gap:12px;flex-wrap:wrap;\">{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:700;\"><span>💬</span> WhatsApp Order</a>{% endif %}{% if contact.phone %}<a href=\"tel:{{ contact.phone }}\" style=\"display:inline-flex;align-items:center;gap:8px;background:{{ colors.secondary }};color:{{ colors.primary }};text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;\"><span>📞</span> Call Store</a>{% endif %}</div></section>",
+  "css": "max-width: 900px; margin: 0 auto;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "section",
+    "source_css_path": "body > footer > section.order-card",
+    "source_html_snippet": "<section class=\"order-card\"><div class=\"card-inner\"><h3>Direct Order</h3></div></section>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 1100, "left": 0, "width": 1280, "height": 220},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Centered direct-order business card variant emphasizing zero platform fees and one-tap WhatsApp link."
+  }
+}

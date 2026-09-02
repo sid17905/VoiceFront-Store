@@ -1,0 +1,22 @@
+{
+  "category": "pharmacy",
+  "section_type": "contact",
+  "variant_id": "pharmacy-contact-delivery",
+  "html": "<section class=\"contact\" id=\"contact\" aria-label=\"Pharmacy delivery\" style=\"background:#fff;border:1px solid #e0e0e0;border-left:5px solid {{ colors.primary }};border-radius:8px;padding:24px 20px;margin:28px auto;max-width:900px;\"><h2 style=\"font-size:1.2rem;color:{{ colors.primary }};margin-bottom:6px;\">Emergency &amp; Home Delivery Support</h2><p style=\"font-size:0.9rem;color:#555;margin-bottom:16px;\">Need urgent medicines delivered to your doorstep? Share your list on WhatsApp.</p><div style=\"display:flex;gap:12px;flex-wrap:wrap;\">{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"background:#25D366;color:#fff;text-decoration:none;padding:10px 20px;border-radius:6px;font-weight:700;display:inline-flex;align-items:center;gap:6px;\"><span>💬</span> WhatsApp Order</a>{% endif %}{% if contact.phone %}<a href=\"tel:{{ contact.phone }}\" style=\"display:inline-flex;align-items:center;gap:6px;color:{{ colors.primary }};text-decoration:underline;padding:10px 12px;font-weight:600;\"><span>📞</span> {{ contact.phone }}</a>{% endif %}</div></section>",
+  "css": "padding: 0 16px;",
+  "source_url": "https://pharmeasy.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://pharmeasy.in",
+    "source_selector": "nav",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer><div class=\"delivery-box\">Emergency Help</div></footer>",
+    "source_screenshot": "data/design-reference/pharmacy/pharmeasy/screenshot.png",
+    "source_page_html": "data/design-reference/pharmacy/pharmeasy/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 1100, "left": 0, "width": 1280, "height": 180},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Emergency & delivery direct WhatsApp block with clear call-to-action for home delivery."
+  }
+}

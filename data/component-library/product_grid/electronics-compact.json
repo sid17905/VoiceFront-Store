@@ -1,0 +1,22 @@
+{
+  "category": "electronics",
+  "section_type": "product_grid",
+  "variant_id": "electronics-grid-compact",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Products\"><h2>Our Products</h2><div class=\"product-grid\">{% for product in products %}<div class=\"product-card\"><h3>{{ product.name }}</h3><p class=\"price\">₹{{ \"%.0f\" | format(product.price) }}</p>{% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}</div>{% endfor %}</div></section>",
+  "css": "padding: 24px 16px; max-width: 1100px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; } .product-card { border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }",
+  "source_url": "https://www.flipkart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.flipkart.com",
+    "source_selector": "[class*=grid]",
+    "source_css_path": "body > main > div > div",
+    "source_html_snippet": "<div class=\"_1YAKN4\"><div class=\"_1AtVbE\"><div class=\"_13oc-SB\"><div class=\"_4rR01T\">Samsung Galaxy</div><div class=\"_30jeq3\">₹15,999</div></div></div></div>",
+    "source_screenshot": "data/design-reference/electronics/www-flipkart-com/screenshot.png",
+    "source_page_html": "data/design-reference/electronics/www-flipkart-com/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 80, "left": 0, "width": 1280, "height": 900},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Flipkart's product grid: kept compact card layout with border-radius:4px + flex column, removed images (voice-first), kept price styling with bold accent color"
+  }
+}

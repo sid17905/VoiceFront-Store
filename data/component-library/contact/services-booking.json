@@ -1,0 +1,22 @@
+{
+  "category": "services",
+  "section_type": "contact",
+  "variant_id": "services-contact-booking",
+  "html": "<section class=\"contact\" id=\"contact\" aria-label=\"Book service\" style=\"background:{{ colors.primary }};color:#fff;border-radius:12px;padding:36px 24px;margin:32px auto;max-width:900px;text-align:center;\"><h2 style=\"color:#fff;font-size:1.4rem;margin-bottom:8px;\">Book an Appointment with {{ shop_name }}</h2><p style=\"color:#e8daef;font-size:0.95rem;margin-bottom:24px;\">Send your requirement and preferred time slot directly on WhatsApp.</p><div style=\"display:flex;justify-content:center;gap:16px;flex-wrap:wrap;\">{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"background:#25D366;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:700;display:inline-flex;align-items:center;gap:8px;\"><span>💬</span> WhatsApp Booking</a>{% endif %}{% if contact.phone %}<a href=\"tel:{{ contact.phone }}\" style=\"background:#fff;color:{{ colors.primary }};text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:700;display:inline-flex;align-items:center;gap:8px;\"><span>📞</span> Call Direct</a>{% endif %}</div></section>",
+  "css": "padding: 0 16px;",
+  "source_url": "https://www.indiamart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.indiamart.com",
+    "source_selector": "header",
+    "source_css_path": "body > footer > div.booking-box",
+    "source_html_snippet": "<div class=\"booking-box\"><h3>Contact Seller</h3></div>",
+    "source_screenshot": "data/design-reference/services/indiamart/screenshot.png",
+    "source_page_html": "data/design-reference/services/indiamart/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 1100, "left": 0, "width": 1280, "height": 220},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "High-conversion appointment booking box with WhatsApp and direct call options."
+  }
+}

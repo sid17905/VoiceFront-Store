@@ -1,0 +1,22 @@
+{
+  "category": "apparel",
+  "section_type": "product_grid",
+  "variant_id": "apparel-grid-minimal",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Products\"><h2>Our Collection</h2><div class=\"product-grid\">{% for product in products %}<div class=\"product-card\"><h3>{{ product.name }}</h3><p class=\"price\">₹{{ \"%.0f\" | format(product.price) }}</p>{% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}</div>{% endfor %}</div></section>",
+  "css": "padding: 32px 24px; max-width: 1100px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; } .product-card { text-align: center; border: 1px solid #e8e8e8; padding: 20px; }",
+  "source_url": "https://www.snapdeal.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.snapdeal.com",
+    "source_selector": "[class*=product]",
+    "source_css_path": "body > main > div.product-list",
+    "source_html_snippet": "<div class=\"product-list\"><div class=\"product-card\"><p class=\"product-title\">Cotton Shirt</p><span class=\"product-price\">Rs. 499</span></div></div>",
+    "source_screenshot": "data/design-reference/apparel/snapdeal/screenshot.png",
+    "source_page_html": "data/design-reference/apparel/snapdeal/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 120, "left": 0, "width": 1280, "height": 800},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Snapdeal's product listing: kept minimal card style with centered text, removed product images (voice-first), kept border + padding card structure"
+  }
+}

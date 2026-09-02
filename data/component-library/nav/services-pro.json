@@ -1,0 +1,22 @@
+{
+  "category": "services",
+  "section_type": "nav",
+  "variant_id": "services-nav-pro",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#services\">Services</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;",
+  "source_url": "https://www.indiamart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.indiamart.com",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"header\"><div class=\"header-wrap\"><a class=\"logo\" href=\"/\"><span>IndiaMART</span></a><nav class=\"nav\"><a href=\"/services\">Services</a></nav></div></header>",
+    "source_screenshot": "data/design-reference/services/indiamart/screenshot.png",
+    "source_page_html": "data/design-reference/services/indiamart/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 60},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from IndiaMART's header: kept professional B2B layout + indigo/navy palette, replaced multi-category search with shop-specific service links"
+  }
+}

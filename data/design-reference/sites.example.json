@@ -1,4 +1,17 @@
 [
-  {"category": "food", "url": "https://example-restaurant.com"},
-  {"category": "apparel", "url": "https://example-clothing.com"}
+  {"category": "food", "url": "https://www.swiggy.com"},
+  {"category": "food", "url": "https://www.zomato.com"},
+  {"category": "food", "url": "https://www.ubereats.com"},
+  {"category": "apparel", "url": "https://www.myntra.com"},
+  {"category": "apparel", "url": "https://www.ajio.com"},
+  {"category": "apparel", "url": "https://www.nykaafashion.com"},
+  {"category": "electronics", "url": "https://www.flipkart.com"},
+  {"category": "electronics", "url": "https://www.croma.com"},
+  {"category": "electronics", "url": "https://www.reliancedigital.in"},
+  {"category": "pharmacy", "url": "https://www.1mg.com"},
+  {"category": "pharmacy", "url": "https://www.pharmeasy.in"},
+  {"category": "pharmacy", "url": "https://www.netmeds.com"},
+  {"category": "services", "url": "https://www.urbanclap.com"},
+  {"category": "services", "url": "https://www.justdial.com"},
+  {"category": "services", "url": "https://www.sulekha.com"}
 ]

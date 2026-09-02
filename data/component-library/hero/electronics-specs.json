@@ -1,0 +1,22 @@
+{
+  "category": "electronics",
+  "section_type": "hero",
+  "variant_id": "electronics-hero-specs",
+  "html": "<section class=\"hero\" aria-label=\"Tech banner\" style=\"background:{{ colors.secondary }};padding:36px 20px;border-radius:8px;margin:16px auto;max-width:1100px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;\"><div><span style=\"background:{{ colors.accent }};color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;\">VERIFIED DEALER</span><h2 style=\"font-size:1.8rem;margin:8px 0 6px;color:{{ colors.primary }};\">{{ shop_name }}</h2><p style=\"font-size:0.95rem;color:#444;\">{{ description }}</p></div><div style=\"background:#fff;padding:12px 18px;border-radius:6px;border:1px solid #ddd;font-size:0.85rem;\">⚡ Genuine Products &bull; Instant Warranty</div></section>",
+  "css": "padding: 0 16px;",
+  "source_url": "https://www.flipkart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.flipkart.com",
+    "source_selector": "header",
+    "source_css_path": "body > main > div.specs-banner",
+    "source_html_snippet": "<div class=\"specs-banner\"><span>Flipkart Assured</span></div>",
+    "source_screenshot": "data/design-reference/electronics/www-flipkart-com/screenshot.png",
+    "source_page_html": "data/design-reference/electronics/www-flipkart-com/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 60, "left": 0, "width": 1280, "height": 240},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Tech specs hero banner with verified dealer badge and warranty reassurance card."
+  }
+}

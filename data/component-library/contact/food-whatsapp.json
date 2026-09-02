@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "contact",
+  "variant_id": "food-contact-whatsapp",
+  "html": "<section class=\"contact\" id=\"contact\" aria-label=\"Contact information\"><h2>Get in Touch</h2><div class=\"contact-links\">{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\">WhatsApp Us</a>{% endif %}{% if contact.phone %}<a class=\"phone-link\" href=\"tel:{{ contact.phone }}\">{{ contact.phone }}</a>{% endif %}</div>{% if location %}<p style=\"margin-top: 12px; font-size: 0.9rem;\">{{ location.raw_text }}</p>{% endif %}</section>",
+  "css": "padding: 24px 16px; max-width: 1000px; margin: 0 auto;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "section",
+    "source_css_path": "body > footer > section",
+    "source_html_snippet": "<section class=\"footer-contact\"><div class=\"contact-wrap\"><a href=\"tel:18002081234\">Customer Care</a></div></section>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 1200, "left": 0, "width": 1280, "height": 200},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Domino's contact footer: kept contact links + helpline layout, added WhatsApp deep-link button + shop address block"
+  }
+}

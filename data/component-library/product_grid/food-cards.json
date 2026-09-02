@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "product_grid",
+  "variant_id": "food-grid-cards",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Products\"><h2>Our Menu</h2><div class=\"product-grid\">{% for product in products %}<div class=\"product-card\"><h3>{{ product.name }}</h3><p class=\"price\">₹{{ \"%.0f\" | format(product.price) }}</p>{% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}</div>{% endfor %}</div></section>",
+  "css": "padding: 24px 16px; max-width: 1000px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=grid]",
+    "source_css_path": "body > main > div.menu-grid",
+    "source_html_snippet": "<div class=\"menu-grid\"><div class=\"pizza-card\"><h3>Margherita</h3><p class=\"price\">₹199</p></div></div>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 400, "left": 0, "width": 1280, "height": 600},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Simplified Domino's menu grid: kept CSS Grid auto-fill + card pattern, removed product photos (voice-first), kept name + price + description"
+  }
+}

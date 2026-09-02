@@ -1,0 +1,22 @@
+{
+  "category": "apparel",
+  "section_type": "nav",
+  "variant_id": "apparel-nav-elegant",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#products\">Collection</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; letter-spacing: 2px;",
+  "source_url": "https://www.snapdeal.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.snapdeal.com",
+    "source_selector": "[class*=header]",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"header-container\"><div class=\"header-inner\"><a class=\"logo\" href=\"/\"><span>Snapdeal</span></a><div class=\"nav-links\"><a href=\"/men\">Men</a><a href=\"/women\">Women</a></div></div></header>",
+    "source_screenshot": "data/design-reference/apparel/snapdeal/screenshot.png",
+    "source_page_html": "data/design-reference/apparel/snapdeal/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 60},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Snapdeal's header: kept flex layout + letter-spacing style, replaced multi-category links with shop-specific nav (Collection/Hours/Contact)"
+  }
+}

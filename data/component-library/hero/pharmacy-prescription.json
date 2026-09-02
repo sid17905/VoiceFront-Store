@@ -1,0 +1,22 @@
+{
+  "category": "pharmacy",
+  "section_type": "hero",
+  "variant_id": "pharmacy-hero-prescription",
+  "html": "<section class=\"hero\" aria-label=\"Pharmacy service\" style=\"background:{{ colors.secondary }};padding:36px 20px;border-radius:10px;margin:20px auto;max-width:1000px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;\"><div style=\"flex:1;min-width:260px;\"><span style=\"color:{{ colors.primary }};font-weight:700;font-size:0.85rem;\">🏥 LICENSED CHEMIST &bull; GENUINE MEDICINES</span><h2 style=\"font-size:1.8rem;margin:8px 0;color:{{ colors.primary }};\">{{ shop_name }}</h2><p style=\"font-size:0.95rem;\">{{ description }}</p></div><div style=\"background:#fff;padding:16px 20px;border-radius:8px;border:1px dashed {{ colors.primary }};text-align:center;\"><p style=\"font-weight:600;font-size:0.9rem;margin-bottom:6px;\">📄 Send Prescription on WhatsApp</p><span style=\"font-size:0.8rem;color:#666;\">Fast home delivery in 2 hours</span></div></section>",
+  "css": "padding: 0 16px;",
+  "source_url": "https://pharmeasy.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://pharmeasy.in",
+    "source_selector": "nav",
+    "source_css_path": "body > main > div.prescription-card",
+    "source_html_snippet": "<div class=\"prescription-card\"><span>Order with Prescription</span></div>",
+    "source_screenshot": "data/design-reference/pharmacy/pharmeasy/screenshot.png",
+    "source_page_html": "data/design-reference/pharmacy/pharmeasy/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 80, "left": 0, "width": 1280, "height": 280},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Prescription upload & quick delivery reassurance hero designed specifically for local pharmacies."
+  }
+}

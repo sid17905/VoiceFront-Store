@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "nav",
+  "variant_id": "food-nav-center",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#products\">Menu</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 12px 16px; text-align: center; flex-direction: column;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=header]",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"site-header\"><div class=\"header-inner\"><h1>Domino's Pizza</h1></div></header>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 72},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Adapted Domino's header layout: kept centered branding + top banner pattern, added inline nav links below shop name"
+  }
+}

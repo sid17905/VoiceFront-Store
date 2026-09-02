@@ -1,0 +1,22 @@
+{
+  "category": "services",
+  "section_type": "hero",
+  "variant_id": "services-hero-trust",
+  "html": "<section class=\"hero\" aria-label=\"Service banner\" style=\"background:{{ colors.secondary }};padding:48px 24px;text-align:center;\"><span style=\"font-size:0.8rem;text-transform:uppercase;letter-spacing:1.5px;color:{{ colors.primary }};font-weight:700;\">Verified Local Service Professional</span><h2 style=\"font-size:2.2rem;margin:12px 0 16px;color:{{ colors.primary }};\">{{ shop_name }}</h2><p style=\"max-width:640px;margin:0 auto;font-size:1.05rem;line-height:1.6;\">{{ description }}</p><div style=\"display:flex;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap;\"><span style=\"background:#fff;padding:6px 14px;border-radius:20px;font-size:0.85rem;border:1px solid #ddd;\">⭐ 4.9 Rated</span><span style=\"background:#fff;padding:6px 14px;border-radius:20px;font-size:0.85rem;border:1px solid #ddd;\">⚡ Same-Day Service</span><span style=\"background:#fff;padding:6px 14px;border-radius:20px;font-size:0.85rem;border:1px solid #ddd;\">🛡️ Transparent Rates</span></div></section>",
+  "css": "border-bottom: 1px solid #eee;",
+  "source_url": "https://www.indiamart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.indiamart.com",
+    "source_selector": "header",
+    "source_css_path": "body > main > section.trust-hero",
+    "source_html_snippet": "<section class=\"trust-hero\"><h2>IndiaMART Verified Exporter</h2></section>",
+    "source_screenshot": "data/design-reference/services/indiamart/screenshot.png",
+    "source_page_html": "data/design-reference/services/indiamart/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 60, "left": 0, "width": 1280, "height": 320},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Trust-building service hero banner with verified professional badges (rating, speed, warranty)."
+  }
+}

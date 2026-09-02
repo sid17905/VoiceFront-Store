@@ -1,0 +1,22 @@
+{
+  "category": "services",
+  "section_type": "product_grid",
+  "variant_id": "services-grid-rates",
+  "html": "<section class=\"products\" id=\"services\" aria-label=\"Service list\"><h2 style=\"font-size:1.3rem;margin-bottom:16px;color:{{ colors.primary }};\">Services &amp; Standard Pricing</h2><div class=\"product-grid\" style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;\">{% for product in products %}<div class=\"product-card\" style=\"border:1px solid #e0e0e0;border-radius:10px;padding:20px;background:#fff;display:flex;flex-direction:column;justify-content:space-between;\"><div><h3 style=\"font-size:1.1rem;margin-bottom:6px;\">{{ product.name }}</h3>{% if product.description %}<p style=\"font-size:0.85rem;color:#666;\">{{ product.description }}</p>{% endif %}</div><div style=\"margin-top:16px;display:flex;justify-content:space-between;align-items:center;\"><span style=\"font-size:1.25rem;font-weight:700;color:{{ colors.accent }};\">₹{{ \"%.0f\" | format(product.price) }}</span><span style=\"font-size:0.75rem;background:{{ colors.secondary }};color:{{ colors.primary }};padding:3px 8px;border-radius:4px;font-weight:600;\">Starting from</span></div></div>{% endfor %}</div></section>",
+  "css": "padding: 24px 16px; max-width: 1000px; margin: 0 auto;",
+  "source_url": "https://www.indiamart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.indiamart.com",
+    "source_selector": "header",
+    "source_css_path": "body > main > div.services-grid",
+    "source_html_snippet": "<div class=\"services-grid\"><h3>AC Repair</h3></div>",
+    "source_screenshot": "data/design-reference/services/indiamart/screenshot.png",
+    "source_page_html": "data/design-reference/services/indiamart/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 400, "left": 0, "width": 1280, "height": 450},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Transparent service rate card grid with 'Starting from' pricing chips."
+  }
+}

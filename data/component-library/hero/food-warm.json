@@ -1,0 +1,22 @@
+{
+  "category": "food",
+  "section_type": "hero",
+  "variant_id": "food-hero-warm",
+  "html": "<section class=\"hero\" aria-label=\"About us\"><h2>Welcome to {{ shop_name }}</h2><p>{{ description }}</p></section>",
+  "css": "background: {{ colors.secondary }}; padding: 32px 16px; text-align: center;",
+  "source_url": "https://www.dominos.co.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.dominos.co.in",
+    "source_selector": "[class*=hero]",
+    "source_css_path": "body > main > section.hero-banner",
+    "source_html_snippet": "<section class=\"hero-banner\"><div class=\"banner-content\"><h2>Domino's Pizza</h2><p>Hot and fresh pizza delivered in 30 mins</p></div></section>",
+    "source_screenshot": "data/design-reference/food/dominos/screenshot.png",
+    "source_page_html": "data/design-reference/food/dominos/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 64, "left": 0, "width": 1280, "height": 320},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Domino's hero banner: kept warm background + centered text layout, replaced promotional CTA with shop description"
+  }
+}

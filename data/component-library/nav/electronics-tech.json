@@ -1,0 +1,22 @@
+{
+  "category": "electronics",
+  "section_type": "nav",
+  "variant_id": "electronics-nav-tech",
+  "html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#products\">Products</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
+  "css": "background: {{ colors.primary }}; color: #fff; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; font-weight: 700;",
+  "source_url": "https://www.flipkart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "system-seed",
+  "provenance": {
+    "source_url": "https://www.flipkart.com",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"_1sfP5PK\"><div class=\"_3RB1vh\"><a class=\"_2Kn2-DX\" href=\"/\"><span>Flipkart</span></a><div class=\"_1MsOfo\"><a href=\"/mobiles\">Mobiles</a><a href=\"/electronics\">Electronics</a></div></div></header>",
+    "source_screenshot": "data/design-reference/electronics/www-flipkart-com/screenshot.png",
+    "source_page_html": "data/design-reference/electronics/www-flipkart-com/page.html",
+    "source_page_line": null,
+    "source_bounding_box": {"top": 0, "left": 0, "width": 1280, "height": 56},
+    "source_child_tags": ["div"],
+    "adaptation_notes": "Derived from Flipkart's header: kept bold font-weight + flex layout, replaced category links with shop-specific nav (Products/Hours/Contact)"
+  }
+}

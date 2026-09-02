@@ -1,16 +1,46 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ComponentLibraryEntry",
-  "version": "0.1-draft",
+  "version": "0.2-provenance",
   "type": "object",
   "required": ["category", "section_type", "html", "css", "review_status"],
   "properties": {
     "category": { "type": "string", "enum": ["food","apparel","electronics","pharmacy","services"] },
     "section_type": { "type": "string", "enum": ["nav","hero","product_grid","contact"] },
+    "variant_id": { "type": "string" },
     "html": { "type": "string" },
     "css": { "type": "string" },
     "source_url": { "type": ["string", "null"] },
     "review_status": { "type": "string", "enum": ["PENDING","APPROVED","REJECTED"] },
-    "reviewed_by": { "type": ["string", "null"] }
+    "reviewed_by": { "type": ["string", "null"] },
+    "provenance": {
+      "type": "object",
+      "description": "Tracks exactly where this component was derived from on the original site",
+      "properties": {
+        "source_url": { "type": "string", "description": "URL of the reference site" },
+        "source_selector": { "type": "string", "description": "CSS selector that matched the element on the source site" },
+        "source_css_path": { "type": "string", "description": "Full DOM path from body to the element" },
+        "source_html_snippet": { "type": "string", "description": "First 500 chars of the original element's outerHTML" },
+        "source_screenshot": { "type": "string", "description": "Path to the full-page screenshot of the source site" },
+        "source_page_html": { "type": "string", "description": "Path to the saved page.html of the source site" },
+        "source_page_line": { "type": ["integer", "null"], "description": "Approximate line number in page.html where the element starts" },
+        "source_bounding_box": {
+          "type": "object",
+          "description": "Pixel coordinates of the element on the source page",
+          "properties": {
+            "top": { "type": "integer" },
+            "left": { "type": "integer" },
+            "width": { "type": "integer" },
+            "height": { "type": "integer" }
+          }
+        },
+        "source_child_tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Direct child element tags of the source element"
+        },
+        "adaptation_notes": { "type": "string", "description": "How the original was adapted for our template" }
+      }
+    }
   }
 }
