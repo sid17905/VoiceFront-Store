@@ -1,0 +1,29 @@
+{
+  "category": "apparel",
+  "section_type": "nav",
+  "variant_id": "apparel-nav-hm",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.hm.com/in/",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.hm.com/in/",
+    "source_selector": "nav",
+    "source_css_path": "body > nav",
+    "source_html_snippet": "<nav class=\"ad76c1\" aria-label=\"Primary navigation\" id=\"sticky-header-component\"><div class=\"a16733\"> <div class=\"fabc91\"> <div class=\"d03040\"><a aria-label=\"H&amp;M\" data-testid=\"logo\" href=\"/en_in/index.html\" target=\"_self\" rel=\"noreferrer\" class=\"f3cfd4 b808ce b2cf27 eb0285 ee8447 bf7a95 e64038\"><span class=\"f70bb4\" aria-live=\"polite\">H&amp;M</span><span class=\"edadcc\"><svg viewbox=\"0 0 200 132",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.hm.com/in/ using selector nav and adapted to StorefrontSpec context."
+  }
+}

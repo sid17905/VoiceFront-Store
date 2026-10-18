@@ -1,0 +1,31 @@
+{
+  "category": "food",
+  "section_type": "contact",
+  "variant_id": "food-contact-zomato",
+  "html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.zomato.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.zomato.com",
+    "source_selector": "footer",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer class=\"px-5 pt-4 text-white lg:mx-auto lg:max-w-[834px] lg:pt-20 xl:max-w-[949px]\"><div class=\"flex w-full items-center justify-start py-6\"><img class=\"h-8 lg:h-9\" src=\"https://b.zmtcdn.com/web_assets/8313a97515fcb0447d2d77c276532a511583262271.png\" alt=\"Zomato Logo\"></div> <div class=\"py-6\"><div class=\"grid grid-cols-2 gap-6 text-xs font-normal text-zSlate500 md:grid-cols-5\"> <div class=\"o",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div",
+      "div",
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.zomato.com using selector footer and adapted to StorefrontSpec context."
+  }
+}

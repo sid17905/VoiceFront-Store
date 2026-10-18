@@ -1,0 +1,26 @@
+{
+  "shop_name": "Iron Fitness",
+  "category": "services",
+  "description": "Create a premium gym named Iron Fitness in Mumbai with personal training for 2000 rupees",
+  "products": [
+    {
+      "name": "Personal Training Session",
+      "price": 2000.0,
+      "currency": "INR",
+      "description": "1-on-1 expert coaching and custom fitness programming"
+    }
+  ],
+  "hours": [
+    "Mon-Sun: 6:00 AM - 10:00 PM"
+  ],
+  "location": {
+    "address": "Main Street",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "pincode": "400001"
+  },
+  "contact": {
+    "phone": "+919876543210",
+    "whatsapp": "9876543210"
+  }
+}

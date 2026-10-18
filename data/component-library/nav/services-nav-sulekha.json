@@ -1,0 +1,29 @@
+{
+  "category": "services",
+  "section_type": "nav",
+  "variant_id": "services-nav-sulekha",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.sulekha.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.sulekha.com",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"flex justify-between items-center h-16 p-4 sticky top-0 z-50 bg-[#2b2d5b]\"><div class=\"container mx-auto flex w-full sm:w-11/12 2xl:w-4/5 items-center\"> <div class=\"flex items-center gap-2 lg:gap-4\"> <div class=\"p-0\"> <div id=\"hammenu\" class=\"cursor-pointer p-1 text-white\" type=\"button\"> <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" s",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector header and adapted to StorefrontSpec context."
+  }
+}

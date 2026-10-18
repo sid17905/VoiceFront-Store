@@ -1,0 +1,94 @@
+{
+  "recorded_at": "2026-10-18T11:50:33+00:00",
+  "python": "3.14.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "missing_dependencies": [],
+  "suites": {
+    "nlp": {
+      "status": "pass",
+      "exit_code": 0,
+      "summary": "4 passed in 1.74s",
+      "tail": [
+        "....                                                                     [100%]",
+        "4 passed in 1.74s"
+      ]
+    },
+    "layout": {
+      "status": "pass",
+      "exit_code": 0,
+      "summary": "2 passed in 2.09s",
+      "tail": [
+        "..                                                                       [100%]",
+        "2 passed in 2.09s"
+      ]
+    },
+    "qa": {
+      "status": "pass",
+      "exit_code": 0,
+      "summary": "13 passed in 1.37s",
+      "tail": [
+        ".............                                                            [100%]",
+        "13 passed in 1.37s"
+      ]
+    },
+    "publish": {
+      "status": "unavailable",
+      "exit_code": 2,
+      "summary": "1 error in 0.69s",
+      "tail": [
+        "C:\\Python314\\Lib\\importlib\\__init__.py:88: in import_module",
+        "    return _bootstrap._gcd_import(name[level:], package, level)",
+        "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "tests\\test_s3_uploader.py:13: in <module>",
+        "    import core.s3_uploader as s3_uploader",
+        "core\\s3_uploader.py:23: in <module>",
+        "    import boto3",
+        "E   ModuleNotFoundError: No module named 'boto3'",
+        "=========================== short test summary info ===========================",
+        "ERROR tests/test_s3_uploader.py",
+        "!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!",
+        "1 error in 0.69s"
+      ]
+    },
+    "asr": {
+      "status": "pass",
+      "exit_code": 0,
+      "summary": "2 passed in 1.20s",
+      "tail": [
+        "..                                                                       [100%]",
+        "2 passed in 1.20s"
+      ]
+    },
+    "e2e": {
+      "status": "fail",
+      "exit_code": 1,
+      "summary": "1 failed in 1.00s",
+      "tail": [
+        "                hours_html=hours_html,",
+        "                contact_html=contact_html,",
+        "                whatsapp_number=html.escape(str(ctx[\"whatsapp_number\"])),",
+        "            )",
+        "E           ValueError: unexpected '{' in field name",
+        "",
+        "..\\..\\services\\layout-service\\core\\renderer.py:396: ValueError",
+        "------------------------------ Captured log call ------------------------------",
+        "WARNING  core.schema_builder:schema_builder.py:137 NLP running in heuristic fallback mode \u2014 GROQ_API_KEY not set",
+        "=========================== short test summary info ===========================",
+        "FAILED test_prompt_pipeline.py::test_end_to_end_prompt_to_storefront - ValueE...",
+        "1 failed in 1.00s"
+      ]
+    },
+    "contract": {
+      "status": "absent",
+      "detail": "F:\\VoiceFront-Store\\tests\\contract does not exist"
+    },
+    "layout-security": {
+      "status": "absent",
+      "detail": "F:\\VoiceFront-Store\\tests\\layout does not exist"
+    },
+    "security": {
+      "status": "absent",
+      "detail": "F:\\VoiceFront-Store\\tests\\security does not exist"
+    }
+  }
+}

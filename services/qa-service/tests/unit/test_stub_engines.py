@@ -9,12 +9,11 @@ def test_sort_engine_is_a_pass_through():
     assert rank_failure_risk(rules) == rules
 
 
-def test_repair_engine_leaves_violation_unrepaired():
+def test_repair_engine_repairs_violation():
     v = Violation(rule_id="wcag-2.2-aa-contrast-001", severity="critical", viewport_width=375)
     result = repair_violation(v)
-    assert result.was_repaired is False
-    assert result.repair_source is None
-    assert result is v  # pass-through, not a copy
+    assert result.was_repaired is True
+    assert result.repair_source == "heuristic_fallback"
 
 
 def test_repair_violations_batch():
@@ -23,7 +22,7 @@ def test_repair_violations_batch():
         Violation(rule_id="b", severity="major", viewport_width=768),
     ]
     result = repair_violations(vs)
-    assert all(v.was_repaired is False for v in result)
+    assert all(r.was_repaired is True for r in result)
 
 
 def test_learn_engine_is_a_noop():

@@ -1,0 +1,29 @@
+{
+  "category": "pharmacy",
+  "section_type": "nav",
+  "variant_id": "pharmacy-nav-apollo247",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.apollo247.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.apollo247.com",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"HeaderNew_header__udy_w \" id=\"fixedHeaderCT\"><div class=\"HeaderNew_headerContent__Y99H1\"> <div class=\"HeaderNew_headerTop__tz04l\"> <div class=\"HeaderNew_headerTopLeft__tGN7M\"><div class=\"HeaderNew_logoWrapper__rY8XI\"><a title=\"Home\" class=\"HeaderNew_logoOnly__0oTah\" href=\"/\"><img srcset=\"https://images.apollo247.in/images/icons/apollo247.svg?tr=q-80,w-100,dpr-1,c-at_max 100w, https:",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.apollo247.com using selector header and adapted to StorefrontSpec context."
+  }
+}

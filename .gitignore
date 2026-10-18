@@ -38,3 +38,35 @@ temp_fresh/
 *.iml
 .DS_Store
 Thumbs.db
+
+# ---------------------------------------------------------------
+# Audit remediation additions (2026-10-18)
+# ---------------------------------------------------------------
+
+# Vendored third-party clone with its own .git — never commit
+scrapy/
+
+# Local model-router config (contains a local API key)
+opencode.json
+
+# Binary deliverables and archives belong in the submission, not in git
+docs.zip
+*.zip
+*.docx
+*.pptx
+*.pdf
+*.xlsx
+
+# Generated artefacts (regenerate with tools/, do not commit)
+data/provenance-highlights/
+data/design-reference/*/screenshot.png
+data/design-reference/*/page.html
+
+# Local state written by the verifier
+docs/state.json
+
+# Test/runtime databases
+*.db
+*.sqlite
+*.sqlite3
+

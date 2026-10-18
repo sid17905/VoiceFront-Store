@@ -1,0 +1,35 @@
+{
+  "category": "services",
+  "section_type": "nav",
+  "variant_id": "services-nav-housing",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.housing.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.housing.com",
+    "source_selector": "nav",
+    "source_css_path": "body > nav",
+    "source_html_snippet": "<nav data-q=\"service\" class=\"css-k008qs\"> <a data-q=\"active\" class=\"search-tab search-active-tab css-1rcmzf8\" href=\"/in/buy/real-estate-mumbai\" target=\"_self\">Buy</a> <a data-q=\"false\" class=\"search-tab css-18w4akt\" href=\"/rent/property-for-rent-in-mumbai\" target=\"_self\">Rent</a><a data-q=\"false\" class=\"search-tab css-18w4akt\" href=\"/commercial/commercial-real-estate-in-mumbai\" target=\"_self\">Comm",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "style",
+      "a",
+      "style",
+      "a",
+      "a",
+      "a",
+      "a"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.housing.com using selector nav and adapted to StorefrontSpec context."
+  }
+}

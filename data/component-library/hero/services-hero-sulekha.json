@@ -1,0 +1,30 @@
+{
+  "category": "services",
+  "section_type": "hero",
+  "variant_id": "services-hero-sulekha",
+  "html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.sulekha.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.sulekha.com",
+    "source_selector": "main > section:first-of-type",
+    "source_css_path": "body > main > section:first-of-type",
+    "source_html_snippet": "<section id=\"pinboard\" aria-labelledby=\"home-pinboard-heading\" class=\"container mx-auto flex w-full sm:w-11/12 2xl:w-4/5 flex-col p-4 py-6 md:py-12\"><div class=\"flex w-full flex-col gap-3 sm:flex-row sm:items-end sm:justify-between mb-4 md:mb-6\"> <div class=\"flex flex-col\"> <h2 id=\"home-pinboard-heading\" class=\"font-bold text-xl\">Get inspired on Pinboard</h2> <img alt=\"\" width=\"100\" height=\"6\" dec",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div",
+      "ul"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector main > section:first-of-type and adapted to StorefrontSpec context."
+  }
+}

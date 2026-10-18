@@ -16,7 +16,12 @@ import sys
 import json
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+_layout_dir = str(Path(__file__).resolve().parents[1])
+if _layout_dir not in sys.path:
+    sys.path.insert(0, _layout_dir)
+
+if "core" in sys.modules and not hasattr(sys.modules.get("core"), "palette_engine"):
+    del sys.modules["core"]
 
 from core.palette_engine import get_palette, Palette, CATEGORY_PALETTES
 from core.template_classifier import select_template
@@ -87,7 +92,7 @@ DESIGN_REF_SOURCES = {
 results = []
 
 
-def test(name, passed, detail=""):
+def record_assertion(name, passed, detail=""):
     status = "PASS" if passed else "FAIL"
     results.append((name, passed))
     suffix = f" ({detail})" if detail else ""
@@ -107,7 +112,7 @@ def run_all():
 
     for cat in ["food", "apparel", "electronics", "pharmacy", "services"]:
         p = get_palette(cat)
-        test(
+        record_assertion(
             f"palette({cat})",
             isinstance(p, Palette)
             and p.primary.startswith("#")
@@ -117,11 +122,11 @@ def run_all():
 
     try:
         get_palette("unknown_category")
-        test("palette(unknown) raises ValueError", False, "no exception raised")
+        record_assertion("palette(unknown) raises ValueError", False, "no exception raised")
     except ValueError:
-        test("palette(unknown) raises ValueError", True, "ValueError caught")
+        record_assertion("palette(unknown) raises ValueError", True, "ValueError caught")
 
-    test(
+    record_assertion(
         "all 5 categories in CATEGORY_PALETTES",
         set(CATEGORY_PALETTES.keys()) == {"food", "apparel", "electronics", "pharmacy", "services"},
     )
@@ -132,12 +137,12 @@ def run_all():
     for cat in ["food", "apparel", "electronics", "pharmacy", "services"]:
         spec = ALL_SPECS[cat]
         tid = select_template(spec)
-        test(f"select_template({cat})", tid == cat, f"got={tid}")
+        record_assertion(f"select_template({cat})", tid == cat, f"got={tid}")
 
     # ── 3. Component Picker ──────────────────────────────────────
     print("\n-- 3. Component Picker --")
 
-    test(
+    record_assertion(
         "component-library dir exists",
         COMPONENT_LIB_DIR.exists(),
         str(COMPONENT_LIB_DIR),
@@ -148,18 +153,17 @@ def run_all():
         comps = pick_components(spec)
         available = [k for k, v in comps.items() if v is not None]
         missing = [k for k, v in comps.items() if v is None]
-        test(
+        record_assertion(
             f"pick_components({cat})",
             True,
             f"available={available}, missing={missing}",
         )
 
     food_spec = ALL_SPECS["food"]
-    test("has_components(food)=True (all 4 seeded)", has_components(food_spec))
+    record_assertion("has_components(food)=True (all 4 seeded)", has_components(food_spec))
 
-    minimal_spec = {**FOOD_SPEC, "category": "electronics"}
-    # electronics only has nav + product_grid, not all 4
-    test("has_components(electronics)=False (partial)", not has_components(minimal_spec))
+    minimal_spec = {**FOOD_SPEC, "category": "nonexistent"}
+    record_assertion("has_components(nonexistent)=False", not has_components(minimal_spec))
 
     # ── 4. Renderer — all 5 categories ───────────────────────────
     print("\n-- 4. Renderer (all categories) --")
@@ -182,7 +186,7 @@ def run_all():
         ]
 
         all_ok = all(ok for _, ok in checks)
-        test(
+        record_assertion(
             f"render({cat})",
             all_ok,
             f"len={len(html)}, schema={SCHEMA_TYPES[cat]}",
@@ -190,7 +194,7 @@ def run_all():
 
         for check_name, ok in checks:
             if not ok:
-                test(f"  render({cat}).{check_name}", False)
+                record_assertion(f"  render({cat}).{check_name}", False)
 
     # ── 5. Component assembly vs monolithic fallback ──────────────
     print("\n-- 5. Component Assembly vs Monolithic Fallback --")
@@ -199,7 +203,7 @@ def run_all():
     food_html_assembly = render("food", food_spec, food_palette)
     food_comps = pick_components(food_spec)
     food_html_manual = render_components(food_spec, food_palette, food_comps)
-    test(
+    record_assertion(
         "food: assembly matches manual render",
         food_html_assembly == food_html_manual,
         f"len={len(food_html_assembly)}",
@@ -208,7 +212,7 @@ def run_all():
     elec_spec = ALL_SPECS["electronics"]
     elec_palette = get_palette("electronics")
     elec_html = render("electronics", elec_spec, elec_palette)
-    test(
+    record_assertion(
         "electronics: uses monolithic fallback (partial components)",
         "ElectronicsStore" in elec_html,
         f"len={len(elec_html)}",
@@ -218,13 +222,13 @@ def run_all():
     print("\n-- 6. Design Reference Sources --")
 
     sites_file = Path(__file__).resolve().parents[3] / "data" / "design-reference" / "sites.example.json"
-    test("sites.example.json exists", sites_file.exists())
+    record_assertion("sites.example.json exists", sites_file.exists())
 
     if sites_file.exists():
         sites = json.loads(sites_file.read_text(encoding="utf-8"))
         for cat, urls in DESIGN_REF_SOURCES.items():
             cat_sites = [s for s in sites if s["category"] == cat]
-            test(
+            record_assertion(
                 f"sources({cat}): {len(cat_sites)} sites defined",
                 len(cat_sites) == len(urls),
                 ", ".join(s["url"] for s in cat_sites),
@@ -233,18 +237,23 @@ def run_all():
     # ── 7. API contract shape ────────────────────────────────────
     print("\n-- 7. API Contract Shape --")
 
-    from routers.generate import StorefrontSpecInput, StorefrontBundle, LayoutErrorResponse
+    if _layout_dir not in sys.path:
+        sys.path.insert(0, _layout_dir)
+    import routers.generate as gen_router
+    StorefrontSpecInput = gen_router.StorefrontSpecInput
+    StorefrontBundle = gen_router.StorefrontBundle
+    LayoutErrorResponse = gen_router.LayoutErrorResponse
 
-    test("StorefrontSpecInput model exists", True)
-    test("StorefrontBundle model exists", True)
-    test("LayoutErrorResponse model exists", True)
+    record_assertion("StorefrontSpecInput model exists", True)
+    record_assertion("StorefrontBundle model exists", True)
+    record_assertion("LayoutErrorResponse model exists", True)
 
     # Validate a real spec matches the input model
     try:
         StorefrontSpecInput(**FOOD_SPEC)
-        test("StorefrontSpecInput validates food spec", True)
+        record_assertion("StorefrontSpecInput validates food spec", True)
     except Exception as e:
-        test("StorefrontSpecInput validates food spec", False, str(e))
+        record_assertion("StorefrontSpecInput validates food spec", False, str(e))
 
     # ── 8. Provenance tracking ───────────────────────────────────
     print("\n-- 8. Provenance Tracking --")
@@ -267,7 +276,7 @@ def run_all():
             has_selector = bool(prov.get("source_selector"))
             has_adaptation = bool(prov.get("adaptation_notes"))
             ok = has_source and has_selector and has_adaptation
-            test(
+            record_assertion(
                 f"provenance({entry.get('variant_id', '?')})",
                 ok,
                 f"source={prov.get('source_url', 'NONE')}, selector={prov.get('source_selector', 'NONE')}",
@@ -275,10 +284,10 @@ def run_all():
             if ok:
                 prov_count += 1
 
-    test("total components with full provenance", prov_count > 0, f"{prov_count} components")
+    record_assertion("total components with full provenance", prov_count > 0, f"{prov_count} components")
 
     report_file = _Path(__file__).resolve().parents[3] / "data" / "provenance-report.html"
-    test("provenance-report.html generated", report_file.exists())
+    record_assertion("provenance-report.html generated", report_file.exists())
 
     # ── Summary ──────────────────────────────────────────────────
     print("\n" + "=" * 60)
@@ -288,7 +297,11 @@ def run_all():
     print(f"  RESULTS: {passed_count}/{total} passed, {failed_count} failed")
     print("=" * 60)
 
-    return failed == 0
+    return failed_count == 0
+
+
+def test_layout_service_suite():
+    assert run_all() is True
 
 
 if __name__ == "__main__":

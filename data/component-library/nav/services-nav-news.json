@@ -1,0 +1,29 @@
+{
+  "category": "services",
+  "section_type": "nav",
+  "variant_id": "services-nav-news",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://news.ycombinator.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://news.ycombinator.com",
+    "source_selector": "table:first-of-type tr:first-child",
+    "source_css_path": "body > table:first-of-type tr:first-child",
+    "source_html_snippet": "<tr><td bgcolor=\"#ff6600\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding:2px\"><tr> <td style=\"width:18px;padding-right:4px\"><a href=\"https://news.ycombinator.com\"><img src=\"y18.svg\" width=\"18\" height=\"18\" style=\"border:1px white solid; display:block\"></a></td> <td style=\"line-height:12pt; height:10px;\"><span class=\"pagetop\"><b class=\"hnname\"><a href=\"news\">Hacker New",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "td"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://news.ycombinator.com using selector table:first-of-type tr:first-child and adapted to StorefrontSpec context."
+  }
+}

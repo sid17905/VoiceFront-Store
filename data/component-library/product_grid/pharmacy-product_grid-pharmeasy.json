@@ -1,0 +1,32 @@
+{
+  "category": "pharmacy",
+  "section_type": "product_grid",
+  "variant_id": "pharmacy-product_grid-pharmeasy",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">\u20b9{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.pharmeasy.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.pharmeasy.in",
+    "source_selector": "[class*='menu']",
+    "source_css_path": "body > [class*='menu']",
+    "source_html_snippet": "<ul class=\"header-lib-Dropdown-module_menuList__QNBQl\"> <li><a href=\"https://pharmeasy.in/generics\" class=\"header-lib-Dropdown-module_menuItem__sCeaj\">Branded Substitute Medicines</a></li> <li><a href=\"https://pharmeasy.in/glp-1/\" class=\"header-lib-Dropdown-module_menuItem__sCeaj\">GLP-1 Medicines</a></li> <li><a href=\"https://pharmeasy.in/medicines-by-class/\" class=\"header-lib-Dropdown-module_menu",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "li",
+      "li",
+      "li",
+      "li"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.pharmeasy.in using selector [class*='menu'] and adapted to StorefrontSpec context."
+  }
+}

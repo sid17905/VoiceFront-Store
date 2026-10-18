@@ -1,0 +1,29 @@
+{
+  "category": "apparel",
+  "section_type": "product_grid",
+  "variant_id": "apparel-product_grid-nykaafashion",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">\u20b9{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.nykaafashion.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.nykaafashion.com",
+    "source_selector": "[class*='menu']",
+    "source_css_path": "body > [class*='menu']",
+    "source_html_snippet": "<div class=\"sub-menu\"><div class=\"wrapper\"> <div class=\"image-item\"><a target=\"_blank\" href=\"/lp/luxe?pageType=nf-luxe&amp;pageVariation=1&amp;root=topnav_1,more,1\"> <div class=\"css-19t3j5e\"></div></a></div> <div class=\"image-item\"><a target=\"_blank\" href=\"/lp/hidden-gems?pageType=nf-hidden-gems&amp;root=topnav_1,more,2\"><div class=\"css-19t3j5e\"></div></a></div> <div class=\"image-item\"><a target=\"",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.nykaafashion.com using selector [class*='menu'] and adapted to StorefrontSpec context."
+  }
+}

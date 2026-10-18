@@ -1,0 +1,115 @@
+{
+  "$comment": "Proof registry. One entry per step in docs/AGENT_CONTRACT.md. 'cmd' must exit 0 on success. 'skip_if' is optional: when it prints a truthy value, the step reports SKIP (not PASS).",
+  "steps": {
+    "G0": {
+      "title": "Record baseline test results",
+      "cmd": ["python", "scripts/record_baseline.py"],
+      "skip_if": null
+    },
+    "G2": {
+      "title": "Branch + tracked tree committed; no untracked source",
+      "cmd": ["python", "scripts/verify_step.py", "--git-clean"],
+      "skip_if": null
+    },
+    "S1": {
+      "title": "Jinja autoescape on: script tags in shop_name are escaped",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_xss.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "S2": {
+      "title": "JSON-LD parses for every category",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_jsonld.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "S3": {
+      "title": "version_id traversal rejected",
+      "cmd": ["python", "-m", "pytest", "tests/security/test_validators.py", "-q"],
+      "skip_if": null
+    },
+    "S4": {
+      "title": "SSRF guard rejects private/loopback/file URLs",
+      "cmd": ["python", "-m", "pytest", "tests/security/test_scrape_guard.py", "-q"],
+      "skip_if": null
+    },
+    "S5": {
+      "title": "No fingerprint global in rendered output",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_no_fingerprint.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "S6": {
+      "title": "No invented WhatsApp number when contact absent",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_contact_defaults.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "S7": {
+      "title": "Fallback renders a complete document when a template is missing",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_fallback.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "S8": {
+      "title": "price=None and location dict render without error",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_formatting.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "S9": {
+      "title": "Empty LAYOUT_TEMPLATE_DIR falls back to repo templates",
+      "cmd": ["python", "-m", "pytest", "tests/layout/test_template_dir.py", "-q"],
+      "skip_if": ["python", "-c", "import jinja2"]
+    },
+    "A1": {
+      "title": "No direct Groq HTTP calls outside the shared client",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "I-A5"],
+      "skip_if": null
+    },
+    "A2": {
+      "title": "All services use create_app; logging filter present",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "I-A2S"],
+      "skip_if": null
+    },
+    "A3": {
+      "title": "Generated schemas are in sync with Pydantic",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "schema-drift"],
+      "skip_if": null
+    },
+    "A4": {
+      "title": "No sys.path.insert hacks remain in services/packages",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "no-syspath"],
+      "skip_if": null
+    },
+    "Q1": {
+      "title": "httpx importable in qa-service requirements",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "qa-httpx"],
+      "skip_if": null
+    },
+    "Q3": {
+      "title": "Repair reduces critical violations on fixture-bad",
+      "cmd": ["python", "-m", "pytest", "services/qa-service/tests/unit/test_repair.py", "-q"],
+      "skip_if": ["python", "-c", "import bs4"]
+    },
+    "Q4": {
+      "title": "QA response includes repaired_html",
+      "cmd": ["python", "-m", "pytest", "services/qa-service/tests/unit/test_qa_response.py", "-q"],
+      "skip_if": null
+    },
+    "L4": {
+      "title": "Every template has lang=en, meta description, main landmark",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "template-page"],
+      "skip_if": null
+    },
+    "I2": {
+      "title": "Terraform validates (run only if terraform installed)",
+      "cmd": ["terraform", "validate", "-chdir=infra/terraform"],
+      "skip_if": ["terraform", "version"]
+    },
+    "F1": {
+      "title": "Flutter analyzers clean",
+      "cmd": ["flutter", "analyze", "--fatal-infos"],
+      "skip_if": ["flutter", "--version"]
+    },
+    "T7": {
+      "title": "pytest.ini restricts collection",
+      "cmd": ["python", "scripts/check_invariants.py", "--rule", "testpaths"],
+      "skip_if": null
+    }
+  }
+}

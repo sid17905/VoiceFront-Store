@@ -1,0 +1,27 @@
+{
+  "category": "electronics",
+  "section_type": "hero",
+  "variant_id": "electronics-hero-amazon",
+  "html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.amazon.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.amazon.in",
+    "source_selector": "h1",
+    "source_css_path": "body > h1",
+    "source_html_snippet": "<h1>JavaScript is disabled</h1>",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [],
+    "adaptation_notes": "Harvested via Scrapling from https://www.amazon.in using selector h1 and adapted to StorefrontSpec context."
+  }
+}

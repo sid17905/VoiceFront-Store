@@ -4,6 +4,9 @@ from pathlib import Path
 SERVICE_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = SERVICE_ROOT.parents[1]
 
-for p in (SERVICE_ROOT, REPO_ROOT / "packages"):
-    if str(p) not in sys.path:
-        sys.path.insert(0, str(p))
+sys.path.insert(0, str(SERVICE_ROOT))
+sys.path.insert(0, str(REPO_ROOT / "packages"))
+sys.path.insert(0, str(REPO_ROOT))
+
+if "core" in sys.modules:
+    del sys.modules["core"]

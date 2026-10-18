@@ -1,0 +1,29 @@
+{
+  "category": "pharmacy",
+  "section_type": "product_grid",
+  "variant_id": "pharmacy-product_grid-netmeds",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">\u20b9{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.netmeds.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.netmeds.com",
+    "source_selector": "[class*='menu']",
+    "source_css_path": "body > [class*='menu']",
+    "source_html_snippet": "<div class=\"d-header-topmenu\" data-v-460f3351 data-v-38354c36><div class=\"d-header-main\" data-v-460f3351 data-v-38354c36> <div class=\"d-header-container pin-code-section\" data-v-460f3351 data-v-38354c36> <div class=\"d-header-logo jm-cursor-pointer btn-hover\" data-v-460f3351 data-v-38354c36><a href=\"/\" class=\"router-link-exact-active router-link-active\" data-v-5d3bbc39 data-v-38354c36><div class=\"l",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.netmeds.com using selector [class*='menu'] and adapted to StorefrontSpec context."
+  }
+}

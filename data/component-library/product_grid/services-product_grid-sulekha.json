@@ -1,0 +1,31 @@
+{
+  "category": "services",
+  "section_type": "product_grid",
+  "variant_id": "services-product_grid-sulekha",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">\u20b9{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.sulekha.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.sulekha.com",
+    "source_selector": "[class*='menu']",
+    "source_css_path": "body > [class*='menu']",
+    "source_html_snippet": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokewidth=\"2\" strokelinecap=\"round\" strokelinejoin=\"round\" class=\"lucide lucide-menu w-6 h-6 lg:w-7 lg:h-7\" aria-label=\"Hamburger menu\" aria-haspopup=\"menu\"><line x1=\"4\" x2=\"20\" y1=\"12\" y2=\"12\"></line><line x1=\"4\" x2=\"20\" y1=\"6\" y2=\"6\"></line><line x1=\"4\" x2=\"20\" y1=\"18\" y2=\"18\"><",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "line",
+      "line",
+      "line"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector [class*='menu'] and adapted to StorefrontSpec context."
+  }
+}

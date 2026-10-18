@@ -1,0 +1,30 @@
+{
+  "category": "services",
+  "section_type": "nav",
+  "variant_id": "services-nav-justdial",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.justdial.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.justdial.com",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header id=\"comHead\" class=\"jsx-8a052174c7855875 jdheader jdheader_home\"><div class=\"jsx-8a052174c7855875 header_home header\"> <div class=\"jsx-8a052174c7855875 header_left\"><div class=\"jsx-8a052174c7855875 header_left_inner\"><a role=\"link\" class=\"jsx-8a052174c7855875 animate__animated header_jdlogo \" href=\"/\"><img src=\"https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd/jdlogosvg.svg\" alt=\"Justd",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div",
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.justdial.com using selector header and adapted to StorefrontSpec context."
+  }
+}

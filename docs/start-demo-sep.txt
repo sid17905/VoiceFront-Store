@@ -1,0 +1,17 @@
+1. Web Live Pipeline Visualizer Demo
+Step 1 — Start the Layout Service backend (Terminal 1):
+
+cd "F:\VoiceFront-Store!\services\layout-service"
+python -m uvicorn main:app --host 127.0.0.1 --port 8099
+Step 2 — Open the visualizer in your browser:
+
+Start-Process "F:\VoiceFront-Store!\docs\procedure\pipeline-visualizer.html"
+
+In a new terminal (Terminal 2):
+
+cd "F:\VoiceFront-Store!\voicefront"
+flutter pub get
+Run on your preferred target:
+
+# Run on your connected Android phone (V2303)
+flutter run -d V2303

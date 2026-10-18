@@ -1,0 +1,29 @@
+{
+  "category": "electronics",
+  "section_type": "nav",
+  "variant_id": "electronics-nav-vijaysales",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.vijaysales.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.vijaysales.com",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"experiencefragment aem-GridColumn aem-GridColumn--default--12\"><div id=\"experiencefragment-fad01fb319\" class=\"cmp-experiencefragment cmp-experiencefragment--header\"> <div id=\"container-716c1826d4\" class=\"cmp-container\"> <div class=\"aem-Grid aem-Grid--12 aem-Grid--default--12 \"> <div class=\"header aem-GridColumn aem-GridColumn--default--12\"> <div class=\"overlay\"></div> <header class=",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.vijaysales.com using selector header and adapted to StorefrontSpec context."
+  }
+}

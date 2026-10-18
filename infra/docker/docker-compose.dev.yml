@@ -1,0 +1,109 @@
+version: "3.8"
+
+x-common-env: &common-env
+  ENV: ${ENV:-dev}
+  ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8080}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+
+x-common-limits: &common-limits
+  deploy:
+    resources:
+      limits:
+        cpus: "1.0"
+        memory: 512M
+      reservations:
+        cpus: "0.25"
+        memory: 128M
+
+services:
+  asr-service:
+    build:
+      context: ../../
+      dockerfile: services/asr-service/Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      <<: *common-env
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+    volumes:
+      - ../../services/asr-service:/app/services/asr-service
+      - ../../packages:/app/packages
+    restart: unless-stopped
+    <<: *common-limits
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  nlp-service:
+    build:
+      context: ../../
+      dockerfile: services/nlp-service/Dockerfile
+    ports:
+      - "8002:8002"
+    environment:
+      <<: *common-env
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+    volumes:
+      - ../../services/nlp-service:/app/services/nlp-service
+      - ../../packages:/app/packages
+    restart: unless-stopped
+    <<: *common-limits
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  layout-service:
+    build:
+      context: ../../
+      dockerfile: services/layout-service/Dockerfile
+    ports:
+      - "8003:8003"
+    environment:
+      <<: *common-env
+    volumes:
+      - ../../services/layout-service:/app/services/layout-service
+      - ../../packages:/app/packages
+      - ../../data:/app/data
+    restart: unless-stopped
+    <<: *common-limits
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  qa-service:
+    build:
+      context: ../../
+      dockerfile: services/qa-service/Dockerfile
+    ports:
+      - "8004:8004"
+    environment:
+      <<: *common-env
+    volumes:
+      - ../../services/qa-service:/app/services/qa-service
+      - ../../packages:/app/packages
+      - ../../data:/app/data
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 30s

@@ -1,0 +1,31 @@
+{
+  "category": "apparel",
+  "section_type": "contact",
+  "variant_id": "apparel-contact-hm",
+  "html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.hm.com/in/",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.hm.com/in/",
+    "source_selector": "footer",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer class=\"db213d\"><div class=\"e35e69\"> <div class=\"f2e6cd\"> <nav aria-labelledby=\"Shop\"><h2 class=\"b5a343 d1ec7c ef391d\" id=\"Shop\">Shop</h2> <ul class=\"b176d9\"> <li class=\"fd6ac2\"><a class=\"ad0f23\" href=\"https://www2.hm.com/en_in/women.html\" target=\"_self\">Ladies</a></li> <li class=\"fd6ac2\"><a class=\"ad0f23\" href=\"https://www2.hm.com/en_in/men.html\" target=\"_self\">Men</a></li> <li class=\"fd6a",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div",
+      "div",
+      "section"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.hm.com/in/ using selector footer and adapted to StorefrontSpec context."
+  }
+}

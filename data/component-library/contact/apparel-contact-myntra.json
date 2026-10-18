@@ -1,0 +1,29 @@
+{
+  "category": "apparel",
+  "section_type": "contact",
+  "variant_id": "apparel-contact-myntra",
+  "html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.myntra.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.myntra.com",
+    "source_selector": "footer",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer class=\"desktop-footerContainer\" data-reactid=\"2\"><div data-reactid=\"3\"> <div class=\"desktop-genericInfo\" data-reactid=\"5\"> <div class=\"desktop-shopLinks\" data-reactid=\"6\"> <p class=\"desktop-gInfoTitle\" data-reactid=\"7\"><a href=\"/?src=onlineShopping\" data-reactid=\"8\"> ONLINE SHOPPING </a></p> <a href=\"/shop/men\" data-reactid=\"9\"> Men </a><a href=\"/shop/women\" data-reactid=\"13\"> Women </a><a",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.myntra.com using selector footer and adapted to StorefrontSpec context."
+  }
+}

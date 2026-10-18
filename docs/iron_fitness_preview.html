@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iron Fitness</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; background: #f8fafc; line-height: 1.6; }
+    header { background: #0f172a; color: #ffffff; padding: 2.5rem 1rem; text-align: center; }
+    header h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+    header p { color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .section-title { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem; border-left: 4px solid #2563eb; padding-left: 0.75rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .product-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); }
+    .product-card h3 { font-size: 1.15rem; font-weight: 600; color: #0f172a; margin-bottom: 0.5rem; }
+    .product-card .price { font-size: 1.25rem; font-weight: 700; color: #16a34a; margin-bottom: 0.5rem; }
+    .product-card .desc { font-size: 0.9rem; color: #64748b; }
+    .info-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); }
+    .info-box ul { list-style: none; }
+    .info-box li { padding: 0.5rem 0; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #334155; }
+    .info-box li:last-child { border-bottom: none; }
+    .cta-container { text-align: center; margin: 2.5rem 0; }
+    .whatsapp-btn { background: #25D366; color: #ffffff; text-decoration: none; padding: 0.875rem 2rem; border-radius: 8px; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: background 0.2s; }
+    .whatsapp-btn:hover { background: #20ba5a; }
+    footer { text-align: center; padding: 2rem; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid #e2e8f0; margin-top: 3rem; }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LocalBusiness",
+  "name":"Iron Fitness",
+  "description":"Create a premium gym named Iron Fitness in Mumbai with personal training for 2000 rupees",
+  "url":"https://wa.me/9876543210"}
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Iron Fitness</h1>
+    <p>Create a premium gym named Iron Fitness in Mumbai with personal training for 2000 rupees</p>
+  </header>
+  
+  <div class="container">
+    <div class="section-title">Featured Services & Plans</div>
+    <div class="product-grid">
+      <div class="product-card">
+        <h3>Personal Training Session</h3>
+        <div class="price">₹2,000.00</div>
+        <div class="desc">1-on-1 expert coaching and custom fitness programming</div>
+      </div>
+    </div>
+
+    <div class="section-title">Operating Hours</div>
+    <div class="info-box">
+      <ul>
+        <li>Mon-Sun: 6:00 AM - 10:00 PM</li>
+      </ul>
+    </div>
+
+    <div class="section-title">Location & Contact</div>
+    <div class="info-box">
+      <p><strong>Address:</strong> Main Street, Mumbai, Maharashtra - 400001</p>
+      <p><strong>Phone:</strong> +91 9876543210</p>
+    </div>
+
+    <div class="cta-container">
+      <a href="https://wa.me/9876543210" class="whatsapp-btn">
+        <span>Order / Book via WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Iron Fitness &mdash; Powered by VoiceFront Engine</p>
+  </footer>
+</body>
+</html>

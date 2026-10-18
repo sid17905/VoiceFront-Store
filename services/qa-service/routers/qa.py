@@ -46,7 +46,9 @@ SEED_BUNDLES_DIR = Path(__file__).resolve().parents[3] / "data" / "seed" / "rend
 # ---------------------------------------------------------------------------
 
 class QaRunRequest(BaseModel):
-    version_id: str
+    version_id: str | None = None
+    html: str | None = None
+    auto_repair: bool = False
 
 
 class QaViolationOut(BaseModel):
@@ -93,35 +95,49 @@ def _load_bundle_html(version_id: str) -> str:
 
 @router.post("/run", response_model=QaRunResponse)
 def run_qa(request: QaRunRequest) -> QaRunResponse:
-    html = _load_bundle_html(request.version_id)
+    if request.html:
+        html = request.html
+    elif request.version_id:
+        html = _load_bundle_html(request.version_id)
+    else:
+        raise QaViolationError("QA_INVALID_REQUEST", "Either version_id or html must be provided")
 
     rules = load_rules()
-    ranked_rules = rank_failure_risk(rules)  # PHASE 1: pass-through, see sort_engine.py
-    del ranked_rules  # not yet consumed by detect_engine.py -- Phase 3 wires this through
+    ranked_rules = rank_failure_risk(rules)
+    del ranked_rules
 
     start = time.monotonic()
     violations = detect_violations(html)
     elapsed_ms = (time.monotonic() - start) * 1000
 
+    repaired_count = 0
+    avg_repair_latency_ms = None
+    if request.auto_repair and violations:
+        from core.repair_engine import repair_violations
+        t0_rep = time.monotonic()
+        repair_results = repair_violations(violations, html)
+        repair_elapsed = (time.monotonic() - t0_rep) * 1000
+        repaired_count = sum(1 for r in repair_results if r.was_repaired)
+        if repaired_count > 0:
+            avg_repair_latency_ms = repair_elapsed / repaired_count
+            for r in repair_results:
+                if r.repaired_html and r.repaired_html != html:
+                    html = r.repaired_html
+            violations = detect_violations(html)
+
     total = len(violations)
-    critical_count = sum(1 for v in violations if v.severity == "critical")
-    # PHASE 1: no repair pass yet, so "passed" only when there are zero
-    # violations outright -- once repair_engine.py is wired in Phase 4, this
-    # becomes "0 critical AND minor count under the MVP budget" per Architect.md.
     passed = total == 0
 
-    status = "PASSED" if passed else "FAILED"
+    status = "PASSED" if passed else ("REPAIRED" if repaired_count > 0 else "FAILED")
 
     qa_report = QaReportOut(
         passed=passed,
         total_violations=total,
-        repaired_count=0,  # PHASE 1: repair not wired in yet
-        avg_repair_latency_ms=None,  # PHASE 1: nothing repaired to time
+        repaired_count=repaired_count,
+        avg_repair_latency_ms=avg_repair_latency_ms,
         violations=[QaViolationOut(**v.to_api_dict()) for v in violations],
     )
 
-    # avg detect latency isn't part of the wire contract, but useful in logs
-    # while validating the <800ms/violation and TTL targets later (testing.md).
-    _ = (elapsed_ms, critical_count)
+    _ = (elapsed_ms,)
 
     return QaRunResponse(qa_report=qa_report, status=status)

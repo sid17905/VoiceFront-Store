@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StorefrontSpec",
+  "description": "Schema for generated English retail storefront specifications",
+  "type": "object",
+  "required": ["shop_name", "category"],
+  "properties": {
+    "shop_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the retail business or storefront"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["food", "apparel", "electronics", "pharmacy", "services"],
+      "description": "Primary retail category determining layout and styling"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description or tagline of the business"
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "price": { "type": ["number", "string", "null"] },
+          "currency": { "type": "string", "default": "INR" },
+          "description": { "type": "string" },
+          "image_url": { "type": "string" }
+        }
+      },
+      "description": "List of products or services offered"
+    },
+    "hours": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Operating hours formatted as readable schedule strings"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "pincode": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" }
+      },
+      "description": "Store physical location details"
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "instagram": { "type": "string" }
+      },
+      "description": "Customer contact channels"
+    }
+  },
+  "additionalProperties": true
+}

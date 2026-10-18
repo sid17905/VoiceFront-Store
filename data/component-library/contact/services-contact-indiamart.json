@@ -1,0 +1,29 @@
+{
+  "category": "services",
+  "section_type": "contact",
+  "variant_id": "services-contact-indiamart",
+  "html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.indiamart.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.indiamart.com",
+    "source_selector": "footer",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer class=\"bg-[#0f172a] text-white py-12 px-6 md:px-12 font-sans\"><div class=\"max-w-[1440px] mx-auto\"> <div class=\"grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-5 pb-4\"> <div class=\"lg:col-span-2 space-y-6\"> <div class=\"flex items-center gap-2\"><a href=\"https://www.indiamart.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"IndiaMART\" title=\"IndiaMART\" class=\"footerpremium-logo\">India",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.indiamart.com using selector footer and adapted to StorefrontSpec context."
+  }
+}

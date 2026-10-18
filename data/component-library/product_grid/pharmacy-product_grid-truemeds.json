@@ -1,0 +1,53 @@
+{
+  "category": "pharmacy",
+  "section_type": "product_grid",
+  "variant_id": "pharmacy-product_grid-truemeds",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">\u20b9{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.truemeds.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.truemeds.in",
+    "source_selector": "main ul",
+    "source_css_path": "body > main ul",
+    "source_html_snippet": "<ul> <li>ECOSPRIN</li> <li>MET</li> <li>TELMA</li> <li>GALVUS</li> <li>BIOVAS</li> <li>GLYCOMET</li> <li>ATORVA</li> <li>ZARBOSE</li> <li>JANUMET</li> <li>GLYCOMET</li> <li>CIPCAL</li> <li>SHELCAL</li> <li>GEMER</li> <li>NEBICARD</li> <li>ROSEDAY</li> <li>NICARDIA</li> <li>CILACAR</li> <li>PROLOMET</li> <li>AMLOKIND</li> <li>NICOTEX</li> <li>AMARYL</li> <li>RABLET</li> <li>LEVIPIL</li> <li>PAN</li",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li",
+      "li"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.truemeds.in using selector main ul and adapted to StorefrontSpec context."
+  }
+}

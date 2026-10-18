@@ -17,6 +17,7 @@ class _ReviewEditScreenState extends State<ReviewEditScreen> {
   final whatsappController = TextEditingController(text: '9876543210');
   final price1Controller = TextEditingController(text: '180');
   final price2Controller = TextEditingController(text: '20');
+  final customImageController = TextEditingController(text: '');
   String category = 'Food & Beverages';
   final FlutterTts _flutterTts = FlutterTts();
 
@@ -27,6 +28,7 @@ class _ReviewEditScreenState extends State<ReviewEditScreen> {
     whatsappController.dispose();
     price1Controller.dispose();
     price2Controller.dispose();
+    customImageController.dispose();
     _flutterTts.stop();
     super.dispose();
   }
@@ -224,6 +226,11 @@ class _ReviewEditScreenState extends State<ReviewEditScreen> {
         _buildField(
           'City/Location',
           locationController,
+        ),
+        const SizedBox(height: 16),
+        _buildField(
+          'Custom Product Image URL / Previous Asset',
+          customImageController,
         ),
       ],
     );

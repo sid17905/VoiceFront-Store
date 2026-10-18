@@ -198,6 +198,108 @@ const COMPONENTS = {
       "our_css": "background: {{ colors.primary }}; color: #fff; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; letter-spacing: 2px;"
     },
     {
+      "variant_id": "apparel-nav-hm",
+      "section_type": "nav",
+      "source_url": "https://www.hm.com/in/",
+      "source_selector": "nav",
+      "source_css_path": "body > nav",
+      "source_html_snippet": "<nav class=\"ad76c1\" aria-label=\"Primary navigation\" id=\"sticky-header-component\"><div class=\"a16733\"> <div class=\"fabc91\"> <div class=\"d03040\"><a aria-label=\"H&amp;M\" data-testid=\"logo\" href=\"/en_in/index.html\" target=\"_self\" rel=\"noreferrer\" class=\"f3cfd4 b808ce b2cf27 eb0285 ee8447 bf7a95 e64038\"><span class=\"f70bb4\" aria-live=\"polite\">H&amp;M</span><span class=\"edadcc\"><svg viewbox=\"0 0 200 132",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.hm.com/in/ using selector nav and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-nav-myntra",
+      "section_type": "nav",
+      "source_url": "https://www.myntra.com",
+      "source_selector": "nav",
+      "source_css_path": "body > nav",
+      "source_html_snippet": "<nav class=\"desktop-navbar\" data-reactid=\"7\"><div class=\"desktop-navLinks\" data-reactid=\"8\"> <div class=\"desktop-navContent\" data-reactid=\"9\"><div class=\"desktop-navLink\" data-reactid=\"10\"> <a href=\"/shop/men\" data-index=\"0\" data-group=\"men\" data-color=\"#ee5f73\" data-type=\"navElements\" style=\"border-bottom-color:#ee5f73;\" class=\"desktop-main\" data-reactid=\"11\">Men</a><div class=\"desktop-backdropSt",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.myntra.com using selector nav and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-nav-nykaafashion",
+      "section_type": "nav",
+      "source_url": "https://www.nykaafashion.com",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header class=\"css-15nlcg3\"> <div class=\"css-3o7hyi\"> <div class=\"css-14vgx8w\"> <div class=\"css-wi9awt\"> <div class=\"bannerText css-w6eilf\"></div> <button class=\"css-1bxhd0t\" tabindex=\"0\" aria-label=\"Skip To Main Content\">Skip To Main Content</button><div class=\"sub-icons\"> <button tabindex=\"0\" role=\"button\" class=\"icon app-download css-lp097v\" color=\"#FFFFFFB8\"> <svg viewbox=\"0 0 24 24\" color=\"#F",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.nykaafashion.com using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-hero-hm",
+      "section_type": "hero",
+      "source_url": "https://www.hm.com/in/",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1 class=\"f70bb4 __9mFn\" aria-live=\"polite\">H&amp;M | Online Fashion, Homeware &amp; Kids Clothes | H&amp;M IN</h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.hm.com/in/ using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-hero-myntra",
+      "section_type": "hero",
+      "source_url": "https://www.myntra.com",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1><strong>ONLINE SHOPPING MADE EASY AT MYNTRA</strong></h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.myntra.com using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-hero-nykaafashion",
+      "section_type": "hero",
+      "source_url": "https://www.nykaafashion.com",
+      "source_selector": "[class*='banner']",
+      "source_css_path": "body > [class*='banner']",
+      "source_html_snippet": "<div class=\"bannerText css-w6eilf\"></div>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.nykaafashion.com using selector [class*='banner'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "apparel-hero-tagline",
       "section_type": "hero",
       "source_url": "https://www.snapdeal.com",
@@ -232,6 +334,57 @@ const COMPONENTS = {
       "our_css": "padding: 32px 24px; max-width: 1100px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; } .product-card { text-align: center; border: 1px solid #e8e8e8; padding: 20px; }"
     },
     {
+      "variant_id": "apparel-product_grid-nykaafashion",
+      "section_type": "product_grid",
+      "source_url": "https://www.nykaafashion.com",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<div class=\"sub-menu\"><div class=\"wrapper\"> <div class=\"image-item\"><a target=\"_blank\" href=\"/lp/luxe?pageType=nf-luxe&amp;pageVariation=1&amp;root=topnav_1,more,1\"> <div class=\"css-19t3j5e\"></div></a></div> <div class=\"image-item\"><a target=\"_blank\" href=\"/lp/hidden-gems?pageType=nf-hidden-gems&amp;root=topnav_1,more,2\"><div class=\"css-19t3j5e\"></div></a></div> <div class=\"image-item\"><a target=\"",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.nykaafashion.com using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-contact-hm",
+      "section_type": "contact",
+      "source_url": "https://www.hm.com/in/",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"db213d\"><div class=\"e35e69\"> <div class=\"f2e6cd\"> <nav aria-labelledby=\"Shop\"><h2 class=\"b5a343 d1ec7c ef391d\" id=\"Shop\">Shop</h2> <ul class=\"b176d9\"> <li class=\"fd6ac2\"><a class=\"ad0f23\" href=\"https://www2.hm.com/en_in/women.html\" target=\"_self\">Ladies</a></li> <li class=\"fd6ac2\"><a class=\"ad0f23\" href=\"https://www2.hm.com/en_in/men.html\" target=\"_self\">Men</a></li> <li class=\"fd6a",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.hm.com/in/ using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "apparel-contact-myntra",
+      "section_type": "contact",
+      "source_url": "https://www.myntra.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"desktop-footerContainer\" data-reactid=\"2\"><div data-reactid=\"3\"> <div class=\"desktop-genericInfo\" data-reactid=\"5\"> <div class=\"desktop-shopLinks\" data-reactid=\"6\"> <p class=\"desktop-gInfoTitle\" data-reactid=\"7\"><a href=\"/?src=onlineShopping\" data-reactid=\"8\"> ONLINE SHOPPING </a></p> <a href=\"/shop/men\" data-reactid=\"9\"> Men </a><a href=\"/shop/women\" data-reactid=\"13\"> Women </a><a",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.myntra.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "apparel-contact-minimal",
       "section_type": "contact",
       "source_url": "https://www.snapdeal.com",
@@ -251,6 +404,57 @@ const COMPONENTS = {
   ],
   "electronics": [
     {
+      "variant_id": "electronics-nav-flipkart",
+      "section_type": "nav",
+      "source_url": "https://www.flipkart.com",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header style=\"--sm-max-width:480px;--md-max-width:996px;--lg-max-width:1600px;margin:0 auto;max-width:1200px;position:relative\" class=\"Csk5Ae _1psv1ze30 _1psv1ze59 _1psv1ze9x _1psv1ze7o\"><div class=\"lfFUxn\" style=\"border-radius:12px\"> <div class=\"olwU0Z CXZSEo\" style=\"border:2px solid #2EA1FF;border-radius:12px;outline:1.6px;justify-content:space-between;padding:0 4px;background-color:#ffffff\"><f",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.flipkart.com using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-nav-reliancedigital",
+      "section_type": "nav",
+      "source_url": "https://www.reliancedigital.in",
+      "source_selector": ".header",
+      "source_css_path": "body > .header",
+      "source_html_snippet": "<div class=\"header scroll-pincode\" style=\"background-color:#E32729;color:#FFFFFF;\" data-v-cd32fc60><div data-v-cd32fc60> <div class=\"header-core-root\" data-v-715e8dd0 data-v-cd32fc60> <div class=\"nav-text-container full-width-container\" data-v-715e8dd0> <div class=\"nav-icon desktop-only\" style=\"background-color:#E32729;\" data-v-715e8dd0><a tabindex=\"0\" href=\"https://www.reliancedigital.in/c/order/",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.reliancedigital.in using selector .header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-nav-vijaysales",
+      "section_type": "nav",
+      "source_url": "https://www.vijaysales.com",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header class=\"experiencefragment aem-GridColumn aem-GridColumn--default--12\"><div id=\"experiencefragment-fad01fb319\" class=\"cmp-experiencefragment cmp-experiencefragment--header\"> <div id=\"container-716c1826d4\" class=\"cmp-container\"> <div class=\"aem-Grid aem-Grid--12 aem-Grid--default--12 \"> <div class=\"header aem-GridColumn aem-GridColumn--default--12\"> <div class=\"overlay\"></div> <header class=",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.vijaysales.com using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "electronics-nav-tech",
       "section_type": "nav",
       "source_url": "https://www.flipkart.com",
@@ -266,6 +470,74 @@ const COMPONENTS = {
       "adaptation_notes": "Derived from Flipkart's header: kept bold font-weight + flex layout, replaced category links with shop-specific nav (Products/Hours/Contact)",
       "our_html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#products\">Products</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
       "our_css": "background: {{ colors.primary }}; color: #fff; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; font-weight: 700;"
+    },
+    {
+      "variant_id": "electronics-hero-amazon",
+      "section_type": "hero",
+      "source_url": "https://www.amazon.in",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1>JavaScript is disabled</h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.amazon.in using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-hero-croma",
+      "section_type": "hero",
+      "source_url": "https://www.croma.com",
+      "source_selector": "[class*='banner']",
+      "source_css_path": "body > [class*='banner']",
+      "source_html_snippet": "<div class=\"cp-rotational-banner PWAHomepageRotatingBannerComponent\" style=\"padding-bottom:15px\" data-testid=\"banner-rotational\"><div class=\"swiper-container rotating-banner rotating-banner-maxWidth\" data-testid=\"banner-list\" style=\"min-height:150px\"> <div class=\"swiper-wrapper\"> <div class=\"swiper-slide\" data-testid=\"banner-item\"><div class=\"img-wrapper\" style=\"cursor:pointer\"> <div class=\"label-",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.croma.com using selector [class*='banner'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-hero-flipkart",
+      "section_type": "hero",
+      "source_url": "https://www.flipkart.com",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1 dir=\"auto\" role=\"heading\" class=\"css-146c3p1 r-dnmrzs r-1udh08x r-1udbk01 r-3s2u2q r-1iln25a r-1b1g84l r-tuq35u r-u8s1d r-q4m81j r-1r0gou5\" style=\"font-size:14px;line-height:16px;font-family:inter_bold;transform:translateY(1px)\">For You</h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.flipkart.com using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-hero-vijaysales",
+      "section_type": "hero",
+      "source_url": "https://www.vijaysales.com",
+      "source_selector": "[class*='banner']",
+      "source_css_path": "body > [class*='banner']",
+      "source_html_snippet": "<div class=\"vscontainer menu-banner-wrapper\"> <div id=\"vscontainer-8cfc125e61\" class=\"cmp-container \"> <div class=\"vscontainer menu-two-cards-banner-var-flex\"> <div id=\"vscontainer-a5326f927a\" class=\"cmp-container \"> <div class=\"vscontainer menu-flex-column full-cover-image-var-two\"> <div id=\"vscontainer-4e504ae213\" class=\"cmp-container \" target=\"_self\"> <div class=\"vsImage image extented-image\"> ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.vijaysales.com using selector [class*='banner'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
     },
     {
       "variant_id": "electronics-hero-specs",
@@ -300,6 +572,74 @@ const COMPONENTS = {
       "adaptation_notes": "Derived from Flipkart's product grid: kept compact card layout with border-radius:4px + flex column, removed images (voice-first), kept price styling with bold accent color",
       "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Products\"><h2>Our Products</h2><div class=\"product-grid\">{% for product in products %}<div class=\"product-card\"><h3>{{ product.name }}</h3><p class=\"price\">₹{{ \"%.0f\" | format(product.price) }}</p>{% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}</div>{% endfor %}</div></section>",
       "our_css": "padding: 24px 16px; max-width: 1100px; margin: 0 auto; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; } .product-card { border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }"
+    },
+    {
+      "variant_id": "electronics-product_grid-croma",
+      "section_type": "product_grid",
+      "source_url": "https://www.croma.com",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<div class=\"order-wrap-menu show-on-desktop menu-heading\" data-testid=\"open-desktop-menu\"> <span class=\"menu-icon-hamb\"></span><span> Menu</span> </div>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.croma.com using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-product_grid-reliancedigital",
+      "section_type": "product_grid",
+      "source_url": "https://www.reliancedigital.in",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<div context=\"[object Object]\" browser_meta=\"[object Object]\" theme_data=\"[object Object]\" apisdk=\"[object Object]\" class=\"section-comp menu-category-wrapper\" data-v-c4707712 data-v-419eb4ab><div class=\"menu-loading\" data-v-c4707712><div class=\"menu-card-container\" data-v-c4707712> <div class=\"menu-wrapper\" data-v-c4707712> <div class=\"menu-card-loading animate\" data-v-c4707712></div> <div class=\"",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.reliancedigital.in using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-product_grid-vijaysales",
+      "section_type": "product_grid",
+      "source_url": "https://www.vijaysales.com",
+      "source_selector": "[class*='products']",
+      "source_css_path": "body > [class*='products']",
+      "source_html_snippet": "<div class=\"vscontainer d-none bestSelling__products\"> <div id=\"vscontainer-89e199cb8a\" class=\"cmp-container \"> <div class=\"text\"> <div data-cmp-data-layer='{\"text-c35baef79a\":{\"@type\":\"vijaysaleswebsite/components/text\",\"repo:modifyDate\":\"2025-02-28T07:30:21Z\",\"xdm:text\":\"&lt;p&gt;Best Selling Products&lt;/p&gt;\r\n\"}}' id=\"text-c35baef79a\" class=\"cmp-text\"> <p>Best Selling Products</p> </div> </",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.vijaysales.com using selector [class*='products'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "electronics-contact-flipkart",
+      "section_type": "contact",
+      "source_url": "https://www.flipkart.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"wzLzb3\"><div class=\"VND23C\"><div> <div class=\"x3q9HG\"> <div> <div class=\"ykJuJZ\">ABOUT</div> <a href=\"/helpcentre?otracker=footer_navlinks\" class=\"XnhcQm\" aria-label=\"Contact Us\">Contact Us</a><a href=\"https://corporate.flipkart.net/corporate-home\" class=\"XnhcQm\" aria-label=\"About Us\">About Us</a><a href=\"https://www.flipkartcareers.com/?otracker=footer_navlinks\" class=\"XnhcQm\" aria",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.flipkart.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
     },
     {
       "variant_id": "electronics-contact-support",
@@ -372,6 +712,57 @@ const COMPONENTS = {
       "our_css": "background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.15);"
     },
     {
+      "variant_id": "food-hero-httpbin",
+      "section_type": "hero",
+      "source_url": "https://httpbin.org/html",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1>Herman Melville - Moby-Dick</h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://httpbin.org/html using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "food-hero-swiggy",
+      "section_type": "hero",
+      "source_url": "https://www.swiggy.com",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1>JavaScript is disabled</h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.swiggy.com using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "food-hero-zomato",
+      "section_type": "hero",
+      "source_url": "https://www.zomato.com",
+      "source_selector": "h1",
+      "source_css_path": "body > h1",
+      "source_html_snippet": "<h1 class=\"mb-4 whitespace-pre-line px-5 text-center text-[26px] leading-8 font-semibold\">India’s #1<br>food delivery app</h1>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.zomato.com using selector h1 and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "food-hero-split",
       "section_type": "hero",
       "source_url": "https://www.dominos.co.in",
@@ -440,6 +831,23 @@ const COMPONENTS = {
       "our_css": "padding: 24px 16px; max-width: 900px; margin: 0 auto;"
     },
     {
+      "variant_id": "food-product_grid-zomato",
+      "section_type": "product_grid",
+      "source_url": "https://www.zomato.com",
+      "source_selector": ".grid",
+      "source_css_path": "body > .grid",
+      "source_html_snippet": "<div class=\"relative grid h-[--app-height] max-h-[900px] min-h-[--app-height] grid-cols-1 grid-rows-2 opacity-100 transition-opacity duration-300 will-change-[opacity]\"> <div class=\"relative w-full transition-transform ease-linear will-change-transform \"> <div class=\"relative overflow-hidden\"> <div class=\"object-cover w-full aspect-[1125/1494]\"><img src=\"data:image/svg+xml,...\" alt=\"Zomato logo (l",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.zomato.com using selector .grid and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "food-contact-card",
       "section_type": "contact",
       "source_url": "https://www.dominos.co.in",
@@ -455,6 +863,23 @@ const COMPONENTS = {
       "adaptation_notes": "Centered direct-order business card variant emphasizing zero platform fees and one-tap WhatsApp link.",
       "our_html": "<section class=\"contact\" id=\"contact\" aria-label=\"Store contact\" style=\"background:#fff;padding:28px 20px;border-radius:12px;border:1px solid #eee;margin:32px auto;max-width:800px;box-shadow:0 4px 16px rgba(0,0,0,0.06);text-align:center;\"><h2 style=\"font-size:1.3rem;margin-bottom:6px;color:{{ colors.primary }};\">Order Direct From {{ shop_name }}</h2><p style=\"font-size:0.95rem;color:#666;margin-bottom:20px;\">Instant confirmation on WhatsApp with zero platform commissions.</p><div style=\"display:flex;justify-content:center;gap:12px;flex-wrap:wrap;\">{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:700;\"><span>💬</span> WhatsApp Order</a>{% endif %}{% if contact.phone %}<a href=\"tel:{{ contact.phone }}\" style=\"display:inline-flex;align-items:center;gap:8px;background:{{ colors.secondary }};color:{{ colors.primary }};text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;\"><span>📞</span> Call Store</a>{% endif %}</div></section>",
       "our_css": "max-width: 900px; margin: 0 auto;"
+    },
+    {
+      "variant_id": "food-contact-zomato",
+      "section_type": "contact",
+      "source_url": "https://www.zomato.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"px-5 pt-4 text-white lg:mx-auto lg:max-w-[834px] lg:pt-20 xl:max-w-[949px]\"><div class=\"flex w-full items-center justify-start py-6\"><img class=\"h-8 lg:h-9\" src=\"https://b.zmtcdn.com/web_assets/8313a97515fcb0447d2d77c276532a511583262271.png\" alt=\"Zomato Logo\"></div> <div class=\"py-6\"><div class=\"grid grid-cols-2 gap-6 text-xs font-normal text-zSlate500 md:grid-cols-5\"> <div class=\"o",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.zomato.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
     },
     {
       "variant_id": "food-contact-whatsapp",
@@ -493,6 +918,142 @@ const COMPONENTS = {
       "our_css": "background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;"
     },
     {
+      "variant_id": "pharmacy-nav-apollo247",
+      "section_type": "nav",
+      "source_url": "https://www.apollo247.com",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header class=\"HeaderNew_header__udy_w \" id=\"fixedHeaderCT\"><div class=\"HeaderNew_headerContent__Y99H1\"> <div class=\"HeaderNew_headerTop__tz04l\"> <div class=\"HeaderNew_headerTopLeft__tGN7M\"><div class=\"HeaderNew_logoWrapper__rY8XI\"><a title=\"Home\" class=\"HeaderNew_logoOnly__0oTah\" href=\"/\"><img srcset=\"https://images.apollo247.in/images/icons/apollo247.svg?tr=q-80,w-100,dpr-1,c-at_max 100w, https:",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.apollo247.com using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-nav-pharmeasy",
+      "section_type": "nav",
+      "source_url": "https://www.pharmeasy.in",
+      "source_selector": "nav",
+      "source_css_path": "body > nav",
+      "source_html_snippet": "<nav class=\"header-lib-Navigation-module_navigation__uPjS1\"><ul class=\"header-lib-Navigation-module_navList__MMU63\"> <li class=\"header-lib-Navigation-module_navItem__atUmU\"> <a href=\"/online-medicine-order?src=homecard\" class=\"header-lib-Navigation-module_navLink__JypGJ\"><img src=\"https://assets.pharmeasy.in/apothecary/images/ic_order_med.svg\" alt=\"Medicine\" class=\"header-lib-Navigation-module_nav",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.pharmeasy.in using selector nav and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-nav-truemeds",
+      "section_type": "nav",
+      "source_url": "https://www.truemeds.in",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header class=\"sc-d88fc83b-1 fNYXqY animate__animated animate__fadeInDown animate__faster\"><div class=\"sc-d88fc83b-4 eanYzB\"><img alt=\"left_med\" fetchpriority=\"high\" width=\"100\" height=\"240\" decoding=\"async\" data-nimg=\"1\" style=\"color:transparent\" src=\"https://assets.truemeds.in/Images/static/bannerSectionLeft.svg\"></div> <div class=\"sc-d88fc83b-5 druDkA\"> <img alt=\"right_med\" fetchpriority=\"high\"",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.truemeds.in using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-hero-1mg",
+      "section_type": "hero",
+      "source_url": "https://www.1mg.com",
+      "source_selector": "[class*='hero']",
+      "source_css_path": "body > [class*='hero']",
+      "source_html_snippet": "<div class=\"flex fullWidth HeroBanner-module__heroBannerContainer___BF9-N\"> <div style=\"width:66.6%\"><div> <div class=\"BannerWidgetCarouselAutoScroll-module__carousel___G-GZK\"><div class=\"BannerWidgetCarouselAutoScroll-module__inner___fZ9VH\" style=\"transform:translateX(0%)\"> <div class=\"BannerWidgetCarouselAutoScroll-module__carouselItem___s0MhI BannerWidgetCarouselAutoScroll-module__carouselItemA",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.1mg.com using selector [class*='hero'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-hero-apollo247",
+      "section_type": "hero",
+      "source_url": "https://www.apollo247.com",
+      "source_selector": "[class*='banner']",
+      "source_css_path": "body > [class*='banner']",
+      "source_html_snippet": "<div class=\"BannerSection_bannerMainSection__PAykO BannerSection_p0m0__uTBon\" style=\"margin-bottom:24px\"><div class=\"Cl_ \" style=\"height:240px\"><a class=\"Dl_\" aria-label=\"Banner\"><img srcset=\"https://images.apollo247.in/images/category/transparent-pricing-web-pharmacy-2x.png?tr=q-80,f-webp,w-1450,dpr-1,c-at_max 1450w, https://images.apollo247.in/images/category/transparent-pricing-web-pharmacy-2x.",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.apollo247.com using selector [class*='banner'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-hero-netmeds",
+      "section_type": "hero",
+      "source_url": "https://www.netmeds.com",
+      "source_selector": "[class*='hero']",
+      "source_css_path": "body > [class*='hero']",
+      "source_html_snippet": "<div browser_meta=\"[object Object]\" theme_data=\"[object Object]\" global_config=\"[object Object]\" apisdk=\"[object Object]\" class=\"section-main-container heroBanner desktop-dot\" data-v-38e0d846 data-v-6ad7e022><div class=\"slick-carousel-wrapper category-slider\" data-v-472f3afa data-v-38e0d846><div class=\"carousel-container\" data-v-472f3afa> <div dir=\"ltr\" class=\"slick-slider slick-initialized\" data-",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.netmeds.com using selector [class*='hero'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-hero-pharmeasy",
+      "section_type": "hero",
+      "source_url": "https://www.pharmeasy.in",
+      "source_selector": "[class*='hero']",
+      "source_css_path": "body > [class*='hero']",
+      "source_html_snippet": "<div class=\"typeahead-lib-Typeahead-module_searchWrapper__kIYae style_heroSearchWrapper__X6mrz\"><div class=\"typeahead-lib-Typeahead-module_inputWrapper__RFlte style_heroInputWrapper__gbt8S\"> <button class=\"typeahead-lib-Typeahead-module_searchIcon__tYHFj\" type=\"button\" aria-label=\"Search\"><svg width=\"25\" height=\"25\" viewbox=\"0 0 24 24\" fill=\"none\"><path d=\"M16.4895 15.5071C16.2159 15.2339 15.7727 ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.pharmeasy.in using selector [class*='hero'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-hero-truemeds",
+      "section_type": "hero",
+      "source_url": "https://www.truemeds.in",
+      "source_selector": "[class*='hero']",
+      "source_css_path": "body > [class*='hero']",
+      "source_html_snippet": "<img alt=\"hp_top_banner_pr1\" fetchpriority=\"high\" width=\"300\" height=\"298\" decoding=\"async\" data-nimg=\"1\" class=\"hero-banner-img\" style=\"color:transparent\" src=\"https://assets.truemeds.in/Images/BrandedBanners/DwebHomepageCropped.png?width=320\">",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.truemeds.in using selector [class*='hero'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "pharmacy-hero-prescription",
       "section_type": "hero",
       "source_url": "https://pharmeasy.in",
@@ -527,6 +1088,108 @@ const COMPONENTS = {
       "our_css": "padding: 24px 16px; max-width: 1000px; margin: 0 auto;"
     },
     {
+      "variant_id": "pharmacy-product_grid-apollo247",
+      "section_type": "product_grid",
+      "source_url": "https://www.apollo247.com",
+      "source_selector": "main ul",
+      "source_css_path": "body > main ul",
+      "source_html_snippet": "<ul class=\"HeaderNew_IconNavigationList__7rDIp\"><li><div id=\"loginPopup\" title=\"Login/SignUp\"> <span class=\"HeaderNew_icon__hUcmn HeaderNew_userIcon__8ZXkS HeaderNew_onlyMweb__6X6lE icon-userIcon\"></span><div class=\"HeaderNew_loginCta__YoPF0 HeaderNew_onlyDesktop__F_0qk\"> <span class=\"HeaderNew_loginCTATxt__nYlvD\">Login</span><span class=\"HeaderNew_icon__hUcmn HeaderNew_userIcon__8ZXkS icon-userIc",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.apollo247.com using selector main ul and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-product_grid-netmeds",
+      "section_type": "product_grid",
+      "source_url": "https://www.netmeds.com",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<div class=\"d-header-topmenu\" data-v-460f3351 data-v-38354c36><div class=\"d-header-main\" data-v-460f3351 data-v-38354c36> <div class=\"d-header-container pin-code-section\" data-v-460f3351 data-v-38354c36> <div class=\"d-header-logo jm-cursor-pointer btn-hover\" data-v-460f3351 data-v-38354c36><a href=\"/\" class=\"router-link-exact-active router-link-active\" data-v-5d3bbc39 data-v-38354c36><div class=\"l",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.netmeds.com using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-product_grid-pharmeasy",
+      "section_type": "product_grid",
+      "source_url": "https://www.pharmeasy.in",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<ul class=\"header-lib-Dropdown-module_menuList__QNBQl\"> <li><a href=\"https://pharmeasy.in/generics\" class=\"header-lib-Dropdown-module_menuItem__sCeaj\">Branded Substitute Medicines</a></li> <li><a href=\"https://pharmeasy.in/glp-1/\" class=\"header-lib-Dropdown-module_menuItem__sCeaj\">GLP-1 Medicines</a></li> <li><a href=\"https://pharmeasy.in/medicines-by-class/\" class=\"header-lib-Dropdown-module_menu",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.pharmeasy.in using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-product_grid-truemeds",
+      "section_type": "product_grid",
+      "source_url": "https://www.truemeds.in",
+      "source_selector": "main ul",
+      "source_css_path": "body > main ul",
+      "source_html_snippet": "<ul> <li>ECOSPRIN</li> <li>MET</li> <li>TELMA</li> <li>GALVUS</li> <li>BIOVAS</li> <li>GLYCOMET</li> <li>ATORVA</li> <li>ZARBOSE</li> <li>JANUMET</li> <li>GLYCOMET</li> <li>CIPCAL</li> <li>SHELCAL</li> <li>GEMER</li> <li>NEBICARD</li> <li>ROSEDAY</li> <li>NICARDIA</li> <li>CILACAR</li> <li>PROLOMET</li> <li>AMLOKIND</li> <li>NICOTEX</li> <li>AMARYL</li> <li>RABLET</li> <li>LEVIPIL</li> <li>PAN</li",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.truemeds.in using selector main ul and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-contact-apollo247",
+      "section_type": "contact",
+      "source_url": "https://www.apollo247.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"Footer_footerContainer__1Dvy2 Footer_super6Footer__DKTF8 \"><div class=\"Footer_containerNew__eGG4c \"><div class=\"Footer_footerContent__QQ0Yh \"> <div class=\"Footer_accordionContainer__hFpVl \"> <div class=\"Footer_accordion__Bw2ZA\"> <div class=\"Footer_accordionHeader__sPkVC\"> <span class=\"Footer_expandIcon__nK8f3 Footer_active__oZ6DS\"></span><h3 class=\"Footer_title__7ywZX\">About Apollo ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.apollo247.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "pharmacy-contact-netmeds",
+      "section_type": "contact",
+      "source_url": "https://www.netmeds.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"footer-info\" data-v-234424d4 data-v-5a6e9c14><div data-v-001e01b0 data-v-234424d4> <div class=\"footer-netmeds-config\" data-v-001e01b0 data-v-234424d4> <img src=\"https://cdn.netmeds.tech/v2/plain-cake-860195/original/storefront/images/footer_logo.png\" data-v-001e01b0 data-v-234424d4><div class=\"jm-body-m jm-fc-primary-gray-80\" data-v-001e01b0 data-v-234424d4>Netmeds.com is one of Ind",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.netmeds.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "pharmacy-contact-delivery",
       "section_type": "contact",
       "source_url": "https://pharmeasy.in",
@@ -546,6 +1209,108 @@ const COMPONENTS = {
   ],
   "services": [
     {
+      "variant_id": "services-nav-housing",
+      "section_type": "nav",
+      "source_url": "https://www.housing.com",
+      "source_selector": "nav",
+      "source_css_path": "body > nav",
+      "source_html_snippet": "<nav data-q=\"service\" class=\"css-k008qs\"> <a data-q=\"active\" class=\"search-tab search-active-tab css-1rcmzf8\" href=\"/in/buy/real-estate-mumbai\" target=\"_self\">Buy</a> <a data-q=\"false\" class=\"search-tab css-18w4akt\" href=\"/rent/property-for-rent-in-mumbai\" target=\"_self\">Rent</a><a data-q=\"false\" class=\"search-tab css-18w4akt\" href=\"/commercial/commercial-real-estate-in-mumbai\" target=\"_self\">Comm",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.housing.com using selector nav and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-nav-indiamart",
+      "section_type": "nav",
+      "source_url": "https://www.indiamart.com",
+      "source_selector": "nav",
+      "source_css_path": "body > nav",
+      "source_html_snippet": "<nav class=\"im-header-desktop-nav flex items-center\"><section id=\"exporters\" class=\"im-header-top-nav-item shrink-0\"><a href=\"https://export.indiamart.com/?VElogo=1\" class=\"im-header-top-link !hidden md:!flex\"><span class=\"im-header-sprite-icon im-header-sprite-icon--exporters\" aria-hidden=\"true\"></span><span class=\"im-header-top-link-label\">Exporters</span></a></section><section class=\"im-header-",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.indiamart.com using selector nav and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-nav-justdial",
+      "section_type": "nav",
+      "source_url": "https://www.justdial.com",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header id=\"comHead\" class=\"jsx-8a052174c7855875 jdheader jdheader_home\"><div class=\"jsx-8a052174c7855875 header_home header\"> <div class=\"jsx-8a052174c7855875 header_left\"><div class=\"jsx-8a052174c7855875 header_left_inner\"><a role=\"link\" class=\"jsx-8a052174c7855875 animate__animated header_jdlogo \" href=\"/\"><img src=\"https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd/jdlogosvg.svg\" alt=\"Justd",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.justdial.com using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-nav-news",
+      "section_type": "nav",
+      "source_url": "https://news.ycombinator.com",
+      "source_selector": "table:first-of-type tr:first-child",
+      "source_css_path": "body > table:first-of-type tr:first-child",
+      "source_html_snippet": "<tr><td bgcolor=\"#ff6600\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding:2px\"><tr> <td style=\"width:18px;padding-right:4px\"><a href=\"https://news.ycombinator.com\"><img src=\"y18.svg\" width=\"18\" height=\"18\" style=\"border:1px white solid; display:block\"></a></td> <td style=\"line-height:12pt; height:10px;\"><span class=\"pagetop\"><b class=\"hnname\"><a href=\"news\">Hacker New",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://news.ycombinator.com using selector table:first-of-type tr:first-child and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-nav-sulekha",
+      "section_type": "nav",
+      "source_url": "https://www.sulekha.com",
+      "source_selector": "header",
+      "source_css_path": "body > header",
+      "source_html_snippet": "<header class=\"flex justify-between items-center h-16 p-4 sticky top-0 z-50 bg-[#2b2d5b]\"><div class=\"container mx-auto flex w-full sm:w-11/12 2xl:w-4/5 items-center\"> <div class=\"flex items-center gap-2 lg:gap-4\"> <div class=\"p-0\"> <div id=\"hammenu\" class=\"cursor-pointer p-1 text-white\" type=\"button\"> <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" s",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-nav-urbancompany",
+      "section_type": "nav",
+      "source_url": "https://www.urbancompany.com",
+      "source_selector": "#header",
+      "source_css_path": "body > #header",
+      "source_html_snippet": "<div class=\"css-175oi2r r-1awozwy r-qklmqi r-aci1zz r-p1pxzi r-1mnahxq r-1l7z4oj r-puj83k r-11g3r6m r-95jzfe r-13qz1uu r-1wv73ep r-14lw9ot r-6koalj r-eqz5dr r-gtdqiz r-ipm5af r-184en5c\" id=\"header\"><div class=\"css-175oi2r\" style=\"max-width:1232px;width:100%;opacity:1\"><div data-fluid-table=\"\" class=\"css-175oi2r r-1niwhzg r-6koalj r-18u37iz r-1xnpdrn r-13qz1uu\"><div class=\"css-175oi2r r-6koalj r-18",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.urbancompany.com using selector #header and adapted to StorefrontSpec context.",
+      "our_html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "services-nav-pro",
       "section_type": "nav",
       "source_url": "https://www.indiamart.com",
@@ -561,6 +1326,91 @@ const COMPONENTS = {
       "adaptation_notes": "Derived from IndiaMART's header: kept professional B2B layout + indigo/navy palette, replaced multi-category search with shop-specific service links",
       "our_html": "<nav class=\"nav\" aria-label=\"Main navigation\"><h1>{{ shop_name }}</h1><div class=\"nav-links\"><a href=\"#services\">Services</a><a href=\"#hours\">Hours</a><a href=\"#contact\">Contact</a></div></nav>",
       "our_css": "background: {{ colors.primary }}; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;"
+    },
+    {
+      "variant_id": "services-hero-housing",
+      "section_type": "hero",
+      "source_url": "https://www.housing.com",
+      "source_selector": "[class*='banner']",
+      "source_css_path": "body > [class*='banner']",
+      "source_html_snippet": "<div class=\"banner-content css-su4dqx\"> <h1 class=\"css-18qurmn\">Properties to buy in <strong class=\"bold\">Mumbai</strong> </h1> <p class=\"css-s4sebb\"><span class=\"subtitleBold\">6K+</span> listings added daily and <span class=\"subtitleBold\">79K+</span> total verified</p> <div class=\"search-wrap css-1dqu0j5\"> <nav data-q=\"service\" class=\"css-k008qs\"> <a data-q=\"active\" class=\"search-tab search-activ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.housing.com using selector [class*='banner'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-hero-indiamart",
+      "section_type": "hero",
+      "source_url": "https://www.indiamart.com",
+      "source_selector": "[class*='hero']",
+      "source_css_path": "body > [class*='hero']",
+      "source_html_snippet": "<div class=\"hero-trending-band\"> <div class=\"hero-band\"> <h1 class=\"hero-band-title\"> <span class=\"hero-band-title-light\">India's Largest Online</span> <span class=\"hero-band-title-strong\">B2B Marketplace</span> </h1> <div class=\"hero-band-row\"> <p class=\"hero-band-desc\">Connecting 21 Cr+ Buyers with Trusted Sellers</p> <div class=\"hero-band-ctas\"> <div id=\"qaPostRequirement\" class=\"hero-band-cta ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.indiamart.com using selector [class*='hero'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-hero-justdial",
+      "section_type": "hero",
+      "source_url": "https://www.justdial.com",
+      "source_selector": "[class*='banner']",
+      "source_css_path": "body > [class*='banner']",
+      "source_html_snippet": "<ul class=\"home_rowbox home_row_1 home_bannerbox mb-50\" role=\"list\" data-tracker-id=\"banners\"> <li class=\"home_banner_li pointer home_banner_swiper font11\"><div class=\"slide_show\" id=\"slideshow\"> <ul id=\"slides\" class=\"slide_list animate-undefined\"> <li tabindex=\"0\" role=\"button\" aria-hidden=\"false\" class=\"slide sliders focus-visible \"><span class=\"slide_anchor\" title=\"Get Loans Against Property, ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.justdial.com using selector [class*='banner'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-hero-sulekha",
+      "section_type": "hero",
+      "source_url": "https://www.sulekha.com",
+      "source_selector": "main > section:first-of-type",
+      "source_css_path": "body > main > section:first-of-type",
+      "source_html_snippet": "<section id=\"pinboard\" aria-labelledby=\"home-pinboard-heading\" class=\"container mx-auto flex w-full sm:w-11/12 2xl:w-4/5 flex-col p-4 py-6 md:py-12\"><div class=\"flex w-full flex-col gap-3 sm:flex-row sm:items-end sm:justify-between mb-4 md:mb-6\"> <div class=\"flex flex-col\"> <h2 id=\"home-pinboard-heading\" class=\"font-bold text-xl\">Get inspired on Pinboard</h2> <img alt=\"\" width=\"100\" height=\"6\" dec",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector main > section:first-of-type and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-hero-urbancompany",
+      "section_type": "hero",
+      "source_url": "https://www.urbancompany.com",
+      "source_selector": "main > section:first-of-type",
+      "source_css_path": "body > main > section:first-of-type",
+      "source_html_snippet": "<section id=\"carn-screens\" class=\"orion-screen \"><div id=\"homescreen\" class=\"orion-screen\"> <div class=\"css-175oi2r r-1niwhzg r-1p0dtai r-1pi2tsx r-1d2f490 r-1xnpdrn r-gy4na3 r-9aemit r-wk8lta r-haz1mn r-zchlnj r-ipm5af\"><div data-fluid-table=\"\" class=\"css-175oi2r r-1niwhzg r-6koalj r-18u37iz r-13qz1uu r-1xnpdrn\"><div class=\"css-175oi2r r-6koalj r-18u37iz r-13qz1uu r-1xnpdrn\"><div class=\"css-175oi",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.urbancompany.com using selector main > section:first-of-type and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"hero\" aria-label=\"Welcome section\">  <h2>Welcome to {{ shop_name }}</h2>  <p>{{ description or \"Discover top quality items and personalized service.\" }}</p>  {% if contact and contact.whatsapp %}  <a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Chat on WhatsApp</a>  {% endif %}</section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
     },
     {
       "variant_id": "services-hero-trust",
@@ -597,6 +1447,74 @@ const COMPONENTS = {
       "our_css": "padding: 24px 16px; max-width: 1000px; margin: 0 auto;"
     },
     {
+      "variant_id": "services-product_grid-indiamart",
+      "section_type": "product_grid",
+      "source_url": "https://www.indiamart.com",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<button class=\"lg:!hidden im-header-mobile-menu-btn flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 hover:bg-gray-100 transition-colors flex-shrink-0\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-menu w-6 h-6\" aria-hidden=\"true\"><pa",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.indiamart.com using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-product_grid-justdial",
+      "section_type": "product_grid",
+      "source_url": "https://www.justdial.com",
+      "source_selector": "main ul",
+      "source_css_path": "body > main ul",
+      "source_html_snippet": "<ul class=\"home_rowbox home_row_1 home_bannerbox mb-50\" role=\"list\" data-tracker-id=\"banners\"> <li class=\"home_banner_li pointer home_banner_swiper font11\"><div class=\"slide_show\" id=\"slideshow\"> <ul id=\"slides\" class=\"slide_list animate-undefined\"> <li tabindex=\"0\" role=\"button\" aria-hidden=\"false\" class=\"slide sliders focus-visible \"><span class=\"slide_anchor\" title=\"Get Loans Against Property, ",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.justdial.com using selector main ul and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-product_grid-news",
+      "section_type": "product_grid",
+      "source_url": "https://news.ycombinator.com",
+      "source_selector": "table tr:nth-child(n+3)",
+      "source_css_path": "body > table tr:nth-child(n+3)",
+      "source_html_snippet": "<tr id=\"bigbox\"><td><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> <tr class=\"athing submission\" id=\"50037949\"> <td align=\"right\" valign=\"top\" class=\"title\"><span class=\"rank\">1.</span></td> <td valign=\"top\" class=\"votelinks\"><center><a id=\"up_50037949\" href=\"vote?id=50037949&amp;how=up&amp;goto=news\"><div class=\"votearrow\" title=\"upvote\"></div></a></center></td> <td class=\"title\"><span class=",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://news.ycombinator.com using selector table tr:nth-child(n+3) and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-product_grid-sulekha",
+      "section_type": "product_grid",
+      "source_url": "https://www.sulekha.com",
+      "source_selector": "[class*='menu']",
+      "source_css_path": "body > [class*='menu']",
+      "source_html_snippet": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokewidth=\"2\" strokelinecap=\"round\" strokelinejoin=\"round\" class=\"lucide lucide-menu w-6 h-6 lg:w-7 lg:h-7\" aria-label=\"Hamburger menu\" aria-haspopup=\"menu\"><line x1=\"4\" x2=\"20\" y1=\"12\" y2=\"12\"></line><line x1=\"4\" x2=\"20\" y1=\"6\" y2=\"6\"></line><line x1=\"4\" x2=\"20\" y1=\"18\" y2=\"18\"><",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector [class*='menu'] and adapted to StorefrontSpec context.",
+      "our_html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">₹{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
       "variant_id": "services-contact-booking",
       "section_type": "contact",
       "source_url": "https://www.indiamart.com",
@@ -612,6 +1530,91 @@ const COMPONENTS = {
       "adaptation_notes": "High-conversion appointment booking box with WhatsApp and direct call options.",
       "our_html": "<section class=\"contact\" id=\"contact\" aria-label=\"Book service\" style=\"background:{{ colors.primary }};color:#fff;border-radius:12px;padding:36px 24px;margin:32px auto;max-width:900px;text-align:center;\"><h2 style=\"color:#fff;font-size:1.4rem;margin-bottom:8px;\">Book an Appointment with {{ shop_name }}</h2><p style=\"color:#e8daef;font-size:0.95rem;margin-bottom:24px;\">Send your requirement and preferred time slot directly on WhatsApp.</p><div style=\"display:flex;justify-content:center;gap:16px;flex-wrap:wrap;\">{% if contact.whatsapp %}<a class=\"whatsapp-btn\" href=\"https://wa.me/{{ contact.whatsapp }}\" target=\"_blank\" rel=\"noopener\" style=\"background:#25D366;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:700;display:inline-flex;align-items:center;gap:8px;\"><span>💬</span> WhatsApp Booking</a>{% endif %}{% if contact.phone %}<a href=\"tel:{{ contact.phone }}\" style=\"background:#fff;color:{{ colors.primary }};text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:700;display:inline-flex;align-items:center;gap:8px;\"><span>📞</span> Call Direct</a>{% endif %}</div></section>",
       "our_css": "padding: 0 16px;"
+    },
+    {
+      "variant_id": "services-contact-housing",
+      "section_type": "contact",
+      "source_url": "https://www.housing.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"T_footerWrap _1mbd351h _1hten7od _1mqon7od _2d1q59\" data-q=\"footer\"><div class=\"T_tabStyle _1f4cidpf _c2iebfcr _94hh4hyz _8af1zo2q _1kopyph6 _1u2langw _t7rr1h6o _b20ax19p _fuyan4wo _ziz1f6fq _18baexct\"> <ul class=\"header-container T_headerContainer _0h1y6m _e21fwp _9s1txw _vv18uv _ks18uv _r31h6o _40h1u4\"> <div class=\"active header-title T_activeHeadItemStyle _7l1994 _401g10 T_headIt",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.housing.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-contact-indiamart",
+      "section_type": "contact",
+      "source_url": "https://www.indiamart.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"bg-[#0f172a] text-white py-12 px-6 md:px-12 font-sans\"><div class=\"max-w-[1440px] mx-auto\"> <div class=\"grid grid-cols-1 lg:grid-cols-6 gap-8 lg:gap-5 pb-4\"> <div class=\"lg:col-span-2 space-y-6\"> <div class=\"flex items-center gap-2\"><a href=\"https://www.indiamart.com/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"IndiaMART\" title=\"IndiaMART\" class=\"footerpremium-logo\">India",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.indiamart.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-contact-justdial",
+      "section_type": "contact",
+      "source_url": "https://www.justdial.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"jsx-e96daed9749df26b jdwrapper jdfooter pt-20\"><div class=\"jsx-e96daed9749df26b jdcontainer\"> <div class=\"jsx-e96daed9749df26b footer_rowbox footer_row_4 footer_social pt-40 pl-45 pr-45 pb-40\"> <h2 class=\"jsx-e96daed9749df26b font18 fw500 color333\">Follow us on </h2> <ul class=\"jsx-e96daed9749df26b social_left\"> <li class=\"jsx-e96daed9749df26b\"><a target=\"_blank\" rel=\"nofollow noref",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.justdial.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-contact-news",
+      "section_type": "contact",
+      "source_url": "https://news.ycombinator.com",
+      "source_selector": ".yclinks",
+      "source_css_path": "body > .yclinks",
+      "source_html_snippet": "<span class=\"yclinks\"><a href=\"newsguidelines.html\">Guidelines</a> | <a href=\"newsfaq.html\">FAQ</a> | <a href=\"lists\">Lists</a> | <a href=\"https://github.com/HackerNews/API\">API</a> | <a href=\"security.html\">Security</a> | <a href=\"https://www.ycombinator.com/legal/\">Legal</a> | <a href=\"https://www.ycombinator.com/apply/\">Apply to YC</a> | <a href=\"mailto:hn@ycombinator.com\">Contact</a></span>",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://news.ycombinator.com using selector .yclinks and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
+    },
+    {
+      "variant_id": "services-contact-sulekha",
+      "section_type": "contact",
+      "source_url": "https://www.sulekha.com",
+      "source_selector": "footer",
+      "source_css_path": "body > footer",
+      "source_html_snippet": "<footer class=\"py-6 bg-gray-100\"><div class=\"container mx-auto flex w-full sm:w-11/12 2xl:w-4/5 border-b border-gray-300 border-solid pb-4 px-4\"> <div class=\"flex flex-wrap justify-between\"> <div class=\"w-full max-w-[50%]\"> <div class=\"text-lg font-semibold pb-5\"> One-Stop for All Local Services Across India </div> <img alt=\"Sulekha.com\" loading=\"lazy\" width=\"112\" height=\"36\" decoding=\"async\" data",
+      "source_bounding_box": {
+        "top": 0,
+        "left": 0,
+        "width": 1280,
+        "height": 300
+      },
+      "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector footer and adapted to StorefrontSpec context.",
+      "our_html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+      "our_css": "padding: 16px; margin: 0 auto; max-width: 1200px;"
     }
   ]
 };

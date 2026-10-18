@@ -1,0 +1,29 @@
+{
+  "category": "electronics",
+  "section_type": "product_grid",
+  "variant_id": "electronics-product_grid-reliancedigital",
+  "html": "<section class=\"products\" id=\"products\" aria-label=\"Product Catalog\">  <h2>Our Offerings</h2>  <div class=\"product-grid\">    {% for product in products %}    <div class=\"product-card\">      <h3>{{ product.name }}</h3>      {% if product.price %}<div class=\"price\">\u20b9{{ product.price }}</div>{% endif %}      {% if product.description %}<p class=\"desc\">{{ product.description }}</p>{% endif %}    </div>    {% endfor %}  </div></section>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.reliancedigital.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.reliancedigital.in",
+    "source_selector": "[class*='menu']",
+    "source_css_path": "body > [class*='menu']",
+    "source_html_snippet": "<div context=\"[object Object]\" browser_meta=\"[object Object]\" theme_data=\"[object Object]\" apisdk=\"[object Object]\" class=\"section-comp menu-category-wrapper\" data-v-c4707712 data-v-419eb4ab><div class=\"menu-loading\" data-v-c4707712><div class=\"menu-card-container\" data-v-c4707712> <div class=\"menu-wrapper\" data-v-c4707712> <div class=\"menu-card-loading animate\" data-v-c4707712></div> <div class=\"",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.reliancedigital.in using selector [class*='menu'] and adapted to StorefrontSpec context."
+  }
+}

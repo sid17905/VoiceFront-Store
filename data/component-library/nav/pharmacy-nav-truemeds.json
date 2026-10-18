@@ -1,0 +1,31 @@
+{
+  "category": "pharmacy",
+  "section_type": "nav",
+  "variant_id": "pharmacy-nav-truemeds",
+  "html": "<nav class=\"nav\" aria-label=\"Main Navigation\">  <h1>{{ shop_name }}</h1>  <div class=\"nav-links\">    <a href=\"#products\">Products</a>    <a href=\"#hours\">Hours</a>    <a href=\"#contact\">Contact</a>  </div></nav>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.truemeds.in",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.truemeds.in",
+    "source_selector": "header",
+    "source_css_path": "body > header",
+    "source_html_snippet": "<header class=\"sc-d88fc83b-1 fNYXqY animate__animated animate__fadeInDown animate__faster\"><div class=\"sc-d88fc83b-4 eanYzB\"><img alt=\"left_med\" fetchpriority=\"high\" width=\"100\" height=\"240\" decoding=\"async\" data-nimg=\"1\" style=\"color:transparent\" src=\"https://assets.truemeds.in/Images/static/bannerSectionLeft.svg\"></div> <div class=\"sc-d88fc83b-5 druDkA\"> <img alt=\"right_med\" fetchpriority=\"high\"",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div",
+      "div",
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.truemeds.in using selector header and adapted to StorefrontSpec context."
+  }
+}

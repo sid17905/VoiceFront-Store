@@ -1,0 +1,30 @@
+{
+  "category": "services",
+  "section_type": "contact",
+  "variant_id": "services-contact-sulekha",
+  "html": "<footer class=\"contact\" id=\"contact\" aria-label=\"Contact and Hours\">  <h2>Get in Touch</h2>  <div class=\"contact-links\">    {% if contact.phone %}<p>Phone: {{ contact.phone }}</p>{% endif %}    {% if contact.whatsapp %}<a href=\"https://wa.me/{{ contact.whatsapp }}\" class=\"whatsapp-btn\">Order via WhatsApp</a>{% endif %}  </div>  {% if hours %}  <div class=\"hours\">    <h3>Opening Hours</h3>    <ul>{% for h in hours %}<li>{{ h }}</li>{% endfor %}</ul>  </div>  {% endif %}</footer>",
+  "css": "padding: 16px; margin: 0 auto; max-width: 1200px;",
+  "source_url": "https://www.sulekha.com",
+  "review_status": "APPROVED",
+  "reviewed_by": "scrapling-harvester",
+  "provenance": {
+    "source_url": "https://www.sulekha.com",
+    "source_selector": "footer",
+    "source_css_path": "body > footer",
+    "source_html_snippet": "<footer class=\"py-6 bg-gray-100\"><div class=\"container mx-auto flex w-full sm:w-11/12 2xl:w-4/5 border-b border-gray-300 border-solid pb-4 px-4\"> <div class=\"flex flex-wrap justify-between\"> <div class=\"w-full max-w-[50%]\"> <div class=\"text-lg font-semibold pb-5\"> One-Stop for All Local Services Across India </div> <img alt=\"Sulekha.com\" loading=\"lazy\" width=\"112\" height=\"36\" decoding=\"async\" data",
+    "source_screenshot": null,
+    "source_page_html": null,
+    "source_page_line": null,
+    "source_bounding_box": {
+      "top": 0,
+      "left": 0,
+      "width": 1280,
+      "height": 300
+    },
+    "source_child_tags": [
+      "div",
+      "div"
+    ],
+    "adaptation_notes": "Harvested via Scrapling from https://www.sulekha.com using selector footer and adapted to StorefrontSpec context."
+  }
+}
