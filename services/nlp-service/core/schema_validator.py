@@ -4,16 +4,7 @@ import json
 from typing import Any, Tuple, List
 from pydantic import ValidationError
 
-import sys
-from pathlib import Path
-nlp_dir = Path(__file__).resolve().parents[1]
-root_path = Path(__file__).resolve().parents[2]
-if str(nlp_dir) not in sys.path:
-    sys.path.insert(0, str(nlp_dir))
-if str(root_path) not in sys.path:
-    sys.path.insert(0, str(root_path))
-
-from packages.schemas.entity_types import StorefrontSpec
+from schemas.entity_types import StorefrontSpec
 
 
 def validate_storefront_spec(data: dict[str, Any] | str) -> Tuple[StorefrontSpec | None, bool, List[dict[str, str]]]:

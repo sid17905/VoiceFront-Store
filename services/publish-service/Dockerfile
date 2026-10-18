@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 \n    PYTHONPATH=/app:/app/packages
 ENV PYTHONDONTWRITEBYTECODE=1
 
 COPY services/publish-service/requirements.txt /app/requirements.txt

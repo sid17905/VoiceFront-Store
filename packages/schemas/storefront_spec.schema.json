@@ -1,66 +1,308 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "StorefrontSpec",
-  "description": "Schema for generated English retail storefront specifications",
-  "type": "object",
-  "required": ["shop_name", "category"],
-  "properties": {
-    "shop_name": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Name of the retail business or storefront"
-    },
-    "category": {
-      "type": "string",
-      "enum": ["food", "apparel", "electronics", "pharmacy", "services"],
-      "description": "Primary retail category determining layout and styling"
-    },
-    "description": {
-      "type": "string",
-      "description": "Brief description or tagline of the business"
-    },
-    "products": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name"],
-        "properties": {
-          "name": { "type": "string" },
-          "price": { "type": ["number", "string", "null"] },
-          "currency": { "type": "string", "default": "INR" },
-          "description": { "type": "string" },
-          "image_url": { "type": "string" }
+  "$defs": {
+    "ContactInfo": {
+      "properties": {
+        "email": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Contact email address",
+          "title": "Email"
+        },
+        "instagram": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Instagram handle",
+          "title": "Instagram"
+        },
+        "phone": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Primary phone number",
+          "title": "Phone"
+        },
+        "whatsapp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "WhatsApp contact number",
+          "title": "Whatsapp"
         }
       },
-      "description": "List of products or services offered"
+      "title": "ContactInfo",
+      "type": "object"
     },
-    "hours": {
-      "type": "array",
-      "items": { "type": "string" },
-      "description": "Operating hours formatted as readable schedule strings"
-    },
-    "location": {
-      "type": "object",
+    "LocationInfo": {
       "properties": {
-        "address": { "type": "string" },
-        "city": { "type": "string" },
-        "state": { "type": "string" },
-        "pincode": { "type": "string" },
-        "lat": { "type": "number" },
-        "lng": { "type": "number" }
+        "address": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Street address",
+          "title": "Address"
+        },
+        "city": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "City",
+          "title": "City"
+        },
+        "lat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Latitude",
+          "title": "Lat"
+        },
+        "lng": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Longitude",
+          "title": "Lng"
+        },
+        "pincode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Postal / PIN code",
+          "title": "Pincode"
+        },
+        "state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "State / Province",
+          "title": "State"
+        }
       },
-      "description": "Store physical location details"
+      "title": "LocationInfo",
+      "type": "object"
     },
-    "contact": {
-      "type": "object",
+    "ProductItem": {
       "properties": {
-        "phone": { "type": "string" },
-        "whatsapp": { "type": "string" },
-        "email": { "type": "string" },
-        "instagram": { "type": "string" }
+        "currency": {
+          "default": "INR",
+          "description": "Currency symbol or ISO code",
+          "title": "Currency",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Item summary",
+          "title": "Description"
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "URL to product image",
+          "title": "Image Url"
+        },
+        "is_suggested": {
+          "default": false,
+          "description": "Whether product was automatically suggested",
+          "title": "Is Suggested",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Name of the product or service",
+          "title": "Name",
+          "type": "string"
+        },
+        "price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Price in designated currency",
+          "title": "Price"
+        }
       },
-      "description": "Customer contact channels"
+      "required": [
+        "name"
+      ],
+      "title": "ProductItem",
+      "type": "object"
+    },
+    "StoreCategory": {
+      "enum": [
+        "food",
+        "apparel",
+        "electronics",
+        "pharmacy",
+        "services"
+      ],
+      "title": "StoreCategory",
+      "type": "string"
     }
   },
-  "additionalProperties": true
+  "properties": {
+    "category": {
+      "$ref": "#/$defs/StoreCategory",
+      "description": "Retail business category"
+    },
+    "contact": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ContactInfo"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Contact info"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "",
+      "description": "Tagline or store description",
+      "title": "Description"
+    },
+    "hours": {
+      "description": "Formatted opening hours",
+      "items": {
+        "type": "string"
+      },
+      "title": "Hours",
+      "type": "array"
+    },
+    "location": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LocationInfo"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Store location"
+    },
+    "products": {
+      "description": "Extracted product list",
+      "items": {
+        "$ref": "#/$defs/ProductItem"
+      },
+      "title": "Products",
+      "type": "array"
+    },
+    "shop_name": {
+      "description": "Name of the retail storefront",
+      "minLength": 1,
+      "title": "Shop Name",
+      "type": "string"
+    },
+    "source": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Source of the spec: 'groq' or 'fallback'",
+      "title": "Source"
+    }
+  },
+  "required": [
+    "shop_name",
+    "category"
+  ],
+  "title": "StorefrontSpec",
+  "type": "object"
 }

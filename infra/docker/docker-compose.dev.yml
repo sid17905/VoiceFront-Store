@@ -1,5 +1,6 @@
 x-common-env: &common-env
   ENV: ${ENV:-dev}
+  PYTHONPATH: /app:/app/packages
   ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8080}
   LOG_LEVEL: ${LOG_LEVEL:-INFO}
 
