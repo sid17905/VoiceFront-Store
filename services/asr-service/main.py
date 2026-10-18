@@ -1,39 +1,31 @@
 from __future__ import annotations
 
-import os
+import sys
+from pathlib import Path
 
-from fastapi import FastAPI
+# Make `common_utils` importable when the service is run directly from its own
+# directory (the container sets WORKDIR to the service). Step A4 replaces this
+# with installed packages.
+_packages = Path(__file__).resolve().parents[2] / "packages"
+if str(_packages) not in sys.path:
+    sys.path.insert(0, str(_packages))
 
 from routers.transcribe import router as transcribe_router
 
 try:
     from common_utils.security import SecurityMiddleware
-    _security_available = True
-except ImportError:  # pragma: no cover - standalone fallback
+except ImportError:  # pragma: no cover
     SecurityMiddleware = None  # type: ignore[assignment]
-    _security_available = False
 
-app = FastAPI(
-    title="VoiceFront ASR Service",
-    description="Speech Recognition and Transcription Service",
-    version="2.0.0",
-    docs_url="/docs" if os.getenv("ENV", "dev") != "production" else None,
-    redoc_url=None,
-)
+from common_utils.groq_client import is_configured
+from common_utils.service_app import create_app
 
-if _security_available:
+
+def _health_extra() -> dict:
+    return {"groq_api": "live" if is_configured() else "simulator"}
+
+
+app = create_app("asr-service", "2.0.0", health_extra=_health_extra)
+if SecurityMiddleware is not None:
     app.add_middleware(SecurityMiddleware)
-
 app.include_router(transcribe_router, prefix="/v1/asr", tags=["asr"])
-
-
-@app.get("/health")
-async def health():
-    key = os.getenv("GROQ_API_KEY", "").strip()
-    placeholder = {"", "mock", "placeholder", "your_groq_api_key_here"}
-    return {
-        "status": "ok",
-        "service": "asr-service",
-        "version": "2.0.0",
-        "groq_api": "live" if key not in placeholder else "simulator",
-    }

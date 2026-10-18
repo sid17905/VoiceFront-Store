@@ -1,85 +1,30 @@
-"""layout-service — FastAPI application entry point."""
-
 from __future__ import annotations
 
-import os
-import logging
-import time
-import uuid
-from typing import Callable
+import sys
+from pathlib import Path
 
-from fastapi import FastAPI, Request, Response
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+# Make `common_utils` importable when the service is run directly from its own
+# directory (the container sets WORKDIR to the service). Step A4 replaces this
+# with installed packages.
+_packages = Path(__file__).resolve().parents[2] / "packages"
+if str(_packages) not in sys.path:
+    sys.path.insert(0, str(_packages))
 
 from routers.generate import router as generate_router
 from routers.scrape import router as scrape_router
+from common_utils.security import SecurityMiddleware
+from common_utils.service_app import create_app
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='{"time":"%(asctime)s","level":"%(levelname)s","service":"layout-service","request_id":"%(request_id)s","message":"%(message)s"}',
-)
+def _health_extra() -> dict:
+    templates = Path(__file__).resolve().parent / "templates"
+    components = Path(__file__).resolve().parents[2] / "data" / "component-library"
+    return {
+        "templates_available": len(list(templates.glob("*.jinja2"))) if templates.exists() else 0,
+        "components_available": len(list(components.rglob("*.json"))) if components.exists() else 0,
+    }
 
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8080").split(",")
 
-try:
-    from common_utils.security import SecurityMiddleware
-    _security_available = True
-except ImportError:  # pragma: no cover - standalone fallback
-    SecurityMiddleware = None  # type: ignore[assignment]
-    _security_available = False
-
-app = FastAPI(
-    title="VoiceFront Layout Service",
-    version="2.0.0",
-    docs_url="/docs" if os.getenv("ENV", "dev") != "production" else None,
-    redoc_url=None,
-)
-
-if _security_available:
-    app.add_middleware(SecurityMiddleware)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
-    allow_credentials=False,
-    allow_methods=["POST", "GET"],
-    allow_headers=["Content-Type", "Authorization", "X-Request-ID"],
-)
-
+app = create_app("layout-service", "2.0.0", health_extra=_health_extra)
+app.add_middleware(SecurityMiddleware)
 app.include_router(generate_router, prefix="/v1/layout", tags=["layout"])
 app.include_router(scrape_router, prefix="/v1/layout", tags=["scrape"])
-
-
-@app.middleware("http")
-async def request_id_and_logging(request: Request, call_next: Callable) -> Response:
-    request_id = request.headers.get("X-Request-ID", str(uuid.uuid4())[:8])
-    start = time.monotonic()
-    response = await call_next(request)
-    ms = round((time.monotonic() - start) * 1000, 1)
-    logging.info(
-        f"method={request.method} path={request.url.path} status={response.status_code} ms={ms}",
-        extra={"request_id": request_id},
-    )
-    response.headers["X-Request-ID"] = request_id
-    return response
-
-
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    logging.error(f"Unhandled exception: {exc}", extra={"request_id": "?"})
-    return JSONResponse(status_code=500, content={"error_code": "INTERNAL_ERROR", "message": "An unexpected error occurred."})
-
-
-@app.get("/health")
-async def health_check() -> dict:
-    from pathlib import Path
-    template_dir = Path(__file__).parent / "templates"
-    component_dir = Path(__file__).parent.parent.parent / "data" / "component-library"
-    return {
-        "status": "ok",
-        "service": "layout-service",
-        "version": "2.0.0",
-        "templates_available": len(list(template_dir.glob("*.jinja2"))) if template_dir.exists() else 0,
-        "components_available": len(list(component_dir.rglob("*.json"))) if component_dir.exists() else 0,
-    }

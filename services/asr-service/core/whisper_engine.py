@@ -60,19 +60,18 @@ def _simulator_response(language: str) -> dict:
 def _live_call(file_bytes: bytes, filename: str, language: str | None) -> dict:
     """Synchronous Groq call — executed in a worker thread (A4)."""
     try:
-        from groq import Groq
-    except ImportError as exc:
-        raise AsrUnavailable("groq package is not installed") from exc
+        from common_utils.groq_client import GroqNotConfigured, client as groq_client, model
+    except ImportError as exc:  # pragma: no cover - standalone
+        raise AsrUnavailable("common_utils is not importable") from exc
 
-    key = _key()
-    if key in PLACEHOLDER_KEYS:
-        raise AsrUnavailable("GROQ_API_KEY is not configured")
-
-    client = Groq(api_key=key, timeout=60.0)
+    try:
+        client = groq_client()
+    except GroqNotConfigured as exc:
+        raise AsrUnavailable(str(exc)) from exc
 
     kwargs = {
         "file": (filename, file_bytes),
-        "model": os.getenv("GROQ_ASR_MODEL", "whisper-large-v3"),
+        "model": model("asr"),
         "prompt": DEFAULT_PROMPT,
         "response_format": "verbose_json",
         "temperature": 0.0,

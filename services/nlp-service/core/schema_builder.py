@@ -195,12 +195,15 @@ async def extract_storefront_spec(prompt: str, api_key: str | None = None, model
         return _fallback()
 
     try:
-        from groq import Groq
         from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+        from common_utils.groq_client import GroqNotConfigured, client as groq_client
     except ImportError:
         return _fallback("groq/tenacity not installed")
 
-    client = Groq(api_key=key)
+    try:
+        client = groq_client()
+    except GroqNotConfigured:
+        return _fallback("GROQ_API_KEY is not configured")
 
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
