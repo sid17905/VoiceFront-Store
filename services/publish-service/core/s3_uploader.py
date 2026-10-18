@@ -101,34 +101,58 @@ def upload_bundle(html_content: str, version_id: str) -> str:
 
 
 def verify_prefix_isolation(test_key: str = "internal/should-stay-private.txt") -> bool:
-    """
-    Negative test helper (Phase 1 checklist explicitly calls for testing this
-    negatively): uploads a throwaway object OUTSIDE STOREFRONT_PREFIX and
-    confirms it is NOT publicly readable, i.e. the bucket policy is scoped
-    correctly and not accidentally granting bucket-wide public read.
+    """Check that the bucket policy exposes ONLY STOREFRONT_PREFIX publicly.
 
-    This does not use the public HTTPS/CloudFront path (that would require a
-    live distribution) -- it checks the S3 object ACL/policy evaluation via
-    `get_bucket_policy_status` scoped access, appropriate for a dev-bucket
-    smoke test before the pilot.
+    Previously this uploaded an object, discarded the response and returned
+    True unconditionally — a test that could not fail. It now reads the bucket
+    policy and inspects every Allow statement with a public principal:
+
+      - any Resource outside  arn:aws:s3:::<bucket>/storefronts/*  -> False
+      - any statement that grants public read on the whole bucket  -> False
+      - no policy at all                                            -> False
+
+    Returns True only when every public grant is scoped to the prefix.
     """
+    import json as _json
+
     client = _s3_client()
     try:
-        client.put_object(Bucket=S3_BUCKET, Key=test_key, Body=b"do-not-serve-publicly")
-        status = client.get_object_attributes(
-            Bucket=S3_BUCKET, Key=test_key, ObjectAttributes=["ObjectParts"]
+        policy_doc = client.get_bucket_policy(Bucket=S3_BUCKET)["Policy"]
+    except ClientError:
+        return False
+
+    try:
+        policy = _json.loads(policy_doc)
+    except _json.JSONDecodeError:
+        return False
+
+    allowed_prefix = f"arn:aws:s3:::{{bucket}}/{STOREFRONT_PREFIX}/".format(bucket=S3_BUCKET)
+    bucket_arn = f"arn:aws:s3:::{S3_BUCKET}"
+
+    for statement in policy.get("Statement", []):
+        if statement.get("Effect") != "Allow":
+            continue
+        principal = statement.get("Principal")
+        is_public = principal == "*" or (
+            isinstance(principal, dict) and principal.get("AWS") == "*"
         )
-        del status  # existence check only -- real "is it public" check is the
-        # bucket policy JSON itself (see infra/terraform/s3_cloudfront.tf),
-        # which is what actually governs public readability, not object-level state.
-        return True
-    except ClientError as exc:
-        raise PublishError("PUBLISH_S3_FAILED", str(exc)) from exc
-    finally:
-        try:
-            client.delete_object(Bucket=S3_BUCKET, Key=test_key)
-        except ClientError:
-            pass  # best-effort cleanup of the throwaway object
+        if not is_public:
+            continue
+        actions = statement.get("Action", [])
+        if isinstance(actions, str):
+            actions = [actions]
+        if not any(a in ("s3:GetObject", "s3:*", "*") for a in actions):
+            continue
+        resources = statement.get("Resource", [])
+        if isinstance(resources, str):
+            resources = [resources]
+        for resource in resources:
+            if resource == bucket_arn or resource == f"{bucket_arn}/*":
+                return False
+            if not resource.startswith(allowed_prefix):
+                return False
+
+    return True
 
 
 def invalidate_cloudfront(paths: list[str]) -> str:
@@ -181,8 +205,9 @@ def publish_storefront(html_content: str, version_id: str, slug: str, domain: st
     Full publish path per Architect.md L5 / integration.md Sec 4:
     upload -> invalidate -> confirm invalidation -> return live URL.
 
-    `domain` is the purchased project domain pointed at CloudFront
-    (deployment.md Sec 2 / milestones.md Month 1 setup step).
+    P2: the returned URL is derived from the S3 key that was actually written,
+    so the URL and the object cannot disagree. `slug` is retained for
+    compatibility but only used as a fallback when no domain is supplied.
     """
     key = upload_bundle(html_content, version_id)
     invalidation_id = invalidate_cloudfront([f"/{key}"])
@@ -194,7 +219,12 @@ def publish_storefront(html_content: str, version_id: str, slug: str, domain: st
             f"{_INVALIDATION_TIMEOUT_SEC}s -- not returning a live URL until it does.",
         )
 
+    if domain:
+        live_url = f"https://{domain}/{key}"
+    else:
+        live_url = f"/{slug}/index.html"
+
     return PublishResult(
-        live_url=f"https://{domain}/{slug}",
+        live_url=live_url,
         published_at=datetime.now(timezone.utc).isoformat(),
     )

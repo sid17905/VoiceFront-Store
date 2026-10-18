@@ -1,6 +1,13 @@
 from __future__ import annotations
 import json
+import sys
+import asyncio
 from pathlib import Path
+import pytest
+
+root_dir = Path(__file__).resolve().parents[2]
+if str(root_dir) not in sys.path:
+    sys.path.insert(0, str(root_dir))
 
 GOLDEN_SET = [
     {
@@ -21,11 +28,26 @@ GOLDEN_SET = [
     }
 ]
 
-def run_evaluation() -> None:
+@pytest.mark.asyncio
+async def test_golden_regression_eval() -> None:
+    nlp_dir = root_dir / "services" / "nlp-service"
+    if str(nlp_dir) not in sys.path:
+        sys.path.insert(0, str(nlp_dir))
+    if "core" in sys.modules:
+        del sys.modules["core"]
+        
+    from core.schema_builder import extract_storefront_spec
+    
     print(f"Running golden-set regression evaluation with {len(GOLDEN_SET)} test cases...")
+    passed = 0
     for i, item in enumerate(GOLDEN_SET):
-        print(f"Evaluating case {i+1}: {item['prompt']}")
+        spec, is_valid, _ = await extract_storefront_spec(item["prompt"])
+        assert spec is not None
+        passed += 1
+        print(f"Evaluating case {i+1}: {item['prompt']} -> PASSED")
+        
+    assert passed == len(GOLDEN_SET)
     print("Golden-set visual and functional regression pipeline completed successfully.")
 
 if __name__ == "__main__":
-    run_evaluation()
+    asyncio.run(test_golden_regression_eval())

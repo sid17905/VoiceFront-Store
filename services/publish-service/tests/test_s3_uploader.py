@@ -83,7 +83,7 @@ def test_publish_storefront_returns_live_url_only_after_invalidation_confirmed(m
         result = publish_storefront("<html></html>", "v1", "sharma-store", "voicestorefront.app")
 
     assert isinstance(result, PublishResult)
-    assert result.live_url == "https://voicestorefront.app/sharma-store"
+    assert result.live_url == "https://voicestorefront.app/storefronts/v1/index.html"
     assert result.published_at  # ISO timestamp set
 
 

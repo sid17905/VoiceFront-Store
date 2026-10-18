@@ -7,13 +7,14 @@ root_dir = Path(__file__).resolve().parents[2]
 if str(root_dir) not in sys.path:
     sys.path.insert(0, str(root_dir))
 
+from _loader import load_core  # noqa: E402  (tests/e2e is on sys.path via conftest)
+
 
 @pytest.mark.asyncio
 async def test_end_to_end_prompt_to_storefront():
     # 1. NLP extraction
-    nlp_dir = root_dir / "services" / "nlp-service"
-    sys.path.insert(0, str(nlp_dir))
-    from core.schema_builder import extract_storefront_spec
+    schema_builder = load_core("nlp-service", "schema_builder")
+    extract_storefront_spec = schema_builder.extract_storefront_spec
 
     user_prompt = """
     Create an online store for The Daily Fresh Bakery.
@@ -28,24 +29,17 @@ async def test_end_to_end_prompt_to_storefront():
     assert spec.category.value == "food"
     assert len(spec.products) > 0
 
-    # 2. Layout generation (isolate sys.path to layout-service)
-    layout_dir = root_dir / "services" / "layout-service"
-    if str(nlp_dir) in sys.path:
-        sys.path.remove(str(nlp_dir))
-    if "core" in sys.modules:
-        del sys.modules["core"]
-    sys.path.insert(0, str(layout_dir))
-
-    from core.palette_engine import get_palette
-    from core.template_classifier import select_template
-    from core.renderer import render
+    # 2. Layout generation — load layout's own `core` package.
+    palette_engine = load_core("layout-service", "palette_engine")
+    template_classifier = load_core("layout-service", "template_classifier")
+    renderer = load_core("layout-service", "renderer")
 
     spec_dict = spec.model_dump()
-    template_id = select_template(spec_dict)
-    palette = get_palette(spec.category.value)
+    template_id = template_classifier.select_template(spec_dict)
+    palette = palette_engine.get_palette(spec.category.value)
 
     # 3. Render HTML
-    html = render(template_id, spec_dict, palette)
+    html = renderer.render(template_id, spec_dict, palette)
 
     # 4. Assertions
     assert "FoodEstablishment" in html or "LocalBusiness" in html
