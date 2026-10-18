@@ -70,3 +70,6 @@ docs/state.json
 *.sqlite
 *.sqlite3
 
+
+# QA history database (generated at runtime)
+qa_history.db

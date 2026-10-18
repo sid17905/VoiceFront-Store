@@ -1,33 +1,29 @@
+"""SORT phase — rank rules by observed failure frequency (Q7).
+
+Previously a pass-through whose result the router discarded. Now the ranking is
+derived from persisted history (core/history.py) and returned so DETECT can be
+budgeted and so the report can show that SORT did something.
+
+Ordering rule: higher historical failure count first; ties keep the original
+file order so runs are deterministic.
 """
-services/qa-service/core/sort_engine.py
-
-L5 SORT phase (Architect.md). Ranks rules/sections by failure-probability so
-DETECT spends its budget where violations are historically likely -- this is
-what the framework attributes the 38% compute reduction to.
-
-PHASE 1 SCOPE (person_d_qa_publish.md): pass-through stub. Real logic doesn't
-start until Phase 3 (procedure_plan.md step 55) -- "start with a simple
-heuristic ranking by historical rule-failure frequency; the full model can
-come later." Building the real ranking now would mean tuning against fake
-data, since Person C won't have real rendered pages until Phase 2.
-
-Naming: rank_failure_risk() -> JSON field "risk_score" (common_references.md).
-"""
-
 from __future__ import annotations
 
 
-def rank_failure_risk(rules: list[dict]) -> list[dict]:
-    """
-    PHASE 1: pass-through -- returns rules in their original (file-load) order,
-    unranked. detect_engine.py currently checks every rule against every
-    viewport regardless of order, so this stub doesn't change DETECT's
-    behavior yet; it exists so routers/qa.py can call sort -> detect without
-    changing that call site once real ranking lands.
+def rank_failure_risk(rules: list[dict], history: dict[str, int] | None = None) -> list[dict]:
+    """Return `rules` ordered by descending historical failure count.
 
-    PHASE 3 TODO: replace with a real heuristic -- e.g. a static weight table
-    seeded from which sections fail most often in practice (product grids,
-    navbars, map embeds per Architect.md), then order rules so DETECT can
-    early-exit or prioritize under a compute/time budget.
+    `history` maps rule_id -> number of observed failures. Missing rules score 0.
+    Stable: equal scores preserve input order.
     """
-    return rules
+    history = history or {}
+
+    def score(rule: dict) -> int:
+        return int(history.get(rule.get("rule_id", ""), 0))
+
+    return sorted(rules, key=lambda r: -score(r))
+
+
+def risk_scores(rules: list[dict], history: dict[str, int] | None = None) -> dict[str, int]:
+    history = history or {}
+    return {r.get("rule_id", ""): int(history.get(r.get("rule_id", ""), 0)) for r in rules}

@@ -24,6 +24,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from core.detect_engine import detect_violations, load_rules
+from core.history import load_history, record_fix, record_violations
 from core.sort_engine import rank_failure_risk
 
 try:
@@ -34,9 +35,10 @@ except ImportError:  # pragma: no cover
     import re as _re
 
     class QaViolationError(Exception):
-        def __init__(self, error_code: str, message: str):
+        def __init__(self, error_code: str, message: str, status_code: int = 500):
             self.error_code = error_code
             self.message = message
+            self.status_code = status_code
             super().__init__(f"{error_code}: {message}")
 
     _VERSION_RE = _re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
@@ -79,15 +81,23 @@ class QaViolationOut(BaseModel):
 
 class QaReportOut(BaseModel):
     passed: bool
+    pass_rule: str
     total_violations: int
+    critical_violations: int
     repaired_count: int
     avg_repair_latency_ms: float | None
     violations: list[QaViolationOut]
+    repair_notes: list[dict[str, str]] = []
+    elapsed_ms: float | None = None
 
 
 class QaRunResponse(BaseModel):
     qa_report: QaReportOut
-    status: str  # PASSED | FAILED | REPAIRED (common_references.md status enum)
+    status: str  # PASSED | REPAIRED | FAILED (common_references.md status enum)
+    repaired_html: str | None = None
+
+
+PASS_RULE = "no-critical"
 
 
 # ---------------------------------------------------------------------------
@@ -103,7 +113,7 @@ def _load_bundle_html(version_id: str) -> str:
         safe_version_id(version_id)
         fixture_path = safe_child(SEED_BUNDLES_DIR, f"{version_id}.html")
     except ValueError as exc:
-        raise QaViolationError("QA_INVALID_REQUEST", str(exc)) from exc
+        raise QaViolationError("QA_INVALID_REQUEST", str(exc), status_code=400) from exc
     if not fixture_path.exists():
         raise QaViolationError(
             "QA_VERSION_NOT_FOUND",
@@ -111,6 +121,7 @@ def _load_bundle_html(version_id: str) -> str:
             f"against seed fixtures at {SEED_BUNDLES_DIR}/{{version_id}}.html -- real "
             "storefront_versions/S3 lookup lands once layout-service is producing "
             "real output (Phase 2, see milestones.md).",
+            status_code=404,
         )
     return fixture_path.read_text(encoding="utf-8")
 
@@ -126,44 +137,80 @@ def run_qa(request: QaRunRequest) -> QaRunResponse:
     elif request.version_id:
         html = _load_bundle_html(request.version_id)
     else:
-        raise QaViolationError("QA_INVALID_REQUEST", "Either version_id or html must be provided")
-
-    rules = load_rules()
-    ranked_rules = rank_failure_risk(rules)
-    del ranked_rules
+        raise QaViolationError(
+            "QA_INVALID_REQUEST",
+            "Either version_id or html must be provided",
+            status_code=400,
+        )
 
     start = time.monotonic()
+    rules = load_rules()
+    ranked_rules = rank_failure_risk(rules, history=load_history())
     violations = detect_violations(html)
-    elapsed_ms = (time.monotonic() - start) * 1000
+    initial_count = len(violations)
+    initial_rules = {v.rule_id for v in violations}
+    record_violations(sorted(initial_rules))
 
     repaired_count = 0
-    avg_repair_latency_ms = None
+    avg_repair_latency_ms: float | None = None
+    repair_notes: list[dict[str, str]] = []
+    repaired_html: str | None = None
+
     if request.auto_repair and violations:
-        from core.repair_engine import repair_violations
+        from core.repair_engine import repair_document
+
         t0_rep = time.monotonic()
-        repair_results = repair_violations(violations, html)
+        candidate_html, outcomes = repair_document(html, initial_rules)
         repair_elapsed = (time.monotonic() - t0_rep) * 1000
-        repaired_count = sum(1 for r in repair_results if r.was_repaired)
-        if repaired_count > 0:
+
+        # Trust re-detection, not the repairer's own claim.
+        rechecked = detect_violations(candidate_html)
+        remaining_rules = {v.rule_id for v in rechecked}
+        confirmed = [
+            o for o in outcomes
+            if o.repaired and o.rule_id in initial_rules and o.rule_id not in remaining_rules
+        ]
+
+        repaired_count = len(confirmed)
+        repair_notes = [
+            {"rule_id": o.rule_id, "source": o.repair_source, "note": o.note}
+            for o in outcomes
+        ]
+        if repaired_count:
             avg_repair_latency_ms = repair_elapsed / repaired_count
-            for r in repair_results:
-                if r.repaired_html and r.repaired_html != html:
-                    html = r.repaired_html
-            violations = detect_violations(html)
+            html = candidate_html
+            violations = rechecked
+            for o in confirmed:
+                record_fix(o.rule_id, "deterministic")
+            repaired_html = html
 
     total = len(violations)
-    passed = total == 0
+    critical = sum(1 for v in violations if v.severity == "critical")
+    # Q5: a storefront with only minor/major issues is publishable.
+    passed = critical == 0
 
-    status = "PASSED" if passed else ("REPAIRED" if repaired_count > 0 else "FAILED")
+    if not passed:
+        status = "FAILED"
+    elif repaired_count:
+        status = "REPAIRED"
+    else:
+        status = "PASSED"
+
+    elapsed_ms = (time.monotonic() - start) * 1000
 
     qa_report = QaReportOut(
         passed=passed,
+        pass_rule=PASS_RULE,
         total_violations=total,
+        critical_violations=critical,
         repaired_count=repaired_count,
         avg_repair_latency_ms=avg_repair_latency_ms,
         violations=[QaViolationOut(**v.to_api_dict()) for v in violations],
+        repair_notes=repair_notes,
+        elapsed_ms=round(elapsed_ms, 1),
     )
+    _ = initial_count
 
-    _ = (elapsed_ms,)
+    return QaRunResponse(qa_report=qa_report, status=status, repaired_html=repaired_html)
 
     return QaRunResponse(qa_report=qa_report, status=status)

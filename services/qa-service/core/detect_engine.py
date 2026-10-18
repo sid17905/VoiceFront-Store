@@ -164,10 +164,26 @@ _CUSTOM_CHECK_JS = {
         () => !document.querySelector('meta[name="viewport"]')
     """,
     "focus_indicator_not_removed": """
-        () => Array.from(document.querySelectorAll('a, button, input, select, textarea')).some(el => {
-            const style = window.getComputedStyle(el, ':focus');
-            return style.outlineStyle === 'none' && style.boxShadow === 'none';
-        })
+        () => {
+          // getComputedStyle(el, ':focus') cannot observe pseudo-class state.
+          // Probe a real focusable element and read its computed style after
+          // focusing it instead.
+          const probe = document.createElement('a');
+          probe.href = '#probe';
+          probe.textContent = 'probe';
+          probe.style.position = 'absolute';
+          probe.style.left = '-9999px';
+          document.body.appendChild(probe);
+          probe.focus();
+          const style = window.getComputedStyle(probe);
+          const removed = (style.outlineStyle === 'none' || style.outlineWidth === '0px')
+                          && style.boxShadow === 'none';
+          probe.remove();
+          if (document.activeElement && document.activeElement.blur) {
+            document.activeElement.blur();
+          }
+          return removed;
+        }
     """,
     "tap_target_min_size": """
         (minPx) => Array.from(document.querySelectorAll('a, button, input, select')).some(el => {

@@ -74,7 +74,8 @@ async def request_id_and_logging(request: Request, call_next: Callable) -> Respo
 
 @app.exception_handler(QaViolationError)
 async def qa_violation_error_handler(request: Request, exc: QaViolationError):
-    return JSONResponse(status_code=500, content=exc.to_dict() if hasattr(exc, "to_dict") else {
+    status = getattr(exc, "status_code", 500)
+    return JSONResponse(status_code=status, content=exc.to_dict() if hasattr(exc, "to_dict") else {
         "error_code": exc.error_code, "message": exc.message,
     })
 
