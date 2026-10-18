@@ -29,7 +29,12 @@ def test_health():
     assert response.json()["status"] == "ok"
 
 
-def test_transcribe_endpoint():
+def test_transcribe_endpoint(monkeypatch):
+    # Live mode without a key is now a 503 by design (A1). This test exercises
+    # the endpoint contract, so it asks for the simulator explicitly and
+    # asserts that the response is labelled as synthetic.
+    monkeypatch.setenv("ASR_MODE", "simulator")
+
     dummy_wav = io.BytesIO(b"RIFF4\x00\x00\x00WAVEfmt \x10\x00\x00\x00\x01\x00\x01\x00\x44\xac\x00\x00\x88X\x01\x00\x02\x00\x10\x00data\x10\x00\x00\x00" + b"\x00" * 16)
     dummy_wav.name = "test.wav"
 
@@ -42,4 +47,6 @@ def test_transcribe_endpoint():
     data = response.json()
     assert "transcript" in data
     assert data["language"] == "en"
-    assert data["confidence"] > 0
+    assert data["mode"] == "simulator"
+    assert data["warning"]
+

@@ -59,7 +59,8 @@ class ExtractedEntities(BaseModel):
 
 
 class NlpExtractRequest(BaseModel):
-    prompt: str = Field(..., description="Raw English text prompt or speech transcript")
+    prompt: str = Field(..., min_length=1, max_length=4000,
+                       description="Raw English text prompt or speech transcript")
     shop_id: Optional[str] = Field(default=None, description="Optional shop identifier")
 
 
@@ -67,4 +68,7 @@ class NlpExtractResponse(BaseModel):
     storefront_spec: StorefrontSpec
     is_valid: bool = True
     raw_prompt: str
-    invalid_fields: List[str] = Field(default_factory=list)
+    invalid_fields: List[dict[str, str]] = Field(
+        default_factory=list,
+        description="Validation failures as [{field, reason}] per api_contracts.md",
+    )

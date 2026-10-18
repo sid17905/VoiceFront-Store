@@ -16,18 +16,21 @@ if str(root_path) not in sys.path:
 from packages.schemas.entity_types import StorefrontSpec
 
 
-def validate_storefront_spec(data: dict[str, Any] | str) -> Tuple[StorefrontSpec | None, bool, List[str]]:
+def validate_storefront_spec(data: dict[str, Any] | str) -> Tuple[StorefrontSpec | None, bool, List[dict[str, str]]]:
     if isinstance(data, str):
         try:
             data = json.loads(data)
         except json.JSONDecodeError as exc:
-            return None, False, [f"JSON decode error: {str(exc)}"]
+            return None, False, [{"field": "json", "reason": f"JSON decode error: {exc}"}]
 
     try:
         spec = StorefrontSpec(**data)
         return spec, True, []
     except ValidationError as exc:
-        errors = [f"{e['loc']}: {e['msg']}" for e in exc.errors()]
+        errors = [
+            {"field": ".".join(str(part) for part in e["loc"]), "reason": e["msg"]}
+            for e in exc.errors()
+        ]
         return None, False, errors
     except Exception as exc:
-        return None, False, [str(exc)]
+        return None, False, [{"field": "spec", "reason": str(exc)}]

@@ -1,0 +1,42 @@
+[
+  {
+    "prompt": "Create a store for The Daily Fresh Bakery. Sourdough Bread Rs 180, Chocolate Croissant 120, Blueberry Cheesecake 250. Open Mon-Sat 8am-8pm. WhatsApp 9876543210. Bandra West Mumbai.",
+    "expected": {"shop_name": "The Daily Fresh Bakery", "category": "food", "products": [["Sourdough Bread", 180], ["Chocolate Croissant", 120], ["Blueberry Cheesecake", 250]]}
+  },
+  {
+    "prompt": "Rahul Electronics in Pune sells smart watches 2500, power banks 999, mobile covers 199. WhatsApp 9123456789.",
+    "expected": {"shop_name": "Rahul Electronics", "category": "electronics", "products": [["smart watches", 2500], ["power banks", 999], ["mobile covers", 199]]}
+  },
+  {
+    "prompt": "Sharma Plumbing Services, Nashik. Tap repair 300, pipe fitting 800. Bookings on WhatsApp 9000000000, open 9 to 7.",
+    "expected": {"shop_name": "Sharma Plumbing Services", "category": "services", "products": [["Tap repair", 300], ["pipe fitting", 800]]}
+  },
+  {
+    "prompt": "Urban Threads boutique in Bengaluru. Cotton shirts 999, denim jeans 1499, silk sarees 4999.",
+    "expected": {"shop_name": "Urban Threads", "category": "apparel", "products": [["Cotton shirts", 999], ["denim jeans", 1499], ["silk sarees", 4999]]}
+  },
+  {
+    "prompt": "Apollo Pharmacy near Andheri. Paracetamol 25, cough syrup 140, vitamin C tablets 210. Call 9867000000.",
+    "expected": {"shop_name": "Apollo Pharmacy", "category": "pharmacy", "products": [["Paracetamol", 25], ["cough syrup", 140], ["vitamin C tablets", 210]]}
+  },
+  {
+    "prompt": "Krishna Sweets in Jaipur selling milk products and samosas. Open 8 AM to 9 PM. WhatsApp 9876543210.",
+    "expected": {"shop_name": "Krishna Sweets", "category": "food", "products": []}
+  },
+  {
+    "prompt": "Iron Fitness gym in Mumbai. Personal training 2000, monthly membership 1500.",
+    "expected": {"shop_name": "Iron Fitness", "category": "services", "products": [["Personal training", 2000], ["monthly membership", 1500]]}
+  },
+  {
+    "prompt": "Croma store in Delhi. Headphones 3499, smart TV 32999, laptop 54990.",
+    "expected": {"shop_name": "Croma", "category": "electronics", "products": [["Headphones", 3499], ["smart TV", 32999], ["laptop", 54990]]}
+  },
+  {
+    "prompt": "Nykaa Fashion outlet. Kurtis 1299, handbags 2499, cosmetics 899.",
+    "expected": {"shop_name": "Nykaa Fashion", "category": "apparel", "products": [["Kurtis", 1299], ["handbags", 2499], ["cosmetics", 899]]}
+  },
+  {
+    "prompt": "Wellness Forever chemist. Thermometer 350, bandages 60, sanitizer 120.",
+    "expected": {"shop_name": "Wellness Forever", "category": "pharmacy", "products": [["Thermometer", 350], ["bandages", 60], ["sanitizer", 120]]}
+  }
+]

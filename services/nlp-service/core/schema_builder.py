@@ -88,14 +88,17 @@ def _heuristic_fallback_extractor(prompt: str) -> dict[str, Any]:
     city_match = re.search(r"in\s+([A-Za-z\s]+?)(?:\.|,|$)", prompt, re.IGNORECASE)
     city = city_match.group(1).strip().title() if city_match else None
 
-    # Build tagline: first 8 words after shop name, capped at 8 words
+    # Build tagline: up to 8 words following a "named"/"called" marker.
+    # The previous code used a character offset to slice a word list, which
+    # produced arbitrary slices.
     words = prompt.split()
-    if "named" in prompt_lower:
-        idx = prompt_lower.index("named") + 5  # approximate start after 'named'
-        tagline_words = words[idx:idx+8]
-    else:
-        tagline_words = words[:8]
-    tagline = ' '.join(tagline_words)
+    lower_words = [w.lower().strip(".,:;!?") for w in words]
+    start = 0
+    for marker in ("named", "called"):
+        if marker in lower_words:
+            start = lower_words.index(marker) + 1
+            break
+    tagline = " ".join(words[start:start + 8]).strip(" .,")
 
     # Extract phone / whatsapp numbers
     phone_match = re.search(r"(?:\+?91[\-\s]?)?[6-9]\d{9}", prompt)
@@ -105,19 +108,53 @@ def _heuristic_fallback_extractor(prompt: str) -> dict[str, Any]:
         contact["phone"] = number
         contact["whatsapp"] = number
 
-    # Extract prices & products from explicit price mentions
+    # Extract products from explicit price mentions.
+    # Two shapes occur in real prompts:
+    #   "Sourdough Bread for Rs 180"   (keyword between name and price)
+    #   "smart watches 2500"           (name then bare number)
     products: list[dict[str, Any]] = []
-    product_matches = re.findall(r"([A-Za-z\s]+?)\s+(?:for|at|costs?|price|rs\.?|inr)\s*(?:rs\.?|inr)?\s*(\d+(?:\.\d+)?)", prompt, re.IGNORECASE)
-    for prod_name, price in product_matches:
-        clean_name = prod_name.strip()
-        if len(clean_name) > 1 and not any(w in clean_name.lower() for w in ["we", "our", "call", "contact", "open", "at"]):
-            products.append({
-                "name": clean_name.capitalize(),
-                "price": float(price),
-                "currency": "INR",
-                "description": f"Fresh {clean_name}",
-                "is_suggested": False
-            })
+    keyword_pairs = re.findall(
+        r"([A-Za-z][A-Za-z\s'&-]*?)\s+(?:for|at|costs?|price|rs\.?|inr)\s*"
+        r"(?:rs\.?|inr)?\s*(\d+(?:\.\d+)?)",
+        prompt, re.IGNORECASE,
+    )
+    bare_pairs = re.findall(
+        r"([A-Za-z][A-Za-z\s'&-]{2,40}?)\s+(\d{2,7}(?:\.\d+)?)(?!\d)",
+        prompt,
+    )
+
+    # Words that begin a clause rather than a product name.
+    STOP_PREFIX = ("and", "we", "our", "with", "selling", "sells", "sell",
+                   "open", "call", "contact", "whatsapp", "located", "near",
+                   "in", "at", "for", "store", "shop", "the", "a", "an")
+    BLOCK = {"we", "our", "call", "contact", "open", "located"}
+
+    seen: set[str] = set()
+
+    def add(name: str, price: str) -> None:
+        clean = re.sub(r"\s+", " ", name).strip(" ,.-'&")
+        words = clean.split()
+        while words and words[0].lower() in STOP_PREFIX:
+            words.pop(0)
+        clean = " ".join(words)
+        if len(clean) < 2 or len(clean.split()) > 6:
+            return
+        if any(w in clean.lower().split() for w in BLOCK):
+            return
+        key = clean.lower()
+        if key in seen:
+            return
+        seen.add(key)
+        products.append({
+            "name": clean[0].upper() + clean[1:],
+            "price": float(price),
+            "currency": "INR",
+            "description": f"{clean[0].upper() + clean[1:]} at {shop_name}",
+            "is_suggested": False,
+        })
+
+    for name, price in keyword_pairs + bare_pairs:
+        add(name, price)
 
     return {
         "shop_name": shop_name,
@@ -131,25 +168,37 @@ def _heuristic_fallback_extractor(prompt: str) -> dict[str, Any]:
     }
 
 
-async def extract_storefront_spec(prompt: str, api_key: str | None = None, model: str = "llama-3.3-70b-versatile") -> Tuple[StorefrontSpec, bool, List[str]]:
+async def extract_storefront_spec(prompt: str, api_key: str | None = None, model: str | None = None) -> Tuple[StorefrontSpec, bool, List[dict[str, str]]]:
+    model = model or os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
     key = api_key or os.getenv("GROQ_API_KEY", "")
-    if key.strip() in PLACEHOLDER_KEYS:
-        logger.warning("NLP running in heuristic fallback mode — GROQ_API_KEY not set")
+
+    def _fallback(reason: str = "") -> Tuple[StorefrontSpec, bool, List[dict[str, str]]]:
         fallback_data = _heuristic_fallback_extractor(prompt)
         spec, valid, errors = validate_storefront_spec(fallback_data)
-        invalid_fields = list(errors)
-        if not spec or not spec.products:
+        invalid = list(errors)
+        if spec is None:
+            invalid.append({"field": "category", "reason": "could not infer a category"})
+            return (
+                StorefrontSpec(shop_name="Retail Store", category=StoreCategory.SERVICES),
+                False,
+                invalid,
+            )
+        if not spec.products:
             valid = False
-            invalid_fields.append("products")
-        return spec if spec else StorefrontSpec(shop_name="Retail Store", category=StoreCategory.FOOD), valid, invalid_fields
+            invalid.append({"field": "products", "reason": "no priced product found"})
+        if reason:
+            invalid.append({"field": "llm", "reason": reason})
+        return spec, valid, invalid
+
+    if key.strip() in PLACEHOLDER_KEYS:
+        logger.warning("NLP running in heuristic fallback mode — GROQ_API_KEY not set")
+        return _fallback()
 
     try:
         from groq import Groq
         from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
     except ImportError:
-        fallback_data = _heuristic_fallback_extractor(prompt)
-        spec, valid, errors = validate_storefront_spec(fallback_data)
-        return spec if spec else StorefrontSpec(shop_name="Retail Store", category=StoreCategory.FOOD), valid, errors
+        return _fallback("groq/tenacity not installed")
 
     client = Groq(api_key=key)
 
@@ -182,14 +231,11 @@ async def extract_storefront_spec(prompt: str, api_key: str | None = None, model
                 return spec, True, []
 
             messages.append({"role": "assistant", "content": raw_text})
-            messages.append({"role": "user", "content": f"Your previous response had schema validation errors: {', '.join(errors)}. Please correct them and return the updated JSON."})
+            described = "; ".join(f"{e['field']}: {e['reason']}" for e in errors)
+            messages.append({"role": "user", "content": f"Your previous response had schema validation errors: {described}. Please correct them and return the updated JSON."})
         except Exception as exc:
-            logger.error(f"Groq LLM attempt {attempt+1} failed: {exc}")
+            logger.error(f"Groq LLM attempt {attempt+1} failed: {type(exc).__name__}")
             if attempt == 1:
-                fallback_data = _heuristic_fallback_extractor(prompt)
-                spec, valid, errors = validate_storefront_spec(fallback_data)
-                return spec if spec else StorefrontSpec(shop_name="Retail Store", category=StoreCategory.FOOD), False, [str(exc)]
+                return _fallback(f"LLM call failed: {type(exc).__name__}")
 
-    fallback_data = _heuristic_fallback_extractor(prompt)
-    spec, valid, errors = validate_storefront_spec(fallback_data)
-    return spec if spec else StorefrontSpec(shop_name="Retail Store", category=StoreCategory.FOOD), False, ["Max validation attempts exceeded"]
+    return _fallback("max validation attempts exceeded")
