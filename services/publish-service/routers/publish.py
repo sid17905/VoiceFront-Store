@@ -19,6 +19,8 @@ even while its data source is still a stub.
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends
+import os
+import httpx
 from pydantic import BaseModel
 
 from core.s3_uploader import publish_storefront
@@ -75,16 +77,17 @@ class PublishResponse(BaseModel):
 
 def _server_side_qa_passed_check(version_id: str) -> bool:
     """
-    PHASE 1 STUB: qa_reports table isn't wired up yet (Postgres integration
-    lands as Track D's other services come online). Returns True unconditionally
-    for now so the endpoint is exercisable end-to-end against seed fixtures.
-
-    PHASE 2+ TODO: SELECT passed FROM qa_reports WHERE version_id = %s ORDER BY
-    created_at DESC LIMIT 1 -- this is the actual server-side re-validation
-    api_contracts.md requires; a client-supplied "trust me, QA passed" is
-    explicitly not sufficient.
+    Server-side QA validation: fetch the bundle and run QA to confirm
+    passed before publishing.
     """
-    return True
+    # Load the bundle HTML
+    html = _get_bundle_html(version_id)
+    qa_url = os.getenv("QA_URL")
+    if not qa_url:
+        raise PublishError("PUBLISH_QA_NOT_PASSED", "QA_URL env var not set")
+    r = httpx.post(f"{qa_url}/v1/qa/run", json={"html": html}, timeout=120)
+    r.raise_for_status()
+    return bool(r.json()["qa_report"]["passed"])
 
 
 def _get_bundle_html(version_id: str) -> str:

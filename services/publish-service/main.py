@@ -5,6 +5,8 @@ services/publish-service/main.py — FastAPI entrypoint.
 from __future__ import annotations
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+import os
 from fastapi.responses import JSONResponse
 
 from routers.publish import router as publish_router
@@ -26,6 +28,14 @@ except ImportError:  # pragma: no cover - standalone fallback
     _security_available = False
 
 app = FastAPI(title="publish-service", version="0.1.0")
+
+# Add CORS middleware
+ALLOW_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8080").split(",")
+app.add_middleware(CORSMiddleware,
+    allow_origins=[o.strip() for o in ALLOW_ORIGINS],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allow_headers=["*"])
 
 if _security_available:
     app.add_middleware(SecurityMiddleware)
