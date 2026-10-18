@@ -1,0 +1,27 @@
+# Build context hygiene (invariant: keep images small and secret-free)
+.git
+.gitattributes
+.gitignore
+.github
+scrapy
+node_modules
+**/node_modules
+**/.venv
+venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+voicefront
+apps
+docs.zip
+*.docx
+*.pptx
+*.pdf
+*.xlsx
+temp_fresh
+.claude
+.env
+.env.*
+!*.env.example

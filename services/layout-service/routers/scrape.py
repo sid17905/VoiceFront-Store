@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
 try:
@@ -46,6 +46,12 @@ except ImportError:  # pragma: no cover - local/dev fallback
                 raise UnsafeURL(f"internal address not allowed: {ip}")
         return url
 
+try:
+    from common_utils.security import require_api_key
+except ImportError:  # pragma: no cover
+    def require_api_key() -> None:  # type: ignore[misc]
+        return None
+
 router = APIRouter()
 
 _SCRAPER_SCRIPT = Path(__file__).resolve().parents[1] / "_playwright_worker.py"
@@ -76,7 +82,8 @@ class ScrapeResult(BaseModel):
     status_code: int = 200
 
 
-@router.post("/scrape", response_model=ScrapeResult)
+@router.post("/scrape", response_model=ScrapeResult,
+             dependencies=[Depends(require_api_key)])
 async def scrape_element(req: ScrapeRequest) -> ScrapeResult:
     # I-S4: never fetch a caller-supplied URL without validating it first.
     try:

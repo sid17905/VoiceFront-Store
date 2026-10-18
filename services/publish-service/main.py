@@ -18,7 +18,17 @@ except ImportError:  # pragma: no cover
             self.message = message
             super().__init__(f"{error_code}: {message}")
 
+try:
+    from common_utils.security import SecurityMiddleware
+    _security_available = True
+except ImportError:  # pragma: no cover - standalone fallback
+    SecurityMiddleware = None  # type: ignore[assignment]
+    _security_available = False
+
 app = FastAPI(title="publish-service", version="0.1.0")
+
+if _security_available:
+    app.add_middleware(SecurityMiddleware)
 app.include_router(publish_router)
 
 

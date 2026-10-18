@@ -11,8 +11,13 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY packages /app/packages
 COPY services/asr-service /app/services/asr-service
 
+RUN useradd --create-home --uid 10001 appuser && chown -R appuser /app
+USER appuser
+
 WORKDIR /app/services/asr-service
 
 EXPOSE 8001
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \n    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8001/health', timeout=3).status == 200 else 1)"
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]

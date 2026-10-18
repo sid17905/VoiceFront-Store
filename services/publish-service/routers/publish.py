@@ -18,7 +18,7 @@ even while its data source is still a stub.
 
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
 from core.s3_uploader import publish_storefront
@@ -50,7 +50,14 @@ except ImportError:  # pragma: no cover
             raise ValueError(f"path escapes base directory: {filename!r}")
         return candidate
 
-router = APIRouter(prefix="/v1", tags=["publish"])
+try:
+    from common_utils.security import require_api_key
+except ImportError:  # pragma: no cover
+    def require_api_key() -> None:  # type: ignore[misc]
+        return None
+
+router = APIRouter(prefix="/v1", tags=["publish"],
+                   dependencies=[Depends(require_api_key)])
 
 PROJECT_DOMAIN = "voicestorefront.app"  # placeholder -- replace with the real
 # purchased domain once bought (milestones.md Month 1 step: "buy the project

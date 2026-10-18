@@ -1,19 +1,15 @@
-version: "3.8"
-
 x-common-env: &common-env
   ENV: ${ENV:-dev}
   ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8080}
   LOG_LEVEL: ${LOG_LEVEL:-INFO}
 
-x-common-limits: &common-limits
-  deploy:
-    resources:
-      limits:
-        cpus: "1.0"
-        memory: 512M
-      reservations:
-        cpus: "0.25"
-        memory: 128M
+# Note: `deploy.resources` only takes effect under Swarm. For local compose the
+# equivalent is `mem_limit` / `cpus`; those are set per service below.
+x-healthcheck: &healthcheck
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 20s
 
 services:
   asr-service:
@@ -25,17 +21,16 @@ services:
     environment:
       <<: *common-env
       GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_ASR_MODEL: ${GROQ_ASR_MODEL:-whisper-large-v3}
     volumes:
       - ../../services/asr-service:/app/services/asr-service
       - ../../packages:/app/packages
     restart: unless-stopped
-    <<: *common-limits
+    mem_limit: 512m
+    cpus: 1.0
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+      <<: *healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8001/health', timeout=3).status == 200 else 1)"]
 
   nlp-service:
     build:
@@ -51,13 +46,11 @@ services:
       - ../../services/nlp-service:/app/services/nlp-service
       - ../../packages:/app/packages
     restart: unless-stopped
-    <<: *common-limits
+    mem_limit: 512m
+    cpus: 1.0
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+      <<: *healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8002/health', timeout=3).status == 200 else 1)"]
 
   layout-service:
     build:
@@ -67,18 +60,17 @@ services:
       - "8003:8003"
     environment:
       <<: *common-env
+      LAYOUT_TEMPLATE_DIR: ""
     volumes:
       - ../../services/layout-service:/app/services/layout-service
       - ../../packages:/app/packages
       - ../../data:/app/data
     restart: unless-stopped
-    <<: *common-limits
+    mem_limit: 768m
+    cpus: 1.0
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 15s
+      <<: *healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8003/health', timeout=3).status == 200 else 1)"]
 
   qa-service:
     build:
@@ -88,22 +80,43 @@ services:
       - "8004:8004"
     environment:
       <<: *common-env
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
     volumes:
       - ../../services/qa-service:/app/services/qa-service
       - ../../packages:/app/packages
       - ../../data:/app/data
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: 1G
-        reservations:
-          cpus: "0.5"
-          memory: 256M
+    mem_limit: 1g
+    cpus: 2.0
+    shm_size: 256m
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
-      interval: 30s
-      timeout: 15s
-      retries: 3
-      start_period: 30s
+      <<: *healthcheck
+      start_period: 40s
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8004/health', timeout=3).status == 200 else 1)"]
+
+  publish-service:
+    build:
+      context: ../../
+      dockerfile: services/publish-service/Dockerfile
+    ports:
+      - "8005:8005"
+    environment:
+      <<: *common-env
+      QA_URL: http://qa-service:8004
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:-}
+      PUBLISH_S3_BUCKET: ${PUBLISH_S3_BUCKET:-}
+      PUBLISH_CLOUDFRONT_DIST_ID: ${PUBLISH_CLOUDFRONT_DIST_ID:-}
+      PUBLISH_AWS_REGION: ${PUBLISH_AWS_REGION:-ap-south-1}
+    volumes:
+      - ../../services/publish-service:/app/services/publish-service
+      - ../../packages:/app/packages
+      - ../../data:/app/data
+    depends_on:
+      qa-service:
+        condition: service_healthy
+    restart: unless-stopped
+    mem_limit: 256m
+    cpus: 0.5
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8005/health', timeout=3).status == 200 else 1)"]

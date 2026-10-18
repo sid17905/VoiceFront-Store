@@ -24,6 +24,13 @@ logging.basicConfig(
 
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8080").split(",")
 
+try:
+    from common_utils.security import SecurityMiddleware
+    _security_available = True
+except ImportError:  # pragma: no cover - standalone fallback
+    SecurityMiddleware = None  # type: ignore[assignment]
+    _security_available = False
+
 app = FastAPI(
     title="VoiceFront NLP Service",
     description="Prompt-first Intent and Metadata Extraction Service",
@@ -31,6 +38,9 @@ app = FastAPI(
     docs_url="/docs" if os.getenv("ENV", "dev") != "production" else None,
     redoc_url=None,
 )
+
+if _security_available:
+    app.add_middleware(SecurityMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
