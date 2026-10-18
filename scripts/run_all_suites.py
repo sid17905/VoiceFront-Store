@@ -21,6 +21,7 @@ SUITES = [
     ("tests/layout", ROOT, ["tests/layout"]),
     ("tests/security", ROOT, ["tests/security"]),
     ("tests/e2e", ROOT, ["tests/e2e"]),
+    ("tests/contract", ROOT, ["tests/contract"]),
     ("tests/eval", ROOT, ["tests/eval"]),
     ("services/asr-service", ROOT / "services/asr-service", ["tests"]),
     ("services/nlp-service", ROOT / "services/nlp-service", ["tests"]),
