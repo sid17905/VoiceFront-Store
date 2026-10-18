@@ -28,12 +28,30 @@ from core.sort_engine import rank_failure_risk
 
 try:
     from common_utils.exceptions import QaViolationError
+    from common_utils.validators import safe_child, safe_version_id
 except ImportError:  # pragma: no cover
+    from pathlib import Path as _Path
+    import re as _re
+
     class QaViolationError(Exception):
         def __init__(self, error_code: str, message: str):
             self.error_code = error_code
             self.message = message
             super().__init__(f"{error_code}: {message}")
+
+    _VERSION_RE = _re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
+
+    def safe_version_id(value: str) -> str:
+        if not _VERSION_RE.fullmatch(value or ""):
+            raise ValueError(f"invalid version_id: {value!r}")
+        return value
+
+    def safe_child(base: _Path, filename: str) -> _Path:
+        base = base.resolve()
+        candidate = (base / filename).resolve()
+        if candidate != base and base not in candidate.parents:
+            raise ValueError(f"path escapes base directory: {filename!r}")
+        return candidate
 
 
 router = APIRouter(prefix="/v1/qa", tags=["qa"])
@@ -77,16 +95,24 @@ class QaRunResponse(BaseModel):
 # ---------------------------------------------------------------------------
 
 def _load_bundle_html(version_id: str) -> str:
-    fixture_path = SEED_BUNDLES_DIR / f"{version_id}.html"
-    if fixture_path.exists():
-        return fixture_path.read_text(encoding="utf-8")
-    raise QaViolationError(
-        "QA_VERSION_NOT_FOUND",
-        f"No bundle found for version_id={version_id}. Phase 1 resolves bundles "
-        f"against seed fixtures at {SEED_BUNDLES_DIR}/{{version_id}}.html -- real "
-        "storefront_versions/S3 lookup lands once layout-service is producing "
-        "real output (Phase 2, see milestones.md).",
-    )
+    """Resolve a seed bundle by validated version id.
+
+    I-S3: version_id never reaches the filesystem unchecked.
+    """
+    try:
+        safe_version_id(version_id)
+        fixture_path = safe_child(SEED_BUNDLES_DIR, f"{version_id}.html")
+    except ValueError as exc:
+        raise QaViolationError("QA_INVALID_REQUEST", str(exc)) from exc
+    if not fixture_path.exists():
+        raise QaViolationError(
+            "QA_VERSION_NOT_FOUND",
+            f"No bundle found for version_id={version_id}. Phase 1 resolves bundles "
+            f"against seed fixtures at {SEED_BUNDLES_DIR}/{{version_id}}.html -- real "
+            "storefront_versions/S3 lookup lands once layout-service is producing "
+            "real output (Phase 2, see milestones.md).",
+        )
+    return fixture_path.read_text(encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------

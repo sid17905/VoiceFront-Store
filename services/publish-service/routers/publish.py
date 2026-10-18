@@ -25,12 +25,30 @@ from core.s3_uploader import publish_storefront
 
 try:
     from common_utils.exceptions import PublishError
+    from common_utils.validators import safe_child, safe_version_id
 except ImportError:  # pragma: no cover
+    from pathlib import Path as _Path
+    import re as _re
+
     class PublishError(Exception):
         def __init__(self, error_code: str, message: str):
             self.error_code = error_code
             self.message = message
             super().__init__(f"{error_code}: {message}")
+
+    _VERSION_RE = _re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
+
+    def safe_version_id(value: str) -> str:
+        if not _VERSION_RE.fullmatch(value or ""):
+            raise ValueError(f"invalid version_id: {value!r}")
+        return value
+
+    def safe_child(base: _Path, filename: str) -> _Path:
+        base = base.resolve()
+        candidate = (base / filename).resolve()
+        if candidate != base and base not in candidate.parents:
+            raise ValueError(f"path escapes base directory: {filename!r}")
+        return candidate
 
 router = APIRouter(prefix="/v1", tags=["publish"])
 
@@ -68,12 +86,16 @@ def _get_bundle_html(version_id: str) -> str:
     # in data/seed/rendered_bundles/ before real S3-backed bundle storage exists.
     from pathlib import Path
 
-    fixture_path = (
-        Path(__file__).resolve().parents[3]
-        / "data" / "seed" / "rendered_bundles" / f"{version_id}.html"
-    )
+    try:
+        safe_version_id(version_id)
+        fixture_path = safe_child(
+            Path(__file__).resolve().parents[3] / "data" / "seed" / "rendered_bundles",
+            f"{version_id}.html",
+        )
+    except ValueError as exc:
+        raise PublishError("PUBLISH_INVALID_REQUEST", str(exc)) from exc
     if not fixture_path.exists():
-        raise PublishError("PUBLISH_S3_FAILED", f"No bundle fixture for {version_id}")
+        raise PublishError("PUBLISH_BUNDLE_NOT_FOUND", f"No bundle fixture for {version_id}")
     return fixture_path.read_text(encoding="utf-8")
 
 

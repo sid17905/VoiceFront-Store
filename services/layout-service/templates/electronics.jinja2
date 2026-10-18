@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ shop_name }}</title>
+  {% if description %}<meta name="description" content="{{ description }}">{% endif %}
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: {{ colors.text }}; background: {{ colors.background }}; line-height: 1.6; }
@@ -47,28 +48,10 @@
       .nav { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ElectronicsStore",
-    "name": "{{ shop_name }}",
-    {% if description %}"description": "{{ description }}",{% endif %}
-    {% if hours %}
-    "openingHoursSpecification": [
-      {% for h in hours %}{ "@type": "OpeningHoursSpecification", "dayOfWeek": "{{ h }}"{% if not loop.last %},{% endif %}{% endfor %}
-    ],
-    {% endif %}
-    {% if location %}
-    "address": { "@type": "PostalAddress", "streetAddress": "{{ location.raw_text }}" }
-    {% endif %}
-    {% if contact %}
-    "telephone": "{{ contact.phone | default('') }}",
-    "url": "https://wa.me/{{ contact.whatsapp }}"
-    {% endif %}
-  }
-  </script>
+  {{ json_ld }}
 </head>
 <body>
+  <main>
   <nav class="nav" aria-label="Main navigation">
     <h1>{{ shop_name }}</h1>
     <div class="nav-links">
@@ -93,7 +76,7 @@
       {% for product in products %}
       <div class="product-card">
         <h3>{{ product.name }}</h3>
-        <p class="price">₹{{ "%.0f" | format(product.price) }}</p>
+        <p class="price">{{ product.price_display }}</p>
         {% if product.description %}
         <p class="desc">{{ product.description }}</p>
         {% endif %}
@@ -124,12 +107,13 @@
       {% endif %}
     </div>
     {% if location %}
-    <p style="margin-top: 12px; font-size: 0.9rem;">📍 {{ location.raw_text }}</p>
+    <p style="margin-top: 12px; font-size: 0.9rem;">📍 {{ location_display }}</p>
     {% endif %}
   </section>
 
   <footer>
     <p>{{ shop_name }} &mdash; Powered by VoiceFront</p>
   </footer>
+  </main>
 </body>
 </html>

@@ -64,8 +64,13 @@ def _cloudfront_client():
 def _storefront_key(version_id: str, filename: str = "index.html") -> str:
     """Every published-bundle key lives under STOREFRONT_PREFIX/{version_id}/...
     -- this is the ONLY prefix the bucket policy should grant public read on
-    (see infra/terraform/s3_cloudfront.tf for the actual policy)."""
-    return f"{STOREFRONT_PREFIX}/{version_id}/{filename}"
+    (see infra/terraform/s3_cloudfront.tf for the actual policy).
+
+    I-S3: version_id is validated before it becomes an object key.
+    """
+    from common_utils.validators import safe_version_id
+
+    return f"{STOREFRONT_PREFIX}/{safe_version_id(version_id)}/{filename}"
 
 
 def upload_bundle(html_content: str, version_id: str) -> str:

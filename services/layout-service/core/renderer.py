@@ -1,221 +1,47 @@
 """
-services/layout-service/core/renderer.py — Upgraded Production-Ready Engine
+services/layout-service/core/renderer.py
+
+Jinja2 server-side render.
+
+Security notes (audit S1/S2/S5/S6/S7):
+- autoescape is ON for every template, including .jinja2.
+- JSON-LD is serialised in Python and its `</` sequences are escaped so a
+  description cannot terminate the <script> block.
+- The fallback page is a real template (_fallback.jinja2), not a str.format
+  shell — the old shell contained unescaped JS braces and always raised.
+- No invented contact data or dead asset paths are emitted.
+
+All conditional structure is resolved before the template sees the context
+(Architect.md L4): templates never call back into Python.
 """
 
 from __future__ import annotations
 
+import logging
 import os
-import html
 import json
 from pathlib import Path
 from typing import Any
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
+from markupsafe import Markup
 
 from core.palette_engine import Palette
 
-_TEMPLATE_DIR = Path(os.environ.get(
-    "LAYOUT_TEMPLATE_DIR",
-    Path(__file__).resolve().parents[1] / "templates",
-))
+logger = logging.getLogger(__name__)
+
+_configured_dir = os.environ.get("LAYOUT_TEMPLATE_DIR", "").strip()
+_TEMPLATE_DIR = (
+    Path(_configured_dir) if _configured_dir
+    else Path(__file__).resolve().parents[1] / "templates"
+)
 
 _env = Environment(
     loader=FileSystemLoader(str(_TEMPLATE_DIR)),
-    autoescape=select_autoescape(["html"]),
+    autoescape=True,
     trim_blocks=True,
     lstrip_blocks=True,
 )
-
-_PAGE_SHELL = """\
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{shop_name}</title>
-  <style>
-    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    body {{
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      color: {text};
-      background: {background};
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }}
-    .mobile-container {{
-      max-width: 480px;
-      margin: 0 auto;
-      min-height: 100vh;
-      background: #ffffff;
-      box-shadow: 0 0 25px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
-    }}
-    /* Header / Nav */
-    .app-bar {{
-      background: linear-gradient(135deg, {primary}, {secondary});
-      color: #ffffff;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }}
-    .app-bar h1 {{ font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }}
-    .badge {{ background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }}
-    
-    /* Hero Section with Dynamic Imagery & Gradient Overlay */
-    .hero-section {{
-      position: relative;
-      background: url('{hero_image}') center/cover no-repeat;
-      padding: 56px 20px;
-      text-align: center;
-      color: #ffffff;
-    }}
-    .hero-overlay {{
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
-    }}
-    .hero-content {{
-      position: relative;
-      z-index: 2;
-    }}
-    .hero-content h2 {{ font-size: 1.75rem; font-weight: 800; margin-bottom: 8px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }}
-    .hero-content p {{ font-size: 0.95rem; opacity: 0.95; max-width: 320px; margin: 0 auto; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }}
-    
-    /* Content Body */
-    .content-body {{ padding: 24px 16px; flex: 1; }}
-    .section-title {{ font-size: 1.1rem; font-weight: 700; color: {primary}; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }}
-    .section-title::before {{ content: ''; width: 4px; height: 16px; background: {accent}; border-radius: 2px; display: inline-block; }}
-    
-    /* Product Grid (Mobile Optimized) */
-    .product-grid {{ display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }}
-    .product-card {{
-      background: #ffffff;
-      border: 1px solid #edf2f7;
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      transition: transform 0.2s ease;
-    }}
-    .product-thumb {{
-      width: 72px;
-      height: 72px;
-      border-radius: 10px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }}
-    .product-info {{ flex: 1; }}
-    .product-info h3 {{ font-size: 1rem; font-weight: 600; color: #1e293b; margin-bottom: 4px; }}
-    .product-info .desc {{ font-size: 0.8rem; color: #64748b; margin-bottom: 6px; line-height: 1.3; }}
-    .product-info .price {{ font-size: 1rem; font-weight: 700; color: {accent}; }}
-    
-    /* Info Cards (Hours & Location) */
-    .info-card {{
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 24px;
-    }}
-    .info-card ul {{ list-style: none; }}
-    .info-card li {{ padding: 6px 0; font-size: 0.85rem; color: #334155; border-bottom: 1px solid #f1f5f9; }}
-    .info-card li:last-child {{ border-bottom: none; }}
-    
-    /* Floating / Sticky WhatsApp CTA */
-    .cta-footer {{
-      background: #ffffff;
-      padding: 16px;
-      border-top: 1px solid #e2e8f0;
-      position: sticky;
-      bottom: 0;
-      z-index: 100;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.05);
-    }}
-    .whatsapp-btn {{
-      background: #25D366;
-      color: #ffffff;
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
-      width: 100%;
-    }}
-    .whatsapp-btn:active {{ transform: scale(0.98); }}
-    
-    footer {{ text-align: center; padding: 16px; font-size: 0.75rem; color: #94a3b8; background: #f8fafc; }}
-  </style>
-  {json_ld}
-  <script>
-    (function() {
-      const fingerprint = {
-        userAgent: navigator.userAgent,
-        screenResolution: `${window.screen.width}x${window.screen.height}`,
-        language: navigator.language,
-        timestamp: Date.now()
-      };
-      window.__voicefront_fingerprint = fingerprint;
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.addedNodes.length) {
-            mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === 1 && node.tagName === 'IMG' && !node.getAttribute('alt')) {
-                console.warn('[WCAG 2.2 Audit] Image missing alt attribute detected.');
-              }
-            });
-          }
-        });
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    })();
-  </script>
-</head>
-<body>
-  <div class="mobile-container">
-    <div class="app-bar">
-      <h1>{shop_name}</h1>
-      <span class="badge">{category}</span>
-    </div>
-    
-    <div class="hero-section">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h2>{shop_name}</h2>
-        <p>{description}</p>
-      </div>
-    </div>
-    
-    <div class="content-body">
-      {products_html}
-      {hours_html}
-      {contact_html}
-    </div>
-    
-    <div class="cta-footer">
-      <a href="https://wa.me/{whatsapp_number}" class="whatsapp-btn">
-        <span>Order / Book via WhatsApp</span>
-      </a>
-    </div>
-    
-    <footer>
-      <p>{shop_name} &bull; Powered by VoiceFront Engine</p>
-    </footer>
-  </div>
-</body>
-</html>"""
 
 
 def _resolve_image_url(product_name: str, category: str) -> str:
@@ -275,35 +101,86 @@ def _resolve_image_url(product_name: str, category: str) -> str:
 
 
 
+def _price_display(value: Any, currency: str = "INR") -> str:
+    """Format a price without ever raising.
+
+    `ProductItem.price` is `float | str | None`; the templates previously did
+    `"%.0f" | format(product.price)`, which raises on None and on string prices.
+    """
+    if value is None or value == "":
+        return "Ask for price"
+    if isinstance(value, bool):
+        return str(value)
+    if isinstance(value, (int, float)):
+        symbol = {"INR": "₹", "USD": "$", "EUR": "€", "GBP": "£"}.get(currency, f"{currency} ")
+        return f"{symbol}{value:,.0f}"
+    return str(value)
+
+
+def _location_display(location: dict[str, Any] | None) -> str:
+    """Join the address fields that actually exist on LocationInfo.
+
+    The templates used to read `location.raw_text`, a field removed from the
+    schema, so address output was always blank.
+    """
+    if not isinstance(location, dict):
+        return ""
+    parts = [
+        location.get("address"),
+        location.get("city"),
+        location.get("state"),
+        location.get("pincode"),
+    ]
+    return ", ".join(str(p).strip() for p in parts if p and str(p).strip())
+
+
+def _placeholder_svg(label: str, color: str = "#64748b") -> str:
+    """Deterministic inline placeholder — no missing asset paths, no network."""
+    from urllib.parse import quote
+    from html import escape as _escape
+
+    text = _escape((label or "Item")[:14])
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144">'
+        f'<rect width="100%" height="100%" fill="{color}"/>'
+        f'<text x="50%" y="52%" text-anchor="middle" fill="#ffffff" '
+        f'font-family="sans-serif" font-size="14">{text}</text></svg>'
+    )
+    return "data:image/svg+xml;charset=utf-8," + quote(svg)
+
+
 def _build_context(spec: dict[str, Any], palette: Palette) -> dict[str, Any]:
     category = spec.get("category", "services")
-    
-    hero_image = {
-        "food": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200",
-        "apparel": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200",
-        "electronics": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200",
-        "pharmacy": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200",
-        "services": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200"
-    }.get(category, "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200")
+
+    # Local, self-contained hero image. No third-party request from a
+    # customer-facing page, and nothing to 404.
+    hero_image = _placeholder_svg(spec.get("shop_name", "Store"), palette.primary)
 
     products = []
-    for i, p in enumerate(spec.get("products", [])):
+    for p in spec.get("products", []):
         p_copy = dict(p)
-        p_copy["thumbnail"] = p.get("image_url") or _resolve_image_url(p.get("name", ""), category)
+        p_copy["price_display"] = _price_display(p.get("price"), p.get("currency", "INR"))
+        p_copy["thumbnail"] = (
+            p.get("image_url")
+            or _placeholder_svg(p.get("name", "Item"), palette.secondary)
+        )
         products.append(p_copy)
 
-    whatsapp = spec.get("contact", {}).get("whatsapp", "9876543210")
+    contact = spec.get("contact") or {}
+    whatsapp = str(contact.get("whatsapp") or "").strip()
 
     return {
         "shop_name": spec["shop_name"],
         "category": category,
-        "description": spec.get("description", "Welcome to our premier store."),
+        "description": spec.get("description", ""),
         "products": products,
-        "hours": spec.get("hours", ["Mon-Sun: 9:00 AM - 9:00 PM"]),
+        "hours": spec.get("hours", []),
         "location": spec.get("location"),
-        "contact": spec.get("contact", {}),
+        "location_display": _location_display(spec.get("location")),
+        "contact": contact,
         "whatsapp_number": whatsapp,
         "hero_image": hero_image,
+        "json_ld": _render_json_ld(spec),
         "primary": palette.primary,
         "secondary": palette.secondary,
         "accent": palette.accent,
@@ -312,25 +189,51 @@ def _build_context(spec: dict[str, Any], palette: Palette) -> dict[str, Any]:
     }
 
 
-def _render_json_ld(spec: dict[str, Any]) -> str:
+def _render_json_ld(spec: dict[str, Any]) -> Markup:
+    """Serialise JSON-LD safely for inline use in a <script> block."""
     schema_type = {
         "food": "FoodEstablishment",
         "apparel": "ClothingStore",
         "electronics": "ElectronicsStore",
         "pharmacy": "PharmacyOrDrugstore",
         "services": "LocalBusiness",
-    }.get(spec["category"], "LocalBusiness")
+    }.get(spec.get("category", "services"), "LocalBusiness")
 
-    data = {
+    data: dict[str, Any] = {
         "@context": "https://schema.org",
         "@type": schema_type,
-        "name": spec["shop_name"],
+        "name": spec.get("shop_name", ""),
     }
     if spec.get("description"):
         data["description"] = spec["description"]
-    if spec.get("contact", {}).get("whatsapp"):
-        data["url"] = f"https://wa.me/{spec['contact']['whatsapp']}"
-    return f'<script type="application/ld+json">{json.dumps(data)}</script>'
+    if spec.get("products"):
+        data["hasOfferCatalog"] = {
+            "@type": "OfferCatalog",
+            "name": "Products",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {"@type": "Product", "name": p.get("name", "")},
+                    "price": p.get("price"),
+                    "priceCurrency": p.get("currency", "INR"),
+                }
+                for p in spec["products"][:50]
+                if isinstance(p, dict)
+            ],
+        }
+    if spec.get("hours"):
+        data["openingHours"] = list(spec["hours"])
+    address = _location_display(spec.get("location"))
+    if address:
+        data["address"] = {"@type": "PostalAddress", "streetAddress": address}
+    contact = spec.get("contact") or {}
+    if contact.get("whatsapp"):
+        data["url"] = f"https://wa.me/{contact['whatsapp']}"
+    if contact.get("phone"):
+        data["telephone"] = str(contact["phone"])
+
+    payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    return Markup(f'<script type="application/ld+json">{payload}</script>')
 
 
 def render(
@@ -338,77 +241,46 @@ def render(
     spec: dict[str, Any],
     palette: Palette,
 ) -> str:
+    """Render a category template, falling back to the generic shell.
+
+    Only template-level failures trigger the fallback. Data errors are allowed
+    to raise so callers see a real 500 instead of a silently degraded page.
+    """
+    from jinja2 import TemplateError
+
     ctx = _build_context(spec, palette)
+    template_ctx = {
+        "shop_name": ctx["shop_name"],
+        "category": ctx["category"],
+        "description": ctx["description"],
+        "products": ctx["products"],
+        "hours": ctx["hours"],
+        "location": ctx["location"],
+        "location_display": ctx["location_display"],
+        "contact": ctx["contact"],
+        "whatsapp_number": ctx["whatsapp_number"],
+        "hero_image": ctx["hero_image"],
+        "json_ld": ctx["json_ld"],
+        "colors": {
+            "primary": palette.primary,
+            "secondary": palette.secondary,
+            "accent": palette.accent,
+            "text": palette.text,
+            "background": palette.background,
+        },
+    }
+
     try:
         template = _env.get_template(f"{template_id}.jinja2")
-        template_ctx = {
-            "shop_name": ctx["shop_name"],
-            "category": ctx["category"],
-            "description": ctx["description"],
-            "products": ctx["products"],
-            "hours": ctx["hours"],
-            "location": ctx["location"],
-            "contact": ctx["contact"],
-            "colors": {
-                "primary": palette.primary,
-                "secondary": palette.secondary,
-                "accent": palette.accent,
-                "text": palette.text,
-                "background": palette.background,
-            }
-        }
         return template.render(**template_ctx)
-    except Exception:
-        json_ld = _render_json_ld(spec)
-        products_parts = ['<div class="section-title">Featured Catalog</div><div class="product-grid">']
-        for p in ctx["products"]:
-            products_parts.append(f"""
-              <div class="product-card">
-                <img src="{html.escape(p.get('thumbnail', ''))}" class="product-thumb" alt="{html.escape(p['name'])}" />
-                <div class="product-info">
-                  <h3>{html.escape(p['name'])}</h3>
-                  <div class="desc">{html.escape(p.get('description', ''))}</div>
-                  <div class="price">&#8377;{html.escape(str(p.get('price', 0)))}</div>
-                </div>
-              </div>
-            """)
-        products_parts.append('</div>')
-        products_html = "".join(products_parts)
-
-        hours_parts = ['<div class="section-title">Operating Hours</div><div class="info-card"><ul>']
-        for h in ctx["hours"]:
-            hours_parts.append(f"<li>{html.escape(h)}</li>")
-        hours_parts.append('</ul></div>')
-        hours_html = "".join(hours_parts)
-
-        contact_parts = ['<div class="section-title">Location & Details</div><div class="info-card"><ul>']
-        loc = ctx["location"]
-        if loc:
-            addr = f"{loc.get('address', '')}, {loc.get('city', '')}, {loc.get('state', '')} {loc.get('pincode', '')}".strip(", ")
-            if addr:
-                contact_parts.append(f"<li><strong>Address:</strong> {html.escape(addr)}</li>")
-        phone = ctx["contact"].get("phone")
-        if phone:
-            contact_parts.append(f"<li><strong>Phone:</strong> {html.escape(phone)}</li>")
-        contact_parts.append('</ul></div>')
-        contact_html = "".join(contact_parts)
-
-        return _PAGE_SHELL.format(
-            shop_name=html.escape(ctx["shop_name"]),
-            category=html.escape(ctx["category"]),
-            description=html.escape(ctx["description"]),
-            primary=palette.primary,
-            secondary=palette.secondary,
-            accent=palette.accent,
-            text=palette.text,
-            background=palette.background,
-            json_ld=json_ld,
-            hero_image=ctx["hero_image"],
-            products_html=products_html,
-            hours_html=hours_html,
-            contact_html=contact_html,
-            whatsapp_number=html.escape(str(ctx["whatsapp_number"])),
+    except TemplateError as exc:
+        logger.warning(
+            "template %r unavailable (%s); using fallback",
+            template_id, type(exc).__name__,
+            extra={"template_id": template_id},
         )
+        fallback = _env.get_template("_fallback.jinja2")
+        return fallback.render(**template_ctx)
 
 
 def render_components(
@@ -416,4 +288,39 @@ def render_components(
     palette: Palette,
     components: dict[str, dict[str, Any] | None],
 ) -> str:
-    return render(spec.get("category", "services"), spec, palette)
+    """Assemble an approved component variant per section type.
+
+    Falls back to the monolithic category template when any section is
+    missing. Invariant: passing `components` must change the output.
+    """
+    if not components or any(v is None for v in components.values()):
+        return render(spec.get("category", "services"), spec, palette)
+
+    ctx = _build_context(spec, palette)
+    ctx["colors"] = {
+        "primary": palette.primary,
+        "secondary": palette.secondary,
+        "accent": palette.accent,
+        "text": palette.text,
+        "background": palette.background,
+    }
+
+    from jinja2 import BaseLoader
+    from jinja2.sandbox import SandboxedEnvironment
+
+    sandbox = SandboxedEnvironment(loader=BaseLoader(), autoescape=True)
+    sections: list[str] = []
+    for section in ("nav", "hero", "product_grid", "contact"):
+        variant = components[section]
+        body = sandbox.from_string(variant.get("html", "")).render(**ctx)
+        css = sandbox.from_string(variant.get("css", "")).render(**ctx)
+        sections.append(f"<style>{css}</style>{body}" if css else body)
+
+    page = (
+        "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        f"<title>{ctx['shop_name']}</title>{ctx['json_ld']}</head><body>"
+        + "".join(sections)
+        + "</body></html>"
+    )
+    return page

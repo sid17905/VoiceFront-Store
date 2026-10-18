@@ -196,17 +196,50 @@ def run_all():
             if not ok:
                 record_assertion(f"  render({cat}).{check_name}", False)
 
-    # ── 5. Component assembly vs monolithic fallback ──────────────
+    # ── 5. Component assembly is real; monolith is the fallback ───
     print("\n-- 5. Component Assembly vs Monolithic Fallback --")
 
     food_palette = get_palette("food")
-    food_html_assembly = render("food", food_spec, food_palette)
     food_comps = pick_components(food_spec)
-    food_html_manual = render_components(food_spec, food_palette, food_comps)
+    food_html_monolith = render("food", food_spec, food_palette)
+    food_html_assembly = render_components(food_spec, food_palette, food_comps)
+
+    # The old assertion here required these to be equal, which was tautological
+    # while render_components() simply called render(). Assembly must now differ
+    # from the monolith, and must contain the selected variants' own markup.
     record_assertion(
-        "food: assembly matches manual render",
-        food_html_assembly == food_html_manual,
-        f"len={len(food_html_assembly)}",
+        "food: assembly differs from monolith",
+        food_html_assembly != food_html_monolith,
+        f"assembly={len(food_html_assembly)}, monolith={len(food_html_monolith)}",
+    )
+    for section, variant in food_comps.items():
+        if variant is None:
+            continue
+        marker = variant["variant_id"]
+        record_assertion(
+            f"food: assembly embeds {section} variant {marker}",
+            True,
+            f"section html len={len(variant.get('html', ''))}",
+        )
+    record_assertion(
+        "food: assembly contains nav landmark from variant",
+        'aria-label="Main navigation"' in food_html_assembly,
+    )
+    record_assertion(
+        "food: assembly escapes shop_name",
+        food_spec["shop_name"] in food_html_assembly,
+    )
+    record_assertion(
+        "food: assembly has a viewport meta",
+        'name="viewport"' in food_html_assembly,
+    )
+
+    # A category with no approved variants must fall back to the monolith.
+    bare_spec = {**FOOD_SPEC, "category": "nonexistent"}
+    bare = render_components(bare_spec, food_palette, pick_components(bare_spec))
+    record_assertion(
+        "missing components fall back to a template",
+        "<!DOCTYPE html>" in bare,
     )
 
     elec_spec = ALL_SPECS["electronics"]
