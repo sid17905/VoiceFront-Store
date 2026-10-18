@@ -58,7 +58,6 @@ class ChatScreenState extends State<ChatScreen> {
   bool _stopped = false;
   Map<String, dynamic>? _currentSpec;
   int _stageIndex = 0;
-  String? _errorText;
 
   @override
   void initState() {
@@ -89,7 +88,6 @@ class ChatScreenState extends State<ChatScreen> {
     _stageIndex = 0;
     _isLoading = false;
     _stopped = false;
-    _errorText = null;
   }
 
   void stopGeneration() {
@@ -112,14 +110,17 @@ class ChatScreenState extends State<ChatScreen> {
   // ── Intent dispatch ────────────────────────────────────────────────────────
 
   void _handleAction(QuickAction action) {
-    // Show user's chip selection as a transcript entry (display only, never mutate spec).
     setState(() {
       _messages.add(ChatMessage(text: '[${action.label}]', isUser: true));
     });
     _dispatchIntent(action.op, action.value);
   }
 
-  void _dispatchIntent(String op, String value) {
+  /// Applies an edit and re-renders. Previously this mutated the local map,
+  /// printed a success tick, and never re-ran layout — so the shown HTML did
+  /// not change. `theme` and `banner` are not schema fields; they are mapped
+  /// onto `description` so the backend actually sees the change.
+  Future<void> _dispatchIntent(String op, String value) async {
     if (_currentSpec == null) return;
     final updated = Map<String, dynamic>.from(_currentSpec!);
     switch (op) {
@@ -127,16 +128,93 @@ class ChatScreenState extends State<ChatScreen> {
         updated['hours'] = [value];
         break;
       case 'set_theme':
-        updated['theme'] = value;
-        break;
       case 'add_banner':
-        updated['banner'] = value;
+        final current = (updated['description'] as String?) ?? '';
+        updated['description'] = op == 'add_banner'
+            ? '$value $current'.trim()
+            : '$current · $value'.trim();
         break;
+      default:
+        return;
     }
-    _currentSpec = updated;
+
     setState(() {
-      _messages.add(ChatMessage(text: 'Updated **${op.replaceAll('_', ' ')}** ✓', isUser: false));
+      _isLoading = true;
+      _stageIndex = 1;
     });
+
+    try {
+      final category = updated['category'] as String? ?? 'services';
+      final layout = await VoiceFrontBackendService.generateLayout(updated, category);
+      final html = layout['html'] as String;
+      final report = await VoiceFrontBackendService.runQa(html);
+      if (!mounted) return;
+
+      _currentSpec = updated;
+      setState(() {
+        _isLoading = false;
+        _stageIndex = 0;
+        _messages.add(ChatMessage(
+          text: 'Updated **${op.replaceAll('_', ' ')}** ✓',
+          isUser: false,
+          type: MessageType.result,
+          htmlPreview: html,
+          storefrontSpec: updated,
+          qaViolations: (report['total_violations'] as num?)?.toInt() ?? 0,
+        ));
+      });
+    } catch (e) {
+      if (!mounted) return;
+      VoiceFrontBackendService.logFailure(e);
+      setState(() {
+        _isLoading = false;
+        _stageIndex = 0;
+        _messages.add(ChatMessage(
+          text: 'Could not apply the edit: ${_describe(e)}',
+          isUser: false,
+          type: MessageType.error,
+        ));
+      });
+    }
+    _scrollToBottom();
+  }
+
+  String _describe(Object error) {
+    if (error is BackendException) {
+      return error.statusCode == null
+          ? error.message
+          : '${error.message} (HTTP ${error.statusCode})';
+    }
+    return 'backend unreachable';
+  }
+
+  /// Publishes the most recent bundle. The version id is the spec's shop name
+  /// slugged, which matches the seed-fixture naming used by the backend.
+  Future<void> _publishCurrent(String html) async {
+    final shopName = (_currentSpec?['shop_name'] as String?) ?? 'storefront';
+    final versionId = shopName
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+        .replaceAll(RegExp(r'^-+|-+$'), '');
+    try {
+      final url = await VoiceFrontBackendService.publish(versionId);
+      if (!mounted) return;
+      setState(() {
+        _messages.add(ChatMessage(
+          text: 'Published: $url',
+          isUser: false,
+        ));
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _messages.add(ChatMessage(
+          text: 'Publish failed: ${_describe(e)}',
+          isUser: false,
+          type: MessageType.error,
+        ));
+      });
+    }
     _scrollToBottom();
   }
 
@@ -152,59 +230,67 @@ class ChatScreenState extends State<ChatScreen> {
       _isLoading = true;
       _stopped = false;
       _stageIndex = 0;
-      _errorText = null;
     });
     _scrollToBottom();
 
     try {
       // Stage 0 — Understanding
-      await Future.delayed(const Duration(milliseconds: 600));
-      if (_stopped) return;
+      setState(() => _stageIndex = 0);
 
       Map<String, dynamic> spec;
-      if (_currentSpec != null &&
-          RegExp(r'\b(change|update|add|remove|set)\b', caseSensitive: false).hasMatch(text)) {
+      final isEdit = _currentSpec != null &&
+          RegExp(r'\b(change|update|add|remove|set)\b', caseSensitive: false)
+              .hasMatch(text);
+      if (isEdit) {
         spec = Map<String, dynamic>.from(_currentSpec!);
       } else {
         final nlpResult = await VoiceFrontBackendService.extractStorefront(text);
         spec = Map<String, dynamic>.from(nlpResult['storefront_spec'] as Map? ?? {});
       }
-      if (_stopped) return;
+      if (_stopped || !mounted) return;
 
       // Stage 1 — Designing
       setState(() => _stageIndex = 1);
-      await Future.delayed(const Duration(milliseconds: 600));
-      if (_stopped) return;
 
       final category = spec['category'] as String? ?? 'services';
       final layoutResult = await VoiceFrontBackendService.generateLayout(spec, category);
       final html = layoutResult['html'] as String? ?? '';
-      if (_stopped) return;
+      if (_stopped || !mounted) return;
 
-      // Stage 2 — Checking
+      // Stage 2 — Checking: run real QA against the generated page.
       setState(() => _stageIndex = 2);
-      await Future.delayed(const Duration(milliseconds: 400));
-      if (_stopped) return;
+      int qaViolations = -1;
+      try {
+        final report = await VoiceFrontBackendService.runQa(html);
+        qaViolations = (report['total_violations'] as num?)?.toInt() ?? 0;
+      } catch (e) {
+        VoiceFrontBackendService.logFailure(e);
+      }
+      if (_stopped || !mounted) return;
 
       _currentSpec = spec;
       final shopName = spec['shop_name'] as String? ?? 'Your Store';
-      final source = spec['source'] as String? ?? 'groq';
       AccountManager.addArtifact(shopName, category);
 
+      final source = spec['source'] as String? ?? 'groq';
       final isOffline = source == 'fallback';
+      final qaLine = qaViolations < 0
+          ? '> QA service unavailable — no pass is claimed.'
+          : (qaViolations == 0
+              ? '> QA: no violations detected.'
+              : '> QA: $qaViolations violation(s) detected.');
 
       setState(() {
         _isLoading = false;
         _stageIndex = 0;
         _messages.add(ChatMessage(
-          text: isOffline
-              ? 'Built **$shopName** using offline heuristics.\n\n> Connect the AI backend for richer results.'
-              : 'Built **$shopName** — looking good! Here are some customisations:',
+          text: '${isOffline ? 'Built **$shopName** using the offline heuristics.' : 'Built **$shopName**.'}'
+              '\n\n$qaLine',
           isUser: false,
           type: MessageType.result,
           htmlPreview: html,
           storefrontSpec: spec,
-          qaViolations: 0,
+          qaViolations: qaViolations < 0 ? 0 : qaViolations,
           actions: const [
             QuickAction(label: 'Add operating hours', op: 'set_hours', value: 'Mon–Sat: 9 AM – 9 PM'),
             QuickAction(label: 'Change primary colors', op: 'set_theme', value: 'vibrant'),
@@ -213,12 +299,13 @@ class ChatScreenState extends State<ChatScreen> {
         ));
       });
     } catch (e) {
+      VoiceFrontBackendService.logFailure(e);
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
         _stageIndex = 0;
-        _errorText = e.toString();
         _messages.add(ChatMessage(
-          text: 'Something went wrong. Tap **Retry** to try again.',
+          text: 'Something went wrong: ${_describe(e)}. Tap **Retry** to try again.',
           isUser: false,
           type: MessageType.error,
         ));
@@ -232,8 +319,19 @@ class ChatScreenState extends State<ChatScreen> {
       builder: (_) => StorefrontPreviewScreen(
         htmlContent: html,
         spec: _currentSpec,
+        onPublish: () => _publishAndReturnUrl(),
       ),
     ));
+  }
+
+  /// Publish used by the preview screen. Returns the live URL or throws.
+  Future<String> _publishAndReturnUrl() async {
+    final shopName = (_currentSpec?['shop_name'] as String?) ?? 'storefront';
+    final versionId = shopName
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+        .replaceAll(RegExp(r'^-+|-+$'), '');
+    return VoiceFrontBackendService.publish(versionId);
   }
 
   // ── Build ─────────────────────────────────────────────────────────────────
@@ -288,7 +386,9 @@ class ChatScreenState extends State<ChatScreen> {
                   qaViolations: msg.qaViolations,
                   source: msg.storefrontSpec!['source'] as String? ?? 'groq',
                   onPreview: () => msg.htmlPreview != null ? _openPreview(msg.htmlPreview!) : null,
-                  onPublish: () {},
+                  onPublish: () {
+                    if (msg.htmlPreview != null) _publishCurrent(msg.htmlPreview!);
+                  },
                   onEdit: () => _controller.text = 'Edit: ',
                 ),
               if (msg.actions != null) ...[
@@ -381,7 +481,14 @@ class ChatScreenState extends State<ChatScreen> {
         MarkdownBody(data: text, styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))),
         const SizedBox(height: 8),
         TextButton.icon(
-          onPressed: () => _sendMessage(_controller.text.trim().isNotEmpty ? null : _messages.firstWhere((m) => m.isUser, orElse: () => _messages.last).text),
+          // Retry replays the most recent user message, not the first one.
+          onPressed: () {
+            final last = _messages.lastWhere(
+              (m) => m.isUser,
+              orElse: () => _messages.first,
+            );
+            _sendMessage(last.text);
+          },
           icon: const Icon(Icons.refresh, size: 16),
           label: const Text('Retry'),
           style: TextButton.styleFrom(foregroundColor: cs.error),

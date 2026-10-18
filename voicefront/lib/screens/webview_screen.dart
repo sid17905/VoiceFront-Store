@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
+import '../services/voicefront_backend_service.dart';
 
 class StorefrontPreviewScreen extends StatefulWidget {
   final String htmlContent;
   final Map<String, dynamic>? spec;
+  final Future<String> Function()? onPublish;
 
   const StorefrontPreviewScreen({
     super.key,
     required this.htmlContent,
     this.spec,
+    this.onPublish,
   });
 
   @override
@@ -22,6 +25,34 @@ class _StorefrontPreviewScreenState extends State<StorefrontPreviewScreen> {
   bool _loading = true;
   bool _hasError = false;
   bool _desktopMode = false;
+  bool _publishing = false;
+
+  /// Publishes through the callback supplied by the caller. Previously this
+  /// button had an empty onPressed, so the product's primary action did
+  /// nothing at all.
+  Future<void> _publish() async {
+    final callback = widget.onPublish;
+    if (callback == null) {
+      _showMessage('Publish is not available in preview mode.');
+      return;
+    }
+    setState(() => _publishing = true);
+    try {
+      final url = await callback();
+      if (!mounted) return;
+      _showMessage('Published: $url');
+    } catch (error) {
+      if (!mounted) return;
+      final detail = error is BackendException ? error.toString() : 'backend unreachable';
+      _showMessage('Publish failed: $detail');
+    } finally {
+      if (mounted) setState(() => _publishing = false);
+    }
+  }
+
+  void _showMessage(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
 
   @override
   void initState() {
@@ -110,8 +141,15 @@ class _StorefrontPreviewScreenState extends State<StorefrontPreviewScreen> {
             onPressed: _share,
           ),
           TextButton(
-            onPressed: () {},
-            child: Text('Publish', style: TextStyle(fontWeight: FontWeight.bold, color: cs.primary)),
+            onPressed: _publishing ? null : _publish,
+            child: _publishing
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : Text('Publish',
+                    style: TextStyle(fontWeight: FontWeight.bold, color: cs.primary)),
           ),
         ],
       ),

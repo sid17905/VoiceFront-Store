@@ -7,12 +7,6 @@ import 'theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
   runApp(const VoiceFrontApp());
 }
 
@@ -53,19 +47,31 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('VF AI — VoiceFront Engine'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add_comment_outlined),
-            tooltip: 'New Chat',
-            onPressed: _startNewChat,
-          ),
-        ],
+    // Status-bar icons follow the active theme. The previous implementation set
+    // Brightness.dark once at startup, so icons disappeared in dark mode.
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final overlay = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+    );
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlay,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('VF AI — VoiceFront Engine'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add_comment_outlined),
+              tooltip: 'New Chat',
+              onPressed: _startNewChat,
+            ),
+          ],
+        ),
+        drawer: const VoiceFrontDrawer(),
+        body: ChatScreen(key: _chatKey),
       ),
-      drawer: const VoiceFrontDrawer(),
-      body: ChatScreen(key: _chatKey),
     );
   }
 }

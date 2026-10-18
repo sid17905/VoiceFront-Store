@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AccountManager {
   static String userName = "Alex Morgan";
   static String userEmail = "alex@voicefront.ai";
