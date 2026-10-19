@@ -67,13 +67,13 @@ def _heuristic_fallback_extractor(prompt: str) -> dict[str, Any]:
 
     # Extract shop name
     shop_name = "My Retail Store"
-    name_match = re.search(r"(?:called|named|is|name is|welcome to)\s+([A-Za-z0-9\s'&]+?)(?:\.|\,|$|and|\n|located)", prompt, re.IGNORECASE)
+    name_match = re.search(r"(?:called|named|name is|welcome to)\s+([A-Za-z0-9'&]+(?:\s+[A-Za-z0-9'&]+){0,4}?)(?=\s+(?:for|in|at|and|selling|which|that|with|located|from)\b|[.,\n]|$)", prompt, re.IGNORECASE)
     if name_match:
         shop_name = name_match.group(1).strip()
     else:
         words = prompt.strip().split()
         if len(words) >= 2:
-            shop_name = f"{words[0].capitalize()} {words[1].capitalize()}"
+            shop_name = "My " + category.title() + " Store"
 
     # Locate city reference e.g. "in Mumbai"
     city_match = re.search(r"in\s+([A-Za-z\s]+?)(?:\.|,|$)", prompt, re.IGNORECASE)
@@ -160,7 +160,7 @@ def _heuristic_fallback_extractor(prompt: str) -> dict[str, Any]:
 
 
 async def extract_storefront_spec(prompt: str, api_key: str | None = None, model: str | None = None) -> Tuple[StorefrontSpec, bool, List[dict[str, str]]]:
-    model = model or os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    model = model or os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
     key = api_key or os.getenv("GROQ_API_KEY", "")
 
     def _fallback(reason: str = "") -> Tuple[StorefrontSpec, bool, List[dict[str, str]]]:

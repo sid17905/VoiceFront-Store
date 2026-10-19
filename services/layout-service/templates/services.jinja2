@@ -71,7 +71,7 @@
     <h2>Our Services</h2>
     <div class="product-grid">
       {% for product in products %}
-      <div class="product-card">
+      <div class="product-card"><img src="{{ product.thumbnail }}" alt="" loading="lazy" style="width:100%;height:140px;object-fit:cover;border-radius:6px;margin-bottom:8px">
         <h3>{{ product.name }}</h3>
         <p class="price">{{ product.price_display }}</p>
         {% if product.description %}

@@ -42,7 +42,7 @@ services:
     environment:
       <<: *common-env
       GROQ_API_KEY: ${GROQ_API_KEY:-}
-      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
     volumes:
       - ../../services/nlp-service:/app/services/nlp-service
       - ../../packages:/app/packages

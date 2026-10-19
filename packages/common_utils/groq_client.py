@@ -5,7 +5,7 @@ Three call paths existed: the SDK from ASR, the SDK from NLP, and a raw
 This module is the only place a key, model or client is chosen.
 
 Models:
-  GROQ_MODEL         chat extraction        (default llama-3.3-70b-versatile)
+  GROQ_MODEL         chat extraction        (default openai/gpt-oss-120b)
   GROQ_REPAIR_MODEL  QA repair              (default llama-3.1-8b-instant)
   GROQ_ASR_MODEL     transcription          (default whisper-large-v3)
 
@@ -21,7 +21,7 @@ from functools import lru_cache
 PLACEHOLDER_KEYS = {"", "mock", "placeholder", "your_groq_api_key_here"}
 
 DEFAULT_MODELS = {
-    "chat": "llama-3.3-70b-versatile",
+    "chat": "openai/gpt-oss-120b",
     "repair": "llama-3.1-8b-instant",
     "asr": "whisper-large-v3",
 }

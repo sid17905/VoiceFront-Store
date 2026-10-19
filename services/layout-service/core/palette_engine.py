@@ -75,3 +75,54 @@ def get_palette(category: str) -> Palette:
             f"Unknown category '{category}'. "
             f"Valid categories: {', '.join(sorted(CATEGORY_PALETTES))}"
         )
+
+
+def vary_palette(p: "Palette", seed: str) -> "Palette":
+    """Deterministic per-shop hue shift (+/-30 deg) of the category palette."""
+    import colorsys, hashlib
+    if not seed:
+        return p
+    shift = ((int(hashlib.sha256(seed.encode("utf-8")).hexdigest()[:8], 16) % 121) - 60) / 360.0
+
+    def rot(hexc: str) -> str:
+        r, g, b = (int(hexc[i:i + 2], 16) / 255 for i in (1, 3, 5))
+        h, l, s = colorsys.rgb_to_hls(r, g, b)
+        r, g, b = colorsys.hls_to_rgb((h + shift) % 1.0, l, s)
+        return "#%02X%02X%02X" % (round(r * 255), round(g * 255), round(b * 255))
+
+    return Palette(primary=rot(p.primary), secondary=rot(p.secondary),
+                   accent=rot(p.accent), text=p.text, background=p.background)
+
+
+# Curated, on-theme variants per category: (primary, secondary, accent).
+_VARIANTS = {
+    "food": [("#935116", "#FCF3CF", "#D35400"), ("#6E2C00", "#FAE5D3", "#CA6F1E"),
+             ("#922B21", "#FADBD8", "#E74C3C"), ("#7D6608", "#FCF3CF", "#D68910"),
+             ("#A04000", "#FDEBD0", "#F39C12"), ("#78281F", "#F9EBEA", "#EC7063"),
+             ("#5D4037", "#EFEBE9", "#FF8F00")],
+    "apparel": [("#212F3C", "#FDEDEC", "#E74C3C"), ("#6E4B3A", "#F6EFE7", "#B9770E"),
+                ("#4D5D3A", "#F1F5E9", "#A3A33A"), ("#512E5F", "#F4ECF7", "#D4AC0D"),
+                ("#0E6655", "#E8F8F5", "#B7950B")],
+    "electronics": [("#1B2631", "#EAECEE", "#17A589"), ("#4A148C", "#EDE7F6", "#7C4DFF"),
+                    ("#0B5345", "#D1F2EB", "#16A085"), ("#154360", "#D6EAF8", "#F39C12"),
+                    ("#B03A2E", "#FDEDEC", "#E67E22")],
+    "pharmacy": [("#117A65", "#D1F2EB", "#1ABC9C"), ("#1F618D", "#D6EAF8", "#27AE60"),
+                 ("#0E6251", "#E8F6F3", "#52BE80"), ("#2874A6", "#EBF5FB", "#48C9B0")],
+    "services": [("#1B4F72", "#D4E6F1", "#2E86C1"), ("#0B5345", "#D1F2EB", "#17A589"),
+                 ("#34495E", "#EAEDED", "#F39C12"), ("#6C3483", "#F4ECF7", "#AF7AC5"),
+                 ("#7B241C", "#F9EBEA", "#CD6155")],
+}
+
+
+def vary_palette(p: "Palette", seed: str) -> "Palette":
+    """Pick a curated on-theme variant (base palette included) from a stable hash of the shop name."""
+    import hashlib
+    if not seed:
+        return p
+    cat = next((k for k, v in CATEGORY_PALETTES.items() if v == p), None)
+    options = [None] + _VARIANTS.get(cat, [])
+    i = int(hashlib.sha256(seed.encode("utf-8")).hexdigest()[:8], 16) % len(options)
+    if options[i] is None:
+        return p
+    pr, se, ac = options[i]
+    return Palette(primary=pr, secondary=se, accent=ac, text=p.text, background=p.background)

@@ -53,7 +53,7 @@ class VoiceFrontBackendService {
     if (response.statusCode == 200) {
       return jsonDecode(response.body) as Map<String, dynamic>;
     }
-    throw BackendException('Request failed', response.statusCode);
+    throw BackendException('Request failed: ${response.body}', response.statusCode);
   }
 
   /// Calls NLP. Throws BackendException on failure — there is no client-side
@@ -73,11 +73,19 @@ class VoiceFrontBackendService {
     return json;
   }
 
+  static dynamic _stripNulls(dynamic v) {
+    if (v is Map) {
+      return {for (final e in v.entries) if (e.value != null) e.key: _stripNulls(e.value)};
+    }
+    if (v is List) return v.map(_stripNulls).toList();
+    return v;
+  }
+
   static Future<Map<String, dynamic>> generateLayout(
     Map<String, dynamic> storefrontSpec,
     String category,
   ) async {
-    final payload = Map<String, dynamic>.from(storefrontSpec);
+    final payload = Map<String, dynamic>.from(_stripNulls(storefrontSpec) as Map);
     payload['category'] = category;
     final json = await _postJson(
       '$layoutBaseUrl/v1/layout/generate',

@@ -26,7 +26,7 @@ from typing import Any
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
 
-from core.palette_engine import Palette
+from core.palette_engine import Palette, vary_palette
 
 logger = logging.getLogger(__name__)
 
@@ -157,12 +157,12 @@ def _build_context(spec: dict[str, Any], palette: Palette) -> dict[str, Any]:
     hero_image = _placeholder_svg(spec.get("shop_name", "Store"), palette.primary)
 
     products = []
-    for p in spec.get("products", []):
+    for p in (spec.get("products") or _suggested_products(category)):
         p_copy = dict(p)
         p_copy["price_display"] = _price_display(p.get("price"), p.get("currency", "INR"))
         p_copy["thumbnail"] = (
             p.get("image_url")
-            or _placeholder_svg(p.get("name", "Item"), palette.secondary)
+            or _icon_svg(p.get("name", "Item"), palette.secondary, category)
         )
         products.append(p_copy)
 
@@ -248,6 +248,7 @@ def render(
     """
     from jinja2 import TemplateError
 
+    palette = vary_palette(palette, str(spec.get('shop_name', '')))
     ctx = _build_context(spec, palette)
     template_ctx = {
         "shop_name": ctx["shop_name"],
@@ -296,6 +297,7 @@ def render_components(
     if not components or any(v is None for v in components.values()):
         return render(spec.get("category", "services"), spec, palette)
 
+    palette = vary_palette(palette, str(spec.get('shop_name', '')))
     ctx = _build_context(spec, palette)
     ctx["colors"] = {
         "primary": palette.primary,
@@ -324,3 +326,43 @@ def render_components(
         + "</body></html>"
     )
     return page
+
+
+def _icon_svg(label: str, color: str, category: str) -> str:
+    """Deterministic inline illustration: gradient tile plus a keyword-matched emoji."""
+    from urllib.parse import quote
+    n = (label or "").lower()
+    icons = [
+        ("cake", "\U0001F370"), ("cookie", "\U0001F36A"), ("bread", "\U0001F35E"), ("pizza", "\U0001F355"),
+        ("burger", "\U0001F354"), ("biryani", "\U0001F35B"), ("rice", "\U0001F35B"), ("coffee", "\u2615"),
+        ("tea", "\U0001F375"), ("sweet", "\U0001F36C"), ("ice", "\U0001F366"), ("juice", "\U0001F9C3"),
+        ("shirt", "\U0001F455"), ("jean", "\U0001F456"), ("dress", "\U0001F457"), ("saree", "\U0001F97B"),
+        ("shoe", "\U0001F45F"), ("jacket", "\U0001F9E5"), ("phone", "\U0001F4F1"), ("screen", "\U0001F4F1"),
+        ("laptop", "\U0001F4BB"), ("battery", "\U0001F50B"), ("charger", "\U0001F50C"), ("tv", "\U0001F4FA"),
+        ("headphone", "\U0001F3A7"), ("repair", "\U0001F527"), ("syrup", "\U0001F9F4"), ("tablet", "\U0001F48A"),
+        ("paracetamol", "\U0001F48A"), ("medicine", "\U0001F48A"), ("gym", "\U0001F3CB"), ("haircut", "\u2702"),
+    ]
+    defaults = {"food": "\U0001F37D", "apparel": "\U0001F455", "electronics": "\U0001F50C",
+                "pharmacy": "\U0001F48A", "services": "\U0001F6E0"}
+    emoji = next((e for k, e in icons if k in n), defaults.get(category, "\U0001F6CD"))
+    svg = (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160">'
+        '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0" stop-color="{color}"/><stop offset="1" stop-color="{color}" stop-opacity="0.55"/>'
+        '</linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/>'
+        f'<text x="50%" y="62%" text-anchor="middle" font-size="72">{emoji}</text></svg>'
+    )
+    return "data:image/svg+xml;charset=utf-8," + quote(svg)
+
+
+def _suggested_products(category: str) -> list:
+    """Generic, price-less sample items so an empty product list never renders an empty page."""
+    names = {
+        "food": ["Cake", "Cookies", "Bread", "Coffee"],
+        "apparel": ["Shirt", "Jeans", "Dress", "Jacket"],
+        "electronics": ["Phone", "Laptop", "Charger", "Headphones"],
+        "pharmacy": ["Medicine", "Syrup", "Vitamins", "First Aid Kit"],
+        "services": ["Consultation", "Repair Service", "Installation", "Maintenance"],
+    }.get(category, ["Item 1", "Item 2", "Item 3"])
+    return [{"name": n, "price": None, "description": "Sample item - replace with your own",
+             "is_suggested": True} for n in names]

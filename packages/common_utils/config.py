@@ -13,7 +13,7 @@ PLACEHOLDER_KEYS = {"", "mock", "placeholder", "your_groq_api_key_here"}
 
 class GlobalSettings(BaseSettings):
     GROQ_API_KEY: str = ""
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    GROQ_MODEL: str = "openai/gpt-oss-120b"
     ASR_SERVICE_URL: str = "http://localhost:8001"
     NLP_SERVICE_URL: str = "http://localhost:8002"
     LAYOUT_SERVICE_URL: str = "http://localhost:8003"

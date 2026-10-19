@@ -73,3 +73,4 @@ docs/state.json
 
 # QA history database (generated at runtime)
 qa_history.db
+services/qa-service/node_modules/
